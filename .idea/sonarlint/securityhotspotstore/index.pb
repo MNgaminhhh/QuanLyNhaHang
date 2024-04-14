@@ -60,3 +60,11 @@ F
 app/proguard-rules.pro,9\e\9e08934d811afe28fbc77aaa3c0d747b94348db9
 y
 Iapp/src/androidTest/java/vn/mn/quanlynhahang/ExampleInstrumentedTest.java,f\5\f5343c0250e2b6c985c3495b13d1ed81dc060e88
+g
+7app/src/main/java/vn/mn/quanlynhahang/HomeActivity.java,f\9\f92ce25891c1fe18591edb93d70c1e7355fce095
+m
+=app/src/main/java/vn/mn/quanlynhahang/view/LoginActivity.java,8\1\814668411406f2bd40cdfb9254413216e7d1de7c
+l
+<app/src/main/java/vn/mn/quanlynhahang/view/HomeActivity.java,3\8\380c76d120e7213346384021822ff419189c2a4f
+n
+>app/src/main/java/vn/mn/quanlynhahang/view/SignUpActivity.java,1\1\119c8dd2af8cbb6604db545e7f33efdd87447b5f

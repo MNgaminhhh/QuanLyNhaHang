@@ -40,10 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 currentUser = firebaseAuth.getCurrentUser();
-                if(currentUser != null){
-                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-                    finish();
-                }
+
             }
         };
         btnSignUp.setOnClickListener(v -> {
