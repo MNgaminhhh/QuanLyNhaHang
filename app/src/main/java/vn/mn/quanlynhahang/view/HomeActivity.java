@@ -1,8 +1,10 @@
-package vn.mn.quanlynhahang;
+package vn.mn.quanlynhahang.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import vn.mn.quanlynhahang.R;
 
 public class HomeActivity extends AppCompatActivity {
 
