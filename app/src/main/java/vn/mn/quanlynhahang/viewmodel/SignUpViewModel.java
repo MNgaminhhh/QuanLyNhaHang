@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
-import vn.mn.quanlynhahang.model.SignUpRepository;
+import vn.mn.quanlynhahang.model.User;
+import vn.mn.quanlynhahang.repository.SignUpRepository;
 
 public class SignUpViewModel extends ViewModel {
     private SignUpRepository signUpRepository;
@@ -15,5 +16,8 @@ public class SignUpViewModel extends ViewModel {
 
     public Task<AuthResult> createUserWithEmailAndPassword(String email, String password) {
         return signUpRepository.createUserWithEmailAndPassword(email, password);
+    }
+    public Task<Void> saveUserInfoToFirestore(User user, String userId) {
+        return signUpRepository.saveUserInfoToFirestore(user, userId);
     }
 }
