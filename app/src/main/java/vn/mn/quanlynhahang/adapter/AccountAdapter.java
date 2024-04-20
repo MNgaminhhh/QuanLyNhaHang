@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.model.User;
@@ -47,8 +49,8 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
     public void onBindViewHolder(@NonNull AccountViewHoldler holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_USER) {
             User user = userList.get(position - 1);
-            if (holder.txtNameItem != null) {
-                if (user != null && user.getFullname() != null) {
+            if (!Objects.equals(user.getRole(), "admin")) {
+                if (user.getFullname() != null) {
                     holder.txtNameItem.setText(user.getFullname());
                     Glide.with(mContext)
                             .load(user.getAvatarurl())
@@ -77,9 +79,16 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
         return (position == 0) ? VIEW_TYPE_ADD_USER : VIEW_TYPE_USER;
     }
     public void setUserList(List<User> userList) {
-        this.userList = userList;
+        List<User> filteredUserList = new ArrayList<>();
+        for (User user : userList) {
+            if (!Objects.equals(user.getRole(), "admin")) {
+                filteredUserList.add(user);
+            }
+        }
+        this.userList = filteredUserList;
         notifyDataSetChanged();
     }
+
     public static class AccountViewHoldler extends RecyclerView.ViewHolder {
         private  TextView txtNameItem;
         private ImageView imgAccount;
