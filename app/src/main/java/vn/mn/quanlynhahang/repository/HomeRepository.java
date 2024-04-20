@@ -5,9 +5,14 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import vn.mn.quanlynhahang.model.User;
 
@@ -45,4 +50,23 @@ public class HomeRepository {
         });
         return userDataLiveData;
     }
+    public LiveData<List<User>> getAllUsers() {
+        MutableLiveData<List<User>> mutableLiveData = new MutableLiveData<>();
+        CollectionReference usersRef = firestore.collection("users");
+        usersRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                List<User> userList = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    User user = document.toObject(User.class);
+                    userList.add(user);
+                }
+                mutableLiveData.setValue(userList);
+            } else {
+                // Handle error
+            }
+        });
+        return mutableLiveData;
+    }
+
+
 }
