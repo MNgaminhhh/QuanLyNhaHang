@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -23,7 +24,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import vn.mn.quanlynhahang.R;
@@ -99,18 +105,32 @@ public class AddUserActivity extends BaseActivity {
                 uploadImageToFirebaseStorage(selectedImageUri);
             } else if (requestCode == REQUEST_CAPTURE_IMAGE && data != null) {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
-                Uri imageUri = getImageUri(photo);
+                Uri imageUri = saveImageToGallery(photo);
                 uploadImageToFirebaseStorage(imageUri);
             }
         }
     }
 
-    private Uri getImageUri(Bitmap inBitmap) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inBitmap.compress(Bitmap.CompressFormat.JPEG, 20, bytes);
-        String path = MediaStore.Images.Media.insertImage(getContentResolver(), inBitmap, "Title", null);
-        return Uri.parse(path);
+    private Uri saveImageToGallery(Bitmap bitmap) {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + ".jpg";
+        ContentValues values = new ContentValues();
+        values.put(MediaStore.Images.Media.TITLE, imageFileName);
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        try {
+            OutputStream outputStream = getContentResolver().openOutputStream(uri);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            if (outputStream != null) {
+                outputStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return uri;
     }
+
+
 
     private void uploadImageToFirebaseStorage(Uri imageUri) {
         signUpViewModel.uploadImageToFirebaseStorage(imageUri).observe(this, imageUrl -> {
