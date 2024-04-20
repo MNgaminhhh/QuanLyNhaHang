@@ -1,6 +1,7 @@
 package vn.mn.quanlynhahang.adapter;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 
 import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.model.Dish;
+import vn.mn.quanlynhahang.model.Table;
 
 public class DishAdapter extends ArrayAdapter<Dish> {
     Activity context;
@@ -30,7 +32,11 @@ public class DishAdapter extends ArrayAdapter<Dish> {
         this.resource = resource;
         this.dishList = objects;
     }
-
+    public void setData(ArrayList<Dish> data){
+        this.dishList.clear();
+        this.dishList.addAll(data);
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

@@ -27,7 +27,9 @@ public class TableAdapter extends BaseAdapter {
         this.tableList = tableList;
         this.context = context;
     }
-
+    public void setData(ArrayList<Table> data){
+        this.tableList = data;
+    }
     @Override
     public int getCount() {
         return tableList.size();
@@ -70,7 +72,7 @@ public class TableAdapter extends BaseAdapter {
                 gridImage.setImageResource(R.drawable.table8);
                 break;
         }
-        gridTableNumber.setText((position+1)+"");
+        gridTableNumber.setText(table.getId()+"");
         return convertView;
     }
 }
