@@ -3,51 +3,57 @@ package vn.mn.quanlynhahang.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.adapter.TableAdapter;
 import vn.mn.quanlynhahang.model.Table;
 import vn.mn.quanlynhahang.model.TableDB;
-import vn.mn.quanlynhahang.model.TableDataCallback;
 
 public class TableManageActivity extends AppCompatActivity {
     GridView gridTable;
     FloatingActionButton btnAddTable;
-    ArrayList<Table> tableList = new ArrayList<>();
-    TableAdapter adapter = new TableAdapter(tableList, this);
+    public static MutableLiveData<ArrayList<Table>> tableList = new MutableLiveData<>();
+    TableAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_manage);
 
-        TableDB tableDB = new TableDB(tableList);
-        tableDB.getAllTable(new TableDataCallback() {
+        TableDB tableDB = new TableDB(this);
+        tableList.setValue(new ArrayList<>());
+
+        tableList.observe(this, new Observer<ArrayList<Table>>() {
             @Override
-            public void onTableDataLoaded(ArrayList<Table> table) {
-                tableList = table;
+            public void onChanged(ArrayList<Table> tables) {
+                adapter.setData(tables);
                 adapter.notifyDataSetChanged();
             }
         });
+
+        tableDB.getAllTable();
+        adapter = new TableAdapter(tableList.getValue(), this);
 
         gridTable = findViewById(R.id.gridTable);
         btnAddTable = findViewById(R.id.btnAddTable);
@@ -57,55 +63,8 @@ public class TableManageActivity extends AppCompatActivity {
         btnAddTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Table newTable = new Table();
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(TableManageActivity.this);
-                builder.setTitle("Add New Table");
-                builder.setCancelable(false);
-                LayoutInflater inflater = LayoutInflater.from(TableManageActivity.this);
-                View view = inflater.inflate(R.layout.layout_add_table, null);
-                final RadioGroup radioGroup = view.findViewById(R.id.radioNumofDiner);
-                newTable.setNumberOfDiner(2);
-                builder.setView(view);
-                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        if (checkedId == R.id.radioNumofDiner2){
-                            newTable.setNumberOfDiner(2);
-                        }
-                        if (checkedId == R.id.radioNumofDiner4){
-                            newTable.setNumberOfDiner(4);
-                        }
-                        if (checkedId == R.id.radioNumofDiner6){
-                            newTable.setNumberOfDiner(6);
-                        }
-                        if (checkedId == R.id.radioNumofDiner8){
-                            newTable.setNumberOfDiner(8);
-                        }
-
-                    }
-                });
-
-                builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        newTable.setId(tableList.stream()
-                                .mapToInt(Table::getId)
-                                .max()
-                                .orElse(0)+1);
-                        tableList.add(newTable);
-                        tableDB.addNewTable(newTable);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+                Intent intent = new Intent(TableManageActivity.this, AddTableActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -117,69 +76,29 @@ public class TableManageActivity extends AppCompatActivity {
     }
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item){
-        final TableDB tableDB = new TableDB(tableList);
+        final TableDB tableDB = new TableDB(this);
         final AdapterView.AdapterContextMenuInfo info=(AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         if (item.getItemId() == R.id.mnuUpdate){
-            final Table newTable = tableList.get(info.position);
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(TableManageActivity.this);
-            builder.setTitle("Update Table");
-            builder.setCancelable(false);
-            LayoutInflater inflater = LayoutInflater.from(TableManageActivity.this);
-            View view = inflater.inflate(R.layout.layout_add_table, null);
-            final RadioGroup radioGroup = view.findViewById(R.id.radioNumofDiner);
-            builder.setView(view);
-            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    if (checkedId == R.id.radioNumofDiner2){
-                        newTable.setNumberOfDiner(2);
-                    }
-                    if (checkedId == R.id.radioNumofDiner4){
-                        newTable.setNumberOfDiner(4);
-                    }
-                    if (checkedId == R.id.radioNumofDiner6){
-                        newTable.setNumberOfDiner(6);
-                    }
-                    if (checkedId == R.id.radioNumofDiner8){
-                        newTable.setNumberOfDiner(8);
-                    }
-                }
-            });
-
-            builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    tableDB.updateTable(newTable.getId()+"",newTable);
-                    tableList.set(info.position, newTable);
-                    adapter.notifyDataSetChanged();
-                }
-            });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
+            Intent intent = new Intent(TableManageActivity.this, UpdateTableActivity.class);
+            intent.putExtra("id", info.position);
+            startActivity(intent);
         }
         else if (item.getItemId() == R.id.mnuDelete){
-            final Table newTable = tableList.get(info.position);
+            final Table newTable = tableList.getValue().get(info.position);
             AlertDialog.Builder builder1=new AlertDialog.Builder (TableManageActivity.this);
-            builder1.setTitle("Delete Table");
+            builder1.setTitle("Xóa bàn ăn");
             builder1.setCancelable(false);
-            builder1.setMessage("Are you sure!");
-            builder1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder1.setMessage("Bạn có chắc chắn muốn xóa bàn này?");
+            builder1.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     tableDB.deleteTable(newTable.getId()+"");
-                    tableList.remove(info.position);
+                    tableList.getValue().remove(info.position);
                     adapter.notifyDataSetChanged();
                 }
             });
-            builder1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder1.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();

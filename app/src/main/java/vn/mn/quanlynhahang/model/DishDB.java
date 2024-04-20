@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -15,6 +16,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -22,36 +27,35 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import vn.mn.quanlynhahang.view.DishManageActivity;
+import vn.mn.quanlynhahang.view.TableManageActivity;
+
 public class DishDB {
-    ArrayList<Dish> dishList;
     private Context context;
 
-    public DishDB(ArrayList<Dish> dishList, Context context) {
-        this.dishList = dishList;
+    public DishDB(Context context) {
         this.context = context;
     }
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReference("dish");
     StorageReference storage = FirebaseStorage.getInstance().getReference();
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
-    public void getAllDish(DishDataCallback callback){
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getAllDish(){
+        ArrayList<Dish> arrayList = new ArrayList<>();
+        firestore.collection("dish").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    dishList.add(dataSnapshot.getValue(Dish.class));
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot snapshot:queryDocumentSnapshots.getDocuments()){
+                    arrayList.add(snapshot.toObject(Dish.class));
                 }
-                callback.onDishDataLoaded(dishList);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+                DishManageActivity.dishList.setValue(arrayList);
             }
         });
     }
     public void addNewDish(Uri imageUri, Dish newDish){
         final StorageReference imageReference = storage.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+        DocumentReference documentReference = firestore.collection("dish").document(newDish.id+"");
         imageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -59,29 +63,20 @@ public class DishDB {
                     @Override
                     public void onSuccess(Uri uri) {
                         newDish.setUrlImage(uri.toString());
-                        database.child(newDish.getId()+"").setValue(newDish);
+                        documentReference.set(newDish).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(context , "Thêm món mới thành công!", Toast.LENGTH_SHORT).show();
+                                getAllDish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(context , "Thêm không thành công, hãy thử lại sau!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 });
-            }
-        });
-    }
-    public void getImageUrl(int id, DishDataCallback callback){
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.e("EEEEEEEEE","got it");
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Dish dish = dataSnapshot.getValue(Dish.class);
-                    Log.e("EEEEEEEEE",dish.toString());
-                    if (id == dish.getId())
-                    {
-                        callback.onDishImageUrl(dish.getUrlImage());
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -91,9 +86,20 @@ public class DishDB {
         return mime.getExtensionFromMimeType(contentResolver.getType(fileUri));
     }
     public void updateDish(String dishId, Uri imageUri, Dish updatedDish){
+        DocumentReference documentReference = firestore.collection("dish").document(dishId);
         if (imageUri==null)
         {
-            database.child(dishId).setValue(updatedDish);
+            documentReference.set(updatedDish).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText(context , "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context , "Cập nhật không thành công, hãy thử lại sau!", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
         else {
             final StorageReference imageReference = storage.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
@@ -104,7 +110,17 @@ public class DishDB {
                         @Override
                         public void onSuccess(Uri uri) {
                             updatedDish.setUrlImage(uri.toString());
-                            database.child(dishId).setValue(updatedDish);
+                            documentReference.set(updatedDish).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(context , "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(context , "Cập nhật không thành công, hãy thử lại sau!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     });
                 }
@@ -112,6 +128,18 @@ public class DishDB {
         }
     }
     public void deleteDish(String dishID){
-        database.child(dishID).removeValue();
+        DocumentReference documentReference = firestore.collection("dish").document(dishID);
+        documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(context , "Xóa thành công!", Toast.LENGTH_SHORT).show();
+                getAllDish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context , "Xóa thất bại, hãy thử lại sau!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
