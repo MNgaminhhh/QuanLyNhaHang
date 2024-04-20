@@ -52,16 +52,25 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
             if (!Objects.equals(user.getRole(), "admin")) {
                 if (user.getFullname() != null) {
                     holder.txtNameItem.setText(user.getFullname());
+                    holder.txtRoleItem.setText(user.getRole());
                     Glide.with(mContext)
                             .load(user.getAvatarurl())
                             .placeholder(R.drawable.avatar)
-                            .error(R.drawable.baseline_error_24)
+                            .error(R.drawable.imageerror)
                             .into(holder.imgAccount);
                 } else {
                     holder.txtNameItem.setText(" ");
+                    holder.txtRoleItem.setText(" ");
+                    Glide.with(mContext)
+                            .load(user.getAvatarurl())
+                            .placeholder(R.drawable.avatar)
+                            .error(R.drawable.imageerror)
+                            .into(holder.imgAccount);
                 }
             }
+            holder.cvItemUser.setOnClickListener(v ->{
 
+            });
         }else{
             holder.cardView.setOnClickListener(v -> {
                 Intent intent = new Intent(mContext, AddUserActivity.class);
@@ -90,15 +99,18 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
     }
 
     public static class AccountViewHoldler extends RecyclerView.ViewHolder {
-        private  TextView txtNameItem;
+        private  TextView txtNameItem, txtRoleItem;
         private ImageView imgAccount;
-        private CardView cardView;
+
+        private CardView cardView, cvItemUser;
 
         public AccountViewHoldler(@NonNull View itemView) {
             super(itemView);
             txtNameItem = (TextView) itemView.findViewById(R.id.txtNameItem);
+            txtRoleItem = (TextView) itemView.findViewById(R.id.txtRoleItem);
             imgAccount = (ImageView) itemView.findViewById(R.id.imgAvatarAccount);
             cardView = (CardView) itemView.findViewById(R.id.cvItemAccount);
+            cvItemUser = (CardView) itemView.findViewById(R.id.cvItemAccount2);
         }
 
     }

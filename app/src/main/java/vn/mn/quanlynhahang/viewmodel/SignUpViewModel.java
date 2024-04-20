@@ -1,5 +1,8 @@
 package vn.mn.quanlynhahang.viewmodel;
 
+import android.net.Uri;
+
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -19,5 +22,8 @@ public class SignUpViewModel extends ViewModel {
     }
     public Task<Void> saveUserInfoToFirestore(User user, String userId) {
         return signUpRepository.saveUserInfoToFirestore(user, userId);
+    }
+    public LiveData<String> uploadImageToFirebaseStorage(Uri imageUri) {
+        return signUpRepository.uploadImageToFirebaseStorage(imageUri);
     }
 }

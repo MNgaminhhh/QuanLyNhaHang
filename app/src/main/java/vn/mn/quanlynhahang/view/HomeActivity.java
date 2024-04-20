@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,7 @@ import vn.mn.quanlynhahang.viewmodel.HomeViewModel;
 
 public class HomeActivity extends BaseActivity {
     private TextView txtUserDetails;
+    private ImageView imgAvatarHome;
     private HomeViewModel homeViewModel;
     private List<ItemHome> itemHomeList;
     private RecyclerView recyclerView;
@@ -28,9 +32,9 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        txtUserDetails = findViewById(R.id.txtUserDetails);
+        txtUserDetails = (TextView) findViewById(R.id.txtUserDetails);
         recyclerView = (RecyclerView) findViewById(R.id.rvItemHome);
-
+        imgAvatarHome = (ImageView) findViewById(R.id.imgAvatarHome);
         itemHomeList = createItemHome();
         HomeAdapter adapter = new HomeAdapter(this, itemHomeList);
         GridLayoutManager layoutManager = new GridLayoutManager (this,2);
@@ -44,6 +48,11 @@ public class HomeActivity extends BaseActivity {
                     if (user != null) {
                         String userDetails = "Xin chào, " + user.getFullname();
                         txtUserDetails.setText(userDetails);
+                        Glide.with(this)
+                                .load(user.getAvatarurl())
+                                .placeholder(R.drawable.avatar)
+                                .error(R.drawable.imageerror)
+                                .into(imgAvatarHome);
                     } else {
                         txtUserDetails.setText(".....");
                     }

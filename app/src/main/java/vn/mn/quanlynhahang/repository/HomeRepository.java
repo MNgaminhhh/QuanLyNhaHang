@@ -1,5 +1,7 @@
 package vn.mn.quanlynhahang.repository;
 
+import android.net.Uri;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -10,16 +12,19 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import vn.mn.quanlynhahang.model.User;
 
 public class HomeRepository {
-
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
+
 
     public HomeRepository() {
         firebaseAuth = FirebaseAuth.getInstance();
