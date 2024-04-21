@@ -25,9 +25,9 @@
         android:id="@+id/txtdangky"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/telex"
-        android:text="Đăng Ký Tài Khoản"
+        android:text="Đăng Ký Tài Khoản Nhân Viên"
         android:textColor="#965050"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="150dp"
         android:layout_marginRight="24dp"
         android:fontFamily="@font/telex"
         android:hint="Nhập email"
@@ -113,14 +113,86 @@
             android:text="Nữ" />
     </RadioGroup>
 
+    <ImageButton
+        android:src="@drawable/baseline_add_circle_24"
+        android:scaleType="centerCrop"
+        android:id="@+id/imageButton"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/edtCreateEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtdangky"
+        app:layout_constraintVertical_bias="0.55" />
+
+
+    <Button
+        android:textAllCaps="false"
+        android:id="@+id/btnXoaAnhDaiDien"
+        android:layout_width="180dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_border"
+        android:text="Xóa ảnh đại diện"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="17sp"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/txtdangky" />
+
+    <Button
+        android:id="@+id/btnChupAnhDaiDien"
+        android:textAllCaps="false"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/button_border"
+        android:text="Chụp ảnh đại diện"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="17sp"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/btnXoaAnhDaiDien" />
+
     <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="24dp"
+        android:weightSum="5"
+        app:layout_constraintTop_toBottomOf="@+id/radioGender"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/telex"
+            android:textSize="20sp"
+            android:layout_marginRight="20dp"
+            android:text="Chức vụ:"/>
+
+        <Spinner
+            android:id="@+id/spinnerRole"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/telex"
+            android:textSize="24sp"
+            android:gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginRight="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/radioGender">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -141,15 +213,23 @@
 
     <Button
         android:id="@+id/btnSignUp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/telex"
         android:text="Đăng Ký"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:textAllCaps="false"
         android:textSize="20sp"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.909" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.507"
+        android:background="@drawable/button_custom"
+        android:textColor="?attr/colorPrimary"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

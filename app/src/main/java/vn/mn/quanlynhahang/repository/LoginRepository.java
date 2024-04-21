@@ -1,13 +1,13 @@
-package vn.mn.quanlynhahang.model;
+package vn.mn.quanlynhahang.repository;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class UserRepository {
+public class LoginRepository {
     private FirebaseAuth firebaseAuth;
 
-    public UserRepository() {
+    public LoginRepository() {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 

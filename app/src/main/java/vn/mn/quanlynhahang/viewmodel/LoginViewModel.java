@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModel;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
-import vn.mn.quanlynhahang.model.UserRepository;
+import vn.mn.quanlynhahang.repository.LoginRepository;
 
 public class LoginViewModel extends ViewModel {
-    private UserRepository userRepository;
+    private LoginRepository userRepository;
 
     public LoginViewModel() {
-        userRepository = new UserRepository();
+        userRepository = new LoginRepository();
     }
 
     public Task<AuthResult> signInWithEmailAndPassword(String email, String password) {
