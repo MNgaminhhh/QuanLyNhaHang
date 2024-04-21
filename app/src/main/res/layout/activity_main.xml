@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/dayRevenueButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Doanh Thu Của Ngày" />
+
+    <Button
+        android:id="@+id/weekRevenueButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Doanh Thu Của Tuần" />
+
+    <Button
+        android:id="@+id/monthRevenueButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Doanh Thu Của Tháng" />
+
+    <Button
+        android:id="@+id/yearRevenueButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Doanh Thu Của Năm" />
+
+</LinearLayout>

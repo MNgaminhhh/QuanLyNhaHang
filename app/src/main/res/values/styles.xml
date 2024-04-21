@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="selectedDateAppearance">
+        <item name="android:textColor">@color/selected_date_color</item> <!-- Màu văn bản của ngày được chọn -->
+    </style>
+    <style name="SelectedDateText">
+        <item name="android:textColor">#FF0000</item> <!-- Màu đỏ cho các ngày đã chọn -->
+    </style>
+
+</resources>
