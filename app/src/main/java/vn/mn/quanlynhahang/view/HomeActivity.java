@@ -65,6 +65,8 @@ public class HomeActivity extends BaseActivity {
         List<ItemHome> itemHomeList = new ArrayList<>();
         itemHomeList.add(new ItemHome(R.drawable.avatar, "Nhân Viên", new Intent(this, AccountActivity.class)));
         itemHomeList.add(new ItemHome(R.drawable.avatar, "Chức Vụ", new Intent(this, ServiceActivity.class)));
+        itemHomeList.add(new ItemHome(R.drawable.avatar, "Bàn Ăn", new Intent(this, TableManageActivity.class)));
+        itemHomeList.add(new ItemHome(R.drawable.avatar, "Menu", new Intent(this, DishManageActivity.class)));
         return itemHomeList;
     }
 }

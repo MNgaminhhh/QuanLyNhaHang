@@ -88,3 +88,5 @@ n
 >app/src/main/java/vn/mn/quanlynhahang/adapter/HomeAdapter.java,f\e\feef29865b3fc7f276a76d896bca582fe26dab04
 q
 Aapp/src/main/java/vn/mn/quanlynhahang/adapter/ServiceAdapter.java,d\1\d1f697283b80655b74f42f75ab70a3fba66e3359
+r
+Bapp/src/main/java/vn/mn/quanlynhahang/view/UpdateDishActivity.java,5\2\520ce6ebd7a450828488e5c20e3b593878e24dab

@@ -33,6 +33,24 @@
             android:name=".view.SignUpActivity"
             android:exported="false" />
         <activity
+            android:name=".view.DishManageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.AddDishActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.UpdateDishActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.TableManageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.AddTableActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.UpdateTableActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>

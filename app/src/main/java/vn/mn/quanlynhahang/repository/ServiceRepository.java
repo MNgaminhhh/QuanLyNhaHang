@@ -1,7 +1,5 @@
 package vn.mn.quanlynhahang.repository;
 
-import android.net.Uri;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -10,14 +8,13 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class ServiceRepository {
     private FirebaseFirestore db;
@@ -48,6 +45,23 @@ public class ServiceRepository {
 
                 });
         return servicesLiveData;
+    }
+    public Task<Void> updateService(int position, String newService) {
+        DocumentReference docRef = serviceCollection.document();
+        Map<String, Object> data = new HashMap<>();
+        data.put("tenChucVu", newService);
+
+        return docRef.set(data);
+    }
+    public Task<QuerySnapshot> deleteService(String serviceName) {
+        Query query = serviceCollection.whereEqualTo("tenChucVu", serviceName);
+        return query.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                // Xóa dịch vụ tại ID được chỉ định
+                String serviceId = documentSnapshot.getId();
+                serviceCollection.document(serviceId).delete();
+            }
+        });
     }
 
 }

@@ -21,6 +21,7 @@
             android:layout_margin="8dp"
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/telex"
+            android:textColor="@color/black"
             android:text="Danh Sách Chức Vụ:"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -50,7 +51,7 @@
                 android:background="@drawable/button_custom"
                 android:fontFamily="@font/telex"
                 android:text="Thêm"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="22sp" />
 
             <Button
@@ -62,7 +63,7 @@
                 android:background="@drawable/button_custom"
                 android:fontFamily="@font/telex"
                 android:text="Sửa"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="22sp" />
 
             <Button
@@ -74,7 +75,7 @@
                 android:background="@drawable/button_custom"
                 android:fontFamily="@font/telex"
                 android:text="Xóa"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="22sp" />
         </LinearLayout>
 

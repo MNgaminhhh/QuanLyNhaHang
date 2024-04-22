@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 
-import vn.mn.quanlynhahang.model.User;
 import vn.mn.quanlynhahang.repository.ServiceRepository;
 
 public class ServiceViewModel extends ViewModel {
@@ -25,6 +25,12 @@ public class ServiceViewModel extends ViewModel {
         return serviceRepository.getServices();
     }
 
+    public Task<Void> updateService(int position, String newService) {
+        return serviceRepository.updateService(position, newService);
+    }
+    public Task<QuerySnapshot> deleteService(String serviceName) {
+        return serviceRepository.deleteService(serviceName);
+    }
 
 
 }
