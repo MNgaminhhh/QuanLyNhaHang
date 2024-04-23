@@ -1,72 +1,59 @@
 package vn.mn.quanlynhahang.view;
 
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import vn.mn.quanlynhahang.R;
-import vn.mn.quanlynhahang.adapter.HomeAdapter;
-import vn.mn.quanlynhahang.model.ItemHome;
-import vn.mn.quanlynhahang.viewmodel.HomeViewModel;
+import vn.mn.quanlynhahang.fragment.AccountDetailFragment;
+import vn.mn.quanlynhahang.fragment.HomeFragment;
 
-public class HomeActivity extends BaseActivity {
-    private TextView txtUserDetails;
-    private ImageView imgAvatarHome;
-    private HomeViewModel homeViewModel;
-    private List<ItemHome> itemHomeList;
-    private RecyclerView recyclerView;
-    private HomeAdapter homeAdapter;
-
+public class HomeActivity extends AppCompatActivity {
+    private BottomAppBar bottomAppBar;
+    @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        bottomAppBar = findViewById(R.id.bottomAppBar);
+        setSupportActionBar(bottomAppBar);
 
-        txtUserDetails = (TextView) findViewById(R.id.txtUserDetails);
-        recyclerView = (RecyclerView) findViewById(R.id.rvItemHome);
-        imgAvatarHome = (ImageView) findViewById(R.id.imgAvatarHome);
-        itemHomeList = createItemHome();
-        HomeAdapter adapter = new HomeAdapter(this, itemHomeList);
-        GridLayoutManager layoutManager = new GridLayoutManager (this,2);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        loadFirst();
 
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        homeViewModel.getCurrentUser().observe(this, firebaseUser -> {
-            if (firebaseUser != null) {
-                homeViewModel.getUserData(firebaseUser.getUid()).observe(HomeActivity.this, user -> {
-                    if (user != null) {
-                        String userDetails = "Xin chào, " + user.getFullname();
-                        txtUserDetails.setText(userDetails);
-                        Glide.with(this)
-                                .load(user.getAvatarurl())
-                                .placeholder(R.drawable.avatar)
-                                .error(R.drawable.imageerror)
-                                .into(imgAvatarHome);
-                    } else {
-                        txtUserDetails.setText(".....");
-                    }
-                });
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bnItemBottom);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+            if (id == R.id.home) {
+                loadFragment(new HomeFragment());
+                return true;
+            } else if (id == R.id.account) {
+                loadFragment(new AccountDetailFragment());
+                return true;
+            } else {
+                return false;
             }
         });
     }
 
-    private List<ItemHome> createItemHome() {
-        List<ItemHome> itemHomeList = new ArrayList<>();
-        itemHomeList.add(new ItemHome(R.drawable.avatar, "Nhân Viên", new Intent(this, AccountActivity.class)));
-        itemHomeList.add(new ItemHome(R.drawable.avatar, "Chức Vụ", new Intent(this, ServiceActivity.class)));
-        itemHomeList.add(new ItemHome(R.drawable.avatar, "Bàn Ăn", new Intent(this, TableManageActivity.class)));
-        itemHomeList.add(new ItemHome(R.drawable.avatar, "Menu", new Intent(this, DishManageActivity.class)));
-        return itemHomeList;
+    private void loadFirst() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, new HomeFragment());
+        transaction.commit();
     }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.container, fragment);
+        transaction.commit();
+    }
+
 }

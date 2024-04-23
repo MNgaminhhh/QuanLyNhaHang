@@ -16,7 +16,7 @@
         tools:ignore="UseCompoundDrawables">
 
         <ImageView
-            android:id="@+id/imgAvatarAccount"
+            android:id="@+id/imgAvatarAccount2"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:scaleType="centerCrop"

@@ -22,7 +22,6 @@ public class AccountActivity extends BaseActivity {
     private AccountAdapter accountAdapter;
     private List<User> userList;
     private HomeViewModel homeViewModel;
-    private static final int REQUEST_UPDATE_USER = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

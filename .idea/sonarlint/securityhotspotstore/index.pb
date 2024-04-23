@@ -102,3 +102,15 @@ u
 Eapp/src/main/java/vn/mn/quanlynhahang/view/AccountDetailActivity.java,0\a\0adbd6d2c285dc7ab46a67af1fc4aacffa4e02dd
 p
 @app/src/main/java/vn/mn/quanlynhahang/fragment/HomeFragment.java,a\4\a4458f3c96d5d10cf3bd706b461e25e990ac93e6
+u
+Eapp/src/main/java/vn/mn/quanlynhahang/view/AccountDetailFragment.java,9\a\9a4a0aee4e9ec6386ec9eb45250f5aa97f860457
+y
+Iapp/src/main/java/vn/mn/quanlynhahang/fragment/AccountDetailFragment.java,f\6\f68ab014dafb0b0272439e04e481dcd6974d08d2
+s
+Capp/src/main/java/vn/mn/quanlynhahang/fragment/ServiceFragment.java,8\8\886a02f462e67bc5b016890b12dc1435be57ece8
+s
+Capp/src/main/java/vn/mn/quanlynhahang/fragment/AccountFragment.java,0\2\02823186eb2f10d89700790c30f8b188cae28e53
+s
+Capp/src/main/java/vn/mn/quanlynhahang/fragment/AddUserFragment.java,4\5\45cf1da1599bbb7c9464bab49710e22159aaa72b
+v
+Fapp/src/main/java/vn/mn/quanlynhahang/fragment/UserDetailFragment.java,3\2\329500fb8ea084e85cbe73299820fa811012b098

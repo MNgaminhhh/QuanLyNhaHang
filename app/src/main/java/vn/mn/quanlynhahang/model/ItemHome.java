@@ -2,17 +2,19 @@ package vn.mn.quanlynhahang.model;
 
 import android.content.Intent;
 
+import androidx.fragment.app.Fragment;
+
 public class ItemHome {
     private int image;
     private String titleName;
-    private Intent intent;
+    private Class<? extends Fragment> fragmentClass;
     public ItemHome() {
     }
 
-    public ItemHome(int image, String titleName, Intent intent) {
+    public ItemHome(int image, String titleName, Class<? extends Fragment> fragmentClass) {
         this.image = image;
         this.titleName = titleName;
-        this.intent = intent;
+        this.fragmentClass = fragmentClass;
     }
 
     public int getImage() {
@@ -31,11 +33,11 @@ public class ItemHome {
         this.titleName = titleName;
     }
 
-    public Intent getIntent() {
-        return intent;
+    public Class<? extends Fragment> getFragmentClass() {
+        return fragmentClass;
     }
 
-    public void setIntent(Intent intent) {
-        this.intent = intent;
+    public void setFragmentClass(Class<? extends Fragment> fragmentClass) {
+        this.fragmentClass = fragmentClass;
     }
 }
