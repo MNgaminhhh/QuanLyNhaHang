@@ -6,88 +6,77 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".view.AddTableActivity">
+    tools:context=".view.UpdateDishActivity">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thêm Bàn Mới"
+        android:text="Chỉnh Sửa Thông Tin Món Ăn"
+        android:layout_gravity="center"
         android:textStyle="bold"
         android:textSize="24sp"/>
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp">
+        android:layout_marginLeft="20dp"
+        android:stretchColumns="*">
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mã số bàn :"
-                android:textSize="18sp"/>
-
+                android:text="Tên món ăn :"
+                android:fontFamily="@font/telex"
+                android:textSize="20sp"/>
             <EditText
-                android:id="@+id/edtTableID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtDishName"
+                android:textAlignment="center"
                 android:fontFamily="@font/telex"
                 android:textSize="22sp"
-                android:layout_width="274dp"
+                android:layout_span="2" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:text="Giá :"
+                android:fontFamily="@font/telex"
+                android:textSize="20sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtDishPrice"
+                android:textAlignment="center"
+                android:inputType="number"
+                android:fontFamily="@font/telex"
+                android:textSize="22sp"
+                android:layout_span="2" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hình ảnh :"
+                android:fontFamily="@font/telex"
+                android:textSize="20sp"/>
+            <ImageView
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:id="@+id/picDish"
+                android:scaleType="centerInside" />
+            <Button
+                android:id="@+id/btnUploadDish"
+                android:layout_width="22dp"
+                android:layout_height="44dp"
+                android:background="@drawable/baseline_cloud_upload_24"/>
         </TableRow>
     </TableLayout>
-    <TextView
-        android:id="@+id/txtNoti"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#F32D2D"
-        android:text=""
-        android:layout_marginLeft="20dp"
-        android:textSize="18sp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Giới hạn thực khách: "
-            android:textSize="18sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="30dp"/>
-        <RadioGroup
-            android:id="@+id/radioNumofDiner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/radioNumofDiner2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2 người"
-                android:checked="true" />
-
-            <RadioButton
-                android:id="@+id/radioNumofDiner4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4 người" />
-
-            <RadioButton
-                android:id="@+id/radioNumofDiner6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="6 người" />
-
-            <RadioButton
-                android:id="@+id/radioNumofDiner8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="8 người" />
-
-        </RadioGroup>
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -106,7 +95,7 @@
             android:id="@+id/btnCancel"
             android:text="Quay lại"/>
         <Space
-            android:layout_width="10dp"
+            android:layout_width="20dp"
             android:layout_height="match_parent" />
         <Button
             android:layout_width="wrap_content"
@@ -117,7 +106,7 @@
             android:fontFamily="@font/telex"
             android:textColor="@color/black"
             android:textSize="22sp"
-            android:id="@+id/btnAddNewTB"
-            android:text="Thêm"/>
+            android:id="@+id/btnUpdate"
+            android:text="Cập nhật"/>
     </LinearLayout>
 </LinearLayout>

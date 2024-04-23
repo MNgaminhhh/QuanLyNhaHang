@@ -1,6 +1,7 @@
 package vn.mn.quanlynhahang.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +24,10 @@ import vn.mn.quanlynhahang.model.Dish;
 import vn.mn.quanlynhahang.model.Table;
 
 public class DishAdapter extends ArrayAdapter<Dish> {
-    Activity context;
+    Context  context;
     int resource;
     ArrayList<Dish> dishList;
-    public DishAdapter(Activity context, int resource, ArrayList<Dish> objects) {
+    public DishAdapter(@NonNull Context context, int resource, ArrayList<Dish> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
@@ -49,9 +50,10 @@ public class DishAdapter extends ArrayAdapter<Dish> {
 
         Dish dish = dishList.get(position);
 
-        txtDishName.setText(dish.getDishName());
-        txtDishPrice.setText(dish.getPrice()+" VNĐ");
-        Glide.with(context).load(dish.getUrlImage()).into(dishImage);
+        txtDishName.setText("Món: " + dish.getDishName() + "");
+        txtDishPrice.setText("Giá: " + dish.getPrice()+ " VNĐ");
+        Glide.with(context).load(dish.getUrlImage()).placeholder(R.drawable.baseline_sync_24)
+                .error(R.drawable.imageerror).into(dishImage);
         return convertView;
     }
 }

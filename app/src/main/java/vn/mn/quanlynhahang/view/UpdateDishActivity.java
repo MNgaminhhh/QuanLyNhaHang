@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import java.io.IOException;
 
 import vn.mn.quanlynhahang.R;
+import vn.mn.quanlynhahang.fragment.DishManageFragment;
 import vn.mn.quanlynhahang.model.Dish;
 import vn.mn.quanlynhahang.model.DishDB;
 
@@ -47,7 +48,7 @@ public class UpdateDishActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int index = intent.getIntExtra("id", -1);
 
-        dish = DishManageActivity.dishList.getValue().get(index);
+        dish = DishManageFragment.dishList.getValue().get(index);
 
         edtDishName.setText(dish.getDishName());
         edtPrice.setText(dish.getPrice()+"");

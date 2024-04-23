@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,19 +28,20 @@ public class TableDB {
     Context context;
     DatabaseReference database = FirebaseDatabase.getInstance().getReference("table");
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    public TableDB(Context context) {
+    MutableLiveData<ArrayList<Table>> tableListLiveData;
+
+    public TableDB(Context context, MutableLiveData<ArrayList<Table>> tableListLiveData) {
         this.context = context;
+        this.tableListLiveData = tableListLiveData;
     }
+
     public void getAllTable(){
         ArrayList<Table> arrayList = new ArrayList<>();
-        firestore.collection("table").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (DocumentSnapshot snapshot:queryDocumentSnapshots.getDocuments()){
-                    arrayList.add(snapshot.toObject(Table.class));
-                }
-                TableManageActivity.tableList.setValue(arrayList);
+        firestore.collection("table").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                arrayList.add(snapshot.toObject(Table.class));
             }
+            tableListLiveData.postValue(arrayList);
         });
     }
     public void addNewTable(Table table){
@@ -77,7 +79,6 @@ public class TableDB {
         documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(context , "Xóa thành công!", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

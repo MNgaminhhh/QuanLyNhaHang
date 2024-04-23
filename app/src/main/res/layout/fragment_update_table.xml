@@ -4,15 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".view.AddTableActivity">
+    tools:context=".view.UpdateTableActivity">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thêm Bàn Mới"
+        android:text="Chỉnh Sửa Thông Tin Bàn Ăn"
+        android:layout_gravity="center"
         android:textStyle="bold"
         android:textSize="24sp"/>
+    <ImageView
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/img_add_table"/>
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +38,7 @@
                 android:id="@+id/edtTableID"
                 android:fontFamily="@font/telex"
                 android:textSize="22sp"
-                android:layout_width="274dp"
+                android:layout_width="269dp"
                 android:layout_height="wrap_content"
                 android:inputType="number" />
         </TableRow>
@@ -65,8 +73,7 @@
                 android:id="@+id/radioNumofDiner2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2 người"
-                android:checked="true" />
+                android:text="2 người" />
 
             <RadioButton
                 android:id="@+id/radioNumofDiner4"
@@ -117,7 +124,8 @@
             android:fontFamily="@font/telex"
             android:textColor="@color/black"
             android:textSize="22sp"
-            android:id="@+id/btnAddNewTB"
-            android:text="Thêm"/>
+            android:id="@+id/btnAddUpdateTB"
+            android:text="Cập nhật"/>
+
     </LinearLayout>
 </LinearLayout>

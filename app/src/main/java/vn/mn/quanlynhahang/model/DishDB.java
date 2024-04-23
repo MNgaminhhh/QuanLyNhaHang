@@ -27,6 +27,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import vn.mn.quanlynhahang.fragment.DishManageFragment;
 import vn.mn.quanlynhahang.view.DishManageActivity;
 import vn.mn.quanlynhahang.view.TableManageActivity;
 
@@ -49,7 +50,7 @@ public class DishDB {
                 for (DocumentSnapshot snapshot:queryDocumentSnapshots.getDocuments()){
                     arrayList.add(snapshot.toObject(Dish.class));
                 }
-                DishManageActivity.dishList.setValue(arrayList);
+                DishManageFragment.dishList.setValue(arrayList);
             }
         });
     }

@@ -79,10 +79,10 @@ public class HomeFragment extends Fragment {
 
     private List<ItemHome> createItemHome() {
         List<ItemHome> itemHomeList = new ArrayList<>();
-        itemHomeList.add(new ItemHome(R.drawable.avatar, "Nhân Viên", AccountFragment.class));
-        itemHomeList.add(new ItemHome(R.drawable.avatar, "Chức Vụ", ServiceFragment.class));
-//        itemHomeList.add(new ItemHome(R.drawable.avatar, "Bàn Ăn", TableManageFragment.class));
-//        itemHomeList.add(new ItemHome(R.drawable.avatar, "Menu", DishManageFragment.class));
+        itemHomeList.add(new ItemHome(R.drawable.icon_staff, "Nhân Viên", AccountFragment.class));
+        itemHomeList.add(new ItemHome(R.drawable.icon_service, "Chức Vụ", ServiceFragment.class));
+        itemHomeList.add(new ItemHome(R.drawable.icon_table, "Bàn Ăn", TableManageFragment.class));
+        itemHomeList.add(new ItemHome(R.drawable.icon_dish, "Món Ăn", DishManageFragment.class));
         return itemHomeList;
     }
 

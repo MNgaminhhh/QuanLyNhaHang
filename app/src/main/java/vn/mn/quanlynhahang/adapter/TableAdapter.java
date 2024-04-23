@@ -48,13 +48,9 @@ public class TableAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (layoutInflater == null)
-        {
             layoutInflater  = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
         if (convertView == null)
-        {
             convertView = layoutInflater.inflate(R.layout.custom_table_layout, null);
-        }
         ImageView gridImage = convertView.findViewById(R.id.gridImage);
         TextView gridTableNumber = convertView.findViewById(R.id.txtTableNumber);
         Table table = tableList.get(position);

@@ -37,8 +37,6 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="20dp"
             android:background="@android:color/transparent"
-
-            android:padding="1dp"
             app:labelVisibilityMode="selected"
             app:menu="@menu/bottom_menu" />
     </com.google.android.material.bottomappbar.BottomAppBar>
