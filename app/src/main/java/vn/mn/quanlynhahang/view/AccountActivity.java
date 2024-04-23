@@ -1,10 +1,12 @@
 package vn.mn.quanlynhahang.view;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class AccountActivity extends BaseActivity {
     private AccountAdapter accountAdapter;
     private List<User> userList;
     private HomeViewModel homeViewModel;
+    private static final int REQUEST_UPDATE_USER = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +40,10 @@ public class AccountActivity extends BaseActivity {
         loadAccountData();
     }
 
-
     @SuppressLint("NotifyDataSetChanged")
     private void loadAccountData() {
         homeViewModel.getAllUsers().observe(this, userList -> {
             if (userList != null) {
-
                 accountAdapter.setUserList(userList);
                 accountAdapter.notifyDataSetChanged();
             }

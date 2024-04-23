@@ -42,11 +42,9 @@ public class AddUserActivity extends BaseActivity {
     private static final int REQUEST_CAPTURE_IMAGE = 1;
     private EditText edtCreateEmail, edtCreatePassword, edtCreateFullname, edtCreatePhone, edtDateBirthday;
     private RadioGroup radioGender;
-    private Uri uploadedImageUri;
 
     private Spinner spinnerRole;
     private Button btnSignUp, btnXoaAnhDaiDien, btnChupAnhDaiDien;
-    private TextView txtdangky;
     private ImageButton imageButton;
     private String imageUrl = "";
     private ServiceViewModel serviceViewModel;

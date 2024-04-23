@@ -20,8 +20,15 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
     private Context mContext;
     private List<String> serviceList;
     private OnItemClickListener listener;
+    private OnItemLongClickListener longClickListener;
     public interface OnItemClickListener {
         void onItemClick(int position, String serviceName);
+    }
+    public interface OnItemLongClickListener {
+        void onItemLongClick(int position, String serviceName);
+    }
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        this.longClickListener = listener;
     }
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
@@ -59,6 +66,16 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
                     listener.onItemClick(pos, serviceList.get(position));
                 }
             }
+        });
+        holder.itemView.setOnLongClickListener(v -> {
+            if (longClickListener != null) {
+                int pos = holder.getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    longClickListener.onItemLongClick(pos, serviceList.get(position));
+                    return true;
+                }
+            }
+            return false;
         });
     }
 

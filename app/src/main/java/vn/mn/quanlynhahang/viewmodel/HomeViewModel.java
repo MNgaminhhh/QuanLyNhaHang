@@ -3,9 +3,11 @@ package vn.mn.quanlynhahang.viewmodel;
 import android.net.Uri;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.List;
 
@@ -32,5 +34,16 @@ public class HomeViewModel extends ViewModel {
     public LiveData<List<User>> getAllUsers() {
         return homeRepository.getAllUsers();
     }
-
+    public LiveData<User> getUserByPhone(String phoneNumber) {
+        return homeRepository.getUserByPhone(phoneNumber);
+    }
+    public LiveData<Boolean> updateUser(User user) {
+        return homeRepository.updateUser(user);
+    }
+    public LiveData<Boolean> deleteUserByPhone(String phoneNumber) {
+        return homeRepository.deleteUserByPhone(phoneNumber);
+    }
+    public void signOutUser(){
+        homeRepository.signOutUser();
+    }
 }

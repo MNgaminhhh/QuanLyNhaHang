@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -47,9 +48,19 @@ public class ServiceActivity extends BaseActivity {
         serviceViewModel.getServices().observe(this, services -> {
             adapter.setServiceList(services);
         });
+
+        adapter.setOnItemLongClickListener((position, serviceName) -> {
+            Intent intent = new Intent(this, DetailActivity.class);
+            intent.putExtra("title", serviceName);
+            intent.putExtra("position", position);
+            startActivity(intent);
+        });
+
         adapter.setOnItemClickListener((position, serviceName) -> {
             selectedPosition = position;
             edtTenChucVu.setText(serviceName);
+            btnSua.setEnabled(true);
+            btnXoa.setEnabled(true);
         });
         btnSua.setOnClickListener(v -> {
             if (selectedPosition != RecyclerView.NO_POSITION) {
@@ -74,8 +85,11 @@ public class ServiceActivity extends BaseActivity {
                 String serviceName = serviceList.get(selectedPosition);
                 serviceViewModel.deleteService(serviceName)
                         .addOnSuccessListener(aVoid -> {
+                            serviceList.remove(selectedPosition);
+                            adapter.notifyDataSetChanged();
+                            btnSua.setEnabled(false);
+                            btnXoa.setEnabled(false);
                             Toast.makeText(ServiceActivity.this, "Xóa dịch vụ thành công", Toast.LENGTH_SHORT).show();
-                            serviceViewModel.getServices();
                         })
                         .addOnFailureListener(e -> {
                             Toast.makeText(ServiceActivity.this, "Xóa dịch vụ thất bại", Toast.LENGTH_SHORT).show();
@@ -94,23 +108,27 @@ public class ServiceActivity extends BaseActivity {
         String tenChucVuMoi = edtTenChucVu.getText().toString().trim();
         if (!TextUtils.isEmpty(tenChucVuMoi)) {
             if (selectedPosition != RecyclerView.NO_POSITION) {
-                serviceViewModel.updateService(selectedPosition, tenChucVuMoi)
+                serviceViewModel.updateService(adapter.getServiceList().get(selectedPosition), tenChucVuMoi)
                         .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(ServiceActivity.this, "Cập nhật dịch vụ thành công", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ServiceActivity.this, "Cập nhật chức vụ thành công", Toast.LENGTH_SHORT).show();
                             serviceViewModel.getServices().observe(this, services -> {
                                 adapter.setServiceList(services);
                             });
+                            edtTenChucVu.setText("");
+                            btnSua.setEnabled(false);
+                            btnXoa.setEnabled(false);
                         })
                         .addOnFailureListener(e -> {
-                            Toast.makeText(ServiceActivity.this, "Cập nhật dịch vụ thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ServiceActivity.this, "Cập nhật chức vụ thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         });
             } else {
-                Toast.makeText(this, "Vui lòng chọn một dịch vụ để cập nhật", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Vui lòng chọn một chức vụ để cập nhật", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(this, "Vui lòng nhập tên chức vụ mới", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 
     private void clickAddService() {

@@ -16,5 +16,5 @@
         android:text="quan ly nha hang"
         android:textSize="24sp"
         android:layout_gravity="center"
-        android:layout_margin="15dp"/>
+        android:layout_margin="8dp"/>
 </androidx.cardview.widget.CardView>

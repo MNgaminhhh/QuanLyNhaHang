@@ -25,8 +25,8 @@ public class ServiceViewModel extends ViewModel {
         return serviceRepository.getServices();
     }
 
-    public Task<Void> updateService(int position, String newService) {
-        return serviceRepository.updateService(position, newService);
+    public Task<QuerySnapshot> updateService(String serviceName, String newService) {
+        return serviceRepository.updateService(serviceName, newService);
     }
     public Task<QuerySnapshot> deleteService(String serviceName) {
         return serviceRepository.deleteService(serviceName);

@@ -21,6 +21,7 @@ import java.util.Objects;
 import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.model.User;
 import vn.mn.quanlynhahang.view.AddUserActivity;
+import vn.mn.quanlynhahang.view.UserDetailActivitty;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountViewHoldler>{
     private static final int VIEW_TYPE_ADD_USER = 0;
@@ -68,9 +69,12 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
                             .into(holder.imgAccount);
                 }
             }
-            holder.cvItemUser.setOnClickListener(v ->{
-
+            holder.cvItemUser.setOnClickListener(v -> {
+                Intent intent = new Intent(mContext, UserDetailActivitty.class);
+                intent.putExtra("user", user.getPhone());
+                mContext.startActivity(intent);
             });
+
         }else{
             holder.cardView.setOnClickListener(v -> {
                 Intent intent = new Intent(mContext, AddUserActivity.class);

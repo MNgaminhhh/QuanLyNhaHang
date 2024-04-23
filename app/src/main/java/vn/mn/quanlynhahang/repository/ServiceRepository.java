@@ -46,18 +46,24 @@ public class ServiceRepository {
                 });
         return servicesLiveData;
     }
-    public Task<Void> updateService(int position, String newService) {
-        DocumentReference docRef = serviceCollection.document();
-        Map<String, Object> data = new HashMap<>();
-        data.put("tenChucVu", newService);
+    public Task<QuerySnapshot> updateService(String serviceName, String newService) {
+        Query query = serviceCollection.whereEqualTo("tenChucVu", serviceName);
 
-        return docRef.set(data);
+        return query.get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                String documentId = documentSnapshot.getId();
+                DocumentReference docRef = serviceCollection.document(documentId);
+                Map<String, Object> data = new HashMap<>();
+                data.put("tenChucVu", newService);
+                docRef.update(data);
+            }
+        });
     }
+
     public Task<QuerySnapshot> deleteService(String serviceName) {
         Query query = serviceCollection.whereEqualTo("tenChucVu", serviceName);
         return query.get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                // Xóa dịch vụ tại ID được chỉ định
                 String serviceId = documentSnapshot.getId();
                 serviceCollection.document(serviceId).delete();
             }

@@ -90,3 +90,15 @@ q
 Aapp/src/main/java/vn/mn/quanlynhahang/adapter/ServiceAdapter.java,d\1\d1f697283b80655b74f42f75ab70a3fba66e3359
 r
 Bapp/src/main/java/vn/mn/quanlynhahang/view/UpdateDishActivity.java,5\2\520ce6ebd7a450828488e5c20e3b593878e24dab
+n
+>app/src/main/java/vn/mn/quanlynhahang/view/DetailActivity.java,1\b\1b95547593a0390c812f16313afb68f4a251f420
+p
+@app/src/main/java/vn/mn/quanlynhahang/adapter/DetailAdapter.java,5\1\51a5afdb2b8822fca092e8a5d0bc407f9994fcff
+n
+>app/src/main/java/vn/mn/quanlynhahang/adapter/DishAdapter.java,6\5\652d7d765fde4bf55d0451c9d2b0d8692c4106b1
+s
+Capp/src/main/java/vn/mn/quanlynhahang/view/UserDetailActivitty.java,b\d\bdbff2f3cb421f5edb5e330cc3444631a07180fd
+u
+Eapp/src/main/java/vn/mn/quanlynhahang/view/AccountDetailActivity.java,0\a\0adbd6d2c285dc7ab46a67af1fc4aacffa4e02dd
+p
+@app/src/main/java/vn/mn/quanlynhahang/fragment/HomeFragment.java,a\4\a4458f3c96d5d10cf3bd706b461e25e990ac93e6
