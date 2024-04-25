@@ -2,6 +2,7 @@ package vn.mn.quanlynhahang.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class HomeFragment extends Fragment {
             if (firebaseUser != null) {
                 homeViewModel.getUserData(firebaseUser.getUid()).observe(getViewLifecycleOwner(), user -> {
                     if (user != null) {
+                        Log.e("EEEXXXXXXXX", firebaseUser.getUid());
                         String userDetails = "Xin chào, " + user.getFullname();
                         txtUserDetails.setText(userDetails);
                         Glide.with(requireContext())

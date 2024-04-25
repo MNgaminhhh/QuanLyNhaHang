@@ -217,7 +217,7 @@ public class HomeRepository {
 
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable throwable) {
-                deleteResultLiveData.setValue(false);
+                deleteResultLiveData.setValue(true);
             }
         });
     }

@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -265,10 +266,17 @@ public class UserDetailFragment extends Fragment {
         }
         if (user.getRole() != null && !user.getRole().isEmpty()) {
             String userRole = user.getRole();
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, new String[]{userRole});
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerRole.setAdapter(adapter);
+            SpinnerAdapter adapter = spinnerRole.getAdapter();
+            if (adapter != null) {
+                for (int i = 0; i < adapter.getCount(); i++) {
+                    if (userRole.equals(adapter.getItem(i))) {
+                        spinnerRole.setSelection(i);
+                        break;
+                    }
+                }
+            }
         }
+
 
         if (user.getAvatarurl() != null && !user.getAvatarurl().isEmpty()) {
             imageUrl = user.getAvatarurl();

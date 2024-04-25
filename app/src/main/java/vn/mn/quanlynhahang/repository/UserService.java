@@ -6,8 +6,11 @@ import com.google.gson.GsonBuilder;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
+import vn.mn.quanlynhahang.model.UserCreationRequest;
 
 public interface UserService {
 
@@ -22,4 +25,6 @@ public interface UserService {
             .create(UserService.class);
     @DELETE("api/user")
     Call<String> deleteUserUid(@Query("uid") String uid);
+    @POST("api/user")
+    Call<String> createUserWithEmailPasswordAndData(@Body UserCreationRequest request);
 }

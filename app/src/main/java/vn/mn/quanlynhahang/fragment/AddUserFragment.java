@@ -24,6 +24,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -36,10 +37,16 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.model.User;
+import vn.mn.quanlynhahang.model.UserCreationRequest;
+import vn.mn.quanlynhahang.repository.UserService;
 import vn.mn.quanlynhahang.view.AccountActivity;
 import vn.mn.quanlynhahang.view.AddUserActivity;
+import vn.mn.quanlynhahang.viewmodel.RegisterUserViewModel;
 import vn.mn.quanlynhahang.viewmodel.ServiceViewModel;
 import vn.mn.quanlynhahang.viewmodel.SignUpViewModel;
 
@@ -55,6 +62,7 @@ public class AddUserFragment extends Fragment {
     private ImageButton imageButton;
     private String imageUrl = "";
     private ServiceViewModel serviceViewModel;
+    private RegisterUserViewModel registerUserViewModel;
     private SignUpViewModel signUpViewModel;
 
     @Nullable
@@ -79,8 +87,9 @@ public class AddUserFragment extends Fragment {
         btnChupAnhDaiDien = view.findViewById(R.id.btnChupAnhDaiDien);
         imageButton = view.findViewById(R.id.imageButton);
 
-        signUpViewModel = new ViewModelProvider(requireActivity()).get(SignUpViewModel.class);
         serviceViewModel = new ViewModelProvider(requireActivity()).get(ServiceViewModel.class);
+        registerUserViewModel = new ViewModelProvider(requireActivity()).get(RegisterUserViewModel.class);
+        signUpViewModel = new ViewModelProvider(requireActivity()).get(SignUpViewModel.class);
 
         edtDateBirthday.setOnClickListener(v -> showDatePickerDialog());
 
@@ -191,29 +200,23 @@ public class AddUserFragment extends Fragment {
         String birthday = edtDateBirthday.getText().toString().trim();
         String gender = radioGender.getCheckedRadioButtonId() == R.id.radioMale ? "Nam" : "Nữ";
         String role = spinnerRole.getSelectedItem().toString().trim();
-        User user;
+        User userData;
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)
                 && !TextUtils.isEmpty(fullname) && !TextUtils.isEmpty(phone)
                 && !TextUtils.isEmpty(role)
                 && !TextUtils.isEmpty(birthday) && radioGender.getCheckedRadioButtonId() != -1) {
-            user = new User(imageUrl , phone, fullname, birthday, role, gender);
-            signUpViewModel.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            String userId = Objects.requireNonNull(task.getResult().getUser()).getUid();
-                            signUpViewModel.saveUserInfoToFirestore(user, userId)
-                                    .addOnCompleteListener(task1 -> {
-                                        if (task1.isSuccessful()) {
-                                            Toast.makeText(requireContext(), "Đăng ký tài khoản thành công!", Toast.LENGTH_SHORT).show();
-                                            getParentFragmentManager().popBackStack();
-                                        } else {
-                                            Toast.makeText(requireContext(), "Lưu thông tin người dùng thất bại!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        } else {
-                            Toast.makeText(requireContext(), "Đăng ký tài khoản thất bại! Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            userData = new User(imageUrl , phone, fullname, birthday, role, gender);
+            registerUserViewModel.createUserWithEmailPasswordAndData(email, password, userData).observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean success) {
+                    if (success) {
+                        Toast.makeText(requireContext(), "Đăng ký tài khoản thành công!", Toast.LENGTH_SHORT).show();
+                        getParentFragmentManager().popBackStack();
+                    } else {
+                        Toast.makeText(requireContext(), "Đăng ký tài khoản thất bại! Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
         } else {
             Toast.makeText(requireContext(), "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();

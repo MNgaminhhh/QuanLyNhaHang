@@ -102,8 +102,6 @@ y
 Iapp/src/main/java/vn/mn/quanlynhahang/fragment/AccountDetailFragment.java,f\6\f68ab014dafb0b0272439e04e481dcd6974d08d2
 s
 Capp/src/main/java/vn/mn/quanlynhahang/fragment/AddUserFragment.java,4\5\45cf1da1599bbb7c9464bab49710e22159aaa72b
-n
->app/src/main/java/vn/mn/quanlynhahang/model/UserIdRequest.java,e\8\e8570bf5d4aafcac0ce6b0b2b3a2088d5cdc7c3f
 p
 @app/src/main/java/vn/mn/quanlynhahang/fragment/HomeFragment.java,a\4\a4458f3c96d5d10cf3bd706b461e25e990ac93e6
 w
@@ -112,3 +110,11 @@ s
 Capp/src/main/java/vn/mn/quanlynhahang/fragment/ServiceFragment.java,8\8\886a02f462e67bc5b016890b12dc1435be57ece8
 n
 >app/src/main/java/vn/mn/quanlynhahang/view/DetailActivity.java,1\b\1b95547593a0390c812f16313afb68f4a251f420
+|
+Lapp/src/main/java/vn/mn/quanlynhahang/repository/registerUserRepository.java,1\0\102be858d3066e9f8ff048e48ea1f04583e2c499
+|
+Lapp/src/main/java/vn/mn/quanlynhahang/repository/RegisterUserRepository.java,e\f\ef1c802839b9d7a9fc0308dd4ce914a2437f2808
+z
+Japp/src/main/java/vn/mn/quanlynhahang/viewmodel/RegisterUserViewModel.java,6\f\6f9d0f1972367989a6a5e39ed080bc064718ae81
+t
+Dapp/src/main/java/vn/mn/quanlynhahang/model/UserCreationRequest.java,2\6\26b536444d10c95a10905e97e2990c06289078f8
