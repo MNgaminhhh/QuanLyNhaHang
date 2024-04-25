@@ -40,10 +40,16 @@ public class HomeViewModel extends ViewModel {
     public LiveData<Boolean> updateUser(User user) {
         return homeRepository.updateUser(user);
     }
+    public LiveData<Boolean> updateCurrentUser(User updatedUser){
+        return homeRepository.updateCurrentUser(updatedUser);
+    }
     public LiveData<Boolean> deleteUserByPhone(String phoneNumber) {
         return homeRepository.deleteUserByPhone(phoneNumber);
     }
     public void signOutUser(){
         homeRepository.signOutUser();
+    }
+    public LiveData<Boolean> deleteUserData(){
+        return homeRepository.deleteUserData();
     }
 }

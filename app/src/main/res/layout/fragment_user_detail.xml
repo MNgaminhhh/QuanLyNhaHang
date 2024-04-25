@@ -234,10 +234,12 @@
                 android:background="@drawable/button_custom"
                 android:fontFamily="@font/telex"
                 android:padding="10dp"
+                android:layout_marginBottom="30dp"
                 android:text="Xóa Tài Khoản"
                 android:textAllCaps="false"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnCapNhatThongTin" />

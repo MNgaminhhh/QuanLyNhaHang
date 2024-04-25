@@ -1,29 +1,43 @@
 package vn.mn.quanlynhahang.view;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.fragment.AccountDetailFragment;
 import vn.mn.quanlynhahang.fragment.HomeFragment;
+import vn.mn.quanlynhahang.viewmodel.HomeViewModel;
 
 public class HomeActivity extends AppCompatActivity {
     private BottomAppBar bottomAppBar;
+    private Toolbar toolbar;
+    private ImageButton imgBack;
+    private TextView textView;
+    private HomeViewModel homeViewModel;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         bottomAppBar = findViewById(R.id.bottomAppBar);
+
         setSupportActionBar(bottomAppBar);
 
         loadFirst();
@@ -41,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
     private void loadFirst() {

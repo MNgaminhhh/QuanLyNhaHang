@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -35,37 +35,60 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/edtCreateFullname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
+            <LinearLayout
+                android:id="@+id/lnHoTen"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
-                android:fontFamily="@font/telex"
-                android:hint="Nhập họ và tên"
-                android:inputType="text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnChupAnhDaiDien" />
-
-            <EditText
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:id="@+id/edtCreatePhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginRight="24dp"
-                android:fontFamily="@font/telex"
-                android:hint="Nhập số điện thoại"
-                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtCreateFullname" />
+                app:layout_constraintTop_toBottomOf="@+id/btnChupAnhDaiDien" >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/telex"
+                    android:text="Họ và tên: "/>
+                <EditText
+                    android:id="@+id/edtCreateFullname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/telex"
+                    android:textSize="22sp"
+                    android:hint="Nhập họ và tên"
+                    android:inputType="text"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lnSDT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="24dp"
+                android:weightSum="5"
+                android:layout_marginRight="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lnHoTen">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginRight="50dp"
+                    android:fontFamily="@font/telex"
+                    android:text="SĐT: "/>
+                <EditText
+                    android:id="@+id/edtCreatePhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/telex"
+                    android:hint="Nhập số điện thoại"
+                    android:inputType="number"/>
+            </LinearLayout>
+
 
             <RadioGroup
                 android:id="@+id/radioGender"
@@ -78,7 +101,7 @@
                 android:weightSum="5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtCreatePhone">
+                app:layout_constraintTop_toBottomOf="@+id/lnSDT">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -240,5 +263,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

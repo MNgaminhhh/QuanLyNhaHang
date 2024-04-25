@@ -1,5 +1,6 @@
 package vn.mn.quanlynhahang.fragment;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -36,6 +38,8 @@ import java.util.Objects;
 
 import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.model.User;
+import vn.mn.quanlynhahang.view.AccountActivity;
+import vn.mn.quanlynhahang.view.AddUserActivity;
 import vn.mn.quanlynhahang.viewmodel.ServiceViewModel;
 import vn.mn.quanlynhahang.viewmodel.SignUpViewModel;
 
@@ -96,6 +100,8 @@ public class AddUserFragment extends Fragment {
         imageUrl = "";
         Toast.makeText(requireContext(), "Đã xóa ảnh đại diện", Toast.LENGTH_SHORT).show();
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -190,7 +196,7 @@ public class AddUserFragment extends Fragment {
                 && !TextUtils.isEmpty(fullname) && !TextUtils.isEmpty(phone)
                 && !TextUtils.isEmpty(role)
                 && !TextUtils.isEmpty(birthday) && radioGender.getCheckedRadioButtonId() != -1) {
-            user = new User(imageUrl, phone, fullname, birthday, role, gender);
+            user = new User(imageUrl , phone, fullname, birthday, role, gender);
             signUpViewModel.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -199,7 +205,7 @@ public class AddUserFragment extends Fragment {
                                     .addOnCompleteListener(task1 -> {
                                         if (task1.isSuccessful()) {
                                             Toast.makeText(requireContext(), "Đăng ký tài khoản thành công!", Toast.LENGTH_SHORT).show();
-                                            // Add your navigation logic here
+                                            getParentFragmentManager().popBackStack();
                                         } else {
                                             Toast.makeText(requireContext(), "Lưu thông tin người dùng thất bại!", Toast.LENGTH_SHORT).show();
                                         }
@@ -213,4 +219,5 @@ public class AddUserFragment extends Fragment {
             Toast.makeText(requireContext(), "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

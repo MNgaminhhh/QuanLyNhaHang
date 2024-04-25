@@ -8,6 +8,7 @@
     android:backgroundTint="#FFFFFF"
     tools:context=".view.HomeActivity">
 
+
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
