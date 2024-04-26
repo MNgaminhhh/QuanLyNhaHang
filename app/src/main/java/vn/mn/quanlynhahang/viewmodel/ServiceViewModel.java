@@ -40,28 +40,4 @@ public class ServiceViewModel extends ViewModel {
         return repository.getRole(roleName);
     }
 
-
-
-
-//    private ServiceRepository serviceRepository;
-//
-//    public ServiceViewModel() {
-//        serviceRepository = new ServiceRepository();
-//    }
-//
-//    public Task<DocumentReference> addService(String service) {
-//        return serviceRepository.addService(service);
-//    }
-//    public LiveData<List<String>> getServices() {
-//        return serviceRepository.getServices();
-//    }
-//
-//    public Task<QuerySnapshot> updateService(String serviceName, String newService) {
-//        return serviceRepository.updateService(serviceName, newService);
-//    }
-//    public Task<QuerySnapshot> deleteService(String serviceName) {
-//        return serviceRepository.deleteService(serviceName);
-//    }
-
-
 }

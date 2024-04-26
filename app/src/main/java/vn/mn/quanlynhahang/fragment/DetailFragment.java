@@ -1,6 +1,7 @@
 package vn.mn.quanlynhahang.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,10 +49,10 @@ public class DetailFragment extends Fragment {
         serviceViewModel = new ViewModelProvider(requireActivity()).get(ServiceViewModel.class);
 
         titletofragment = new HashMap<>();
-        titletofragment.put("Quản lý chức vụ", "ServiceFragment.class");
-        titletofragment.put("Quản lý nhân viên", "AccountFragment.class");
-        titletofragment.put("Quản lý món ăn", "DishManageFragment.class");
-        titletofragment.put("Quản lý bàn ăn", "TableManageFragment.class");
+        titletofragment.put("Quản lý chức vụ", "ServiceFragment");
+        titletofragment.put("Quản lý nhân viên", "AccountFragment");
+        titletofragment.put("Quản lý món ăn", "DishManageFragment");
+        titletofragment.put("Quản lý bàn ăn", "TableManageFragment");
 
         Bundle extras = getArguments();
         if (extras != null) {
@@ -58,6 +60,7 @@ public class DetailFragment extends Fragment {
 
             TextView textViewTitle = view.findViewById(R.id.textViewTitle);
             textViewTitle.setText(title);
+
             recyclerViewActivities = view.findViewById(R.id.rvQuyenTruyCap);
             recyclerViewActivities.setLayoutManager(new LinearLayoutManager(getContext()));
             String[] activityList = titletofragment.keySet().toArray(new String[0]);
@@ -65,12 +68,40 @@ public class DetailFragment extends Fragment {
             adapter = new DetailAdapter(requireContext(), activityList);
             recyclerViewActivities.setAdapter(adapter);
         }
-
+        loadCheckBoxRole();
         btnSave.setOnClickListener(v -> {
             List<String> selectedItems = adapter.getSelectedItems();
             saveSelectedItems(selectedItems);
         });
     }
+
+    private void loadCheckBoxRole() {
+        serviceViewModel.getRole(title)
+                .addOnSuccessListener(role -> {
+                    if (role != null) {
+                        List<String> selectedItems = role.getDanhSach();
+                        List<String> selectedClasses = new ArrayList<>();
+                        for (String selectedItem : selectedItems) {
+                            for (Map.Entry<String, String> entry : titletofragment.entrySet()) {
+                                if (entry.getValue().equals(selectedItem)) {
+                                    String correspondingClass = entry.getKey();
+                                    selectedClasses.add(correspondingClass);
+                                    break;
+                                }
+                            }
+                        }
+                        String[] selectedArray = selectedClasses.toArray(new String[0]);
+                        adapter.setSelectedItems(selectedArray);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(requireContext(), "Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
+
+
 
     private void saveSelectedItems(List<String> selectedItems) {
         if (selectedItems.isEmpty()) {

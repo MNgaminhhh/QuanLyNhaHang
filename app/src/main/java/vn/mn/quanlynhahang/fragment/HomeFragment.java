@@ -92,22 +92,22 @@ public class HomeFragment extends Fragment {
                     String titleName;
                     Class<? extends Fragment> fragmentClass;
                     switch (item) {
-                        case "AccountFragment.class":
+                        case "AccountFragment":
                             image = R.drawable.icon_staff;
                             titleName = "Nhân Viên";
                             fragmentClass = AccountFragment.class;
                             break;
-                        case "DishManageFragment.class":
+                        case "DishManageFragment":
                             image = R.drawable.icon_dish;
                             titleName = "Món Ăn";
                             fragmentClass = DishManageFragment.class;
                             break;
-                        case "ServiceFragment.class":
+                        case "ServiceFragment":
                             image = R.drawable.icon_service;
                             titleName = "Chức Vụ";
                             fragmentClass = ServiceFragment.class;
                             break;
-                        case "TableManageFragment.class":
+                        case "TableManageFragment":
                             image = R.drawable.icon_table;
                             titleName = "Bàn Ăn";
                             fragmentClass = TableManageFragment.class;
