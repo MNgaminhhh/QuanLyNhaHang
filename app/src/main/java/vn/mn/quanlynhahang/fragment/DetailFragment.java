@@ -4,20 +4,34 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.adapter.DetailAdapter;
+import vn.mn.quanlynhahang.model.Role;
+import vn.mn.quanlynhahang.viewmodel.ServiceViewModel;
 
 public class DetailFragment extends Fragment {
     private RecyclerView recyclerViewActivities;
     private DetailAdapter adapter;
+    private Button btnSave;
+    private String title;
+    private ServiceViewModel serviceViewModel;
+    private Map<String, String> titletofragment;
 
     @Nullable
     @Override
@@ -28,18 +42,54 @@ public class DetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        btnSave = view.findViewById(R.id.btnLuu);
+        serviceViewModel = new ViewModelProvider(requireActivity()).get(ServiceViewModel.class);
+
+        titletofragment = new HashMap<>();
+        titletofragment.put("Quản lý chức vụ", "ServiceFragment.class");
+        titletofragment.put("Quản lý nhân viên", "AccountFragment.class");
+        titletofragment.put("Quản lý món ăn", "DishManageFragment.class");
+        titletofragment.put("Quản lý bàn ăn", "TableManageFragment.class");
+
         Bundle extras = getArguments();
         if (extras != null) {
-            String title = extras.getString("title");
+            title = extras.getString("title");
 
             TextView textViewTitle = view.findViewById(R.id.textViewTitle);
             textViewTitle.setText(title);
             recyclerViewActivities = view.findViewById(R.id.rvQuyenTruyCap);
             recyclerViewActivities.setLayoutManager(new LinearLayoutManager(getContext()));
+            String[] activityList = titletofragment.keySet().toArray(new String[0]);
 
-            String[] activityList = {"Quản lý chức vụ", "Quản lý nhân viên", "Quản lý cơ sở vật chất", "Quản lý tài chính"};
             adapter = new DetailAdapter(requireContext(), activityList);
             recyclerViewActivities.setAdapter(adapter);
         }
+
+        btnSave.setOnClickListener(v -> {
+            List<String> selectedItems = adapter.getSelectedItems();
+            saveSelectedItems(selectedItems);
+        });
+    }
+
+    private void saveSelectedItems(List<String> selectedItems) {
+        if (selectedItems.isEmpty()) {
+            return;
+        }
+        List<String> selectedClasses = new ArrayList<>();
+        for (String item : selectedItems) {
+            String correspondingClass = titletofragment.get(item);
+            if (correspondingClass != null) {
+                selectedClasses.add(correspondingClass);
+            }
+        }
+        Role newRole = new Role(title, selectedClasses);
+        serviceViewModel.updateRole(title, newRole)
+                .addOnSuccessListener(aVoid -> {
+
+                })
+                .addOnFailureListener(e -> {
+                });
+
     }
 }

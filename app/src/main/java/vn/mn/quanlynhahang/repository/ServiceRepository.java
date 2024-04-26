@@ -85,6 +85,22 @@ public class ServiceRepository {
             return Tasks.whenAll(deleteTasks);
         });
     }
+    public Task<Role> getRole(String roleName) {
+        return roleCollection.whereEqualTo("tenChucVu", roleName)
+                .get()
+                .continueWith(task -> {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if (!querySnapshot.isEmpty()) {
+                            DocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
+                            String tenChucVu = documentSnapshot.getString("tenChucVu");
+                            List<String> danhSach = (List<String>) documentSnapshot.get("danhSach");
+                            return new Role(tenChucVu, danhSach);
+                        }
+                    }
+                    return null;
+                });
+    }
 
 //    private FirebaseFirestore db;
 //    private CollectionReference serviceCollection;

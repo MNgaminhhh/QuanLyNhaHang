@@ -36,6 +36,12 @@ public class ServiceViewModel extends ViewModel {
     public Task<Void> deleteRole(String tenChucVu) {
         return repository.deleteRole(tenChucVu);
     }
+    public Task<Role> getRole(String roleName){
+        return repository.getRole(roleName);
+    }
+
+
+
 
 //    private ServiceRepository serviceRepository;
 //

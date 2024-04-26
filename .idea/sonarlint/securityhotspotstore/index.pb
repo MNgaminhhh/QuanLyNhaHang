@@ -124,3 +124,5 @@ e
 5app/src/main/java/vn/mn/quanlynhahang/model/Role.java,c\8\c8378b22841c84f821298a5eb717f31488be449c
 s
 Capp/src/main/java/vn/mn/quanlynhahang/view/UserDetailActivitty.java,b\d\bdbff2f3cb421f5edb5e330cc3444631a07180fd
+p
+@app/src/main/java/vn/mn/quanlynhahang/adapter/DetailAdapter.java,5\1\51a5afdb2b8822fca092e8a5d0bc407f9994fcff

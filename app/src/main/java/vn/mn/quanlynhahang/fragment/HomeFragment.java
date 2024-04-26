@@ -1,6 +1,5 @@
 package vn.mn.quanlynhahang.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,20 +23,19 @@ import java.util.List;
 import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.adapter.HomeAdapter;
 import vn.mn.quanlynhahang.model.ItemHome;
-import vn.mn.quanlynhahang.view.AccountActivity;
-import vn.mn.quanlynhahang.view.DishManageActivity;
-import vn.mn.quanlynhahang.view.ServiceActivity;
-import vn.mn.quanlynhahang.view.TableManageActivity;
 import vn.mn.quanlynhahang.viewmodel.HomeViewModel;
+import vn.mn.quanlynhahang.viewmodel.ServiceViewModel;
 
 public class HomeFragment extends Fragment {
 
     private TextView txtUserDetails;
     private ImageView imgAvatarHome;
     private HomeViewModel homeViewModel;
-    private List<ItemHome> itemHomeList;
+    private List<ItemHome> itemHomeList = new ArrayList<>();
     private RecyclerView recyclerView;
     private HomeAdapter homeAdapter;
+    private String roleUser;
+    private ServiceViewModel serviceViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,18 +50,17 @@ public class HomeFragment extends Fragment {
         txtUserDetails = view.findViewById(R.id.txtUserDetails);
         recyclerView = view.findViewById(R.id.rvItemHome);
         imgAvatarHome = view.findViewById(R.id.imgAvatarHome);
-        itemHomeList = createItemHome();
-        HomeAdapter adapter = new HomeAdapter(requireContext(), itemHomeList);
-        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-
+        serviceViewModel = new ViewModelProvider(requireActivity()).get(ServiceViewModel.class);
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
+
         homeViewModel.getCurrentUser().observe(getViewLifecycleOwner(), firebaseUser -> {
             if (firebaseUser != null) {
                 homeViewModel.getUserData(firebaseUser.getUid()).observe(getViewLifecycleOwner(), user -> {
                     if (user != null) {
                         Log.e("EEEXXXXXXXX", firebaseUser.getUid());
+                        roleUser = user.getRole();
+                        createItemHome(roleUser);
+                        Log.e("SSSSSSSSSSXX", roleUser);
                         String userDetails = "Xin chào, " + user.getFullname();
                         txtUserDetails.setText(userDetails);
                         Glide.with(requireContext())
@@ -77,15 +74,53 @@ public class HomeFragment extends Fragment {
                 });
             }
         });
+
+        homeAdapter = new HomeAdapter(requireContext(), itemHomeList);
+        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(homeAdapter);
     }
 
-    private List<ItemHome> createItemHome() {
-        List<ItemHome> itemHomeList = new ArrayList<>();
-        itemHomeList.add(new ItemHome(R.drawable.icon_staff, "Nhân Viên", AccountFragment.class));
-        itemHomeList.add(new ItemHome(R.drawable.icon_service, "Chức Vụ", ServiceFragment.class));
-        itemHomeList.add(new ItemHome(R.drawable.icon_table, "Bàn Ăn", TableManageFragment.class));
-        itemHomeList.add(new ItemHome(R.drawable.icon_dish, "Món Ăn", DishManageFragment.class));
-        return itemHomeList;
+    private void createItemHome(String roleAccoutUser) {
+        itemHomeList.clear();
+        serviceViewModel.getRole(roleAccoutUser).addOnSuccessListener(role -> {
+            if (role != null) {
+                List<String> danhSach = role.getDanhSach();
+                for (String item : danhSach) {
+                    Log.e("SSSSSSSSSSXXX", item);
+                    int image;
+                    String titleName;
+                    Class<? extends Fragment> fragmentClass;
+                    switch (item) {
+                        case "AccountFragment.class":
+                            image = R.drawable.icon_staff;
+                            titleName = "Nhân Viên";
+                            fragmentClass = AccountFragment.class;
+                            break;
+                        case "DishManageFragment.class":
+                            image = R.drawable.icon_dish;
+                            titleName = "Món Ăn";
+                            fragmentClass = DishManageFragment.class;
+                            break;
+                        case "ServiceFragment.class":
+                            image = R.drawable.icon_service;
+                            titleName = "Chức Vụ";
+                            fragmentClass = ServiceFragment.class;
+                            break;
+                        case "TableManageFragment.class":
+                            image = R.drawable.icon_table;
+                            titleName = "Bàn Ăn";
+                            fragmentClass = TableManageFragment.class;
+                            break;
+                        default:
+                            continue;
+                    }
+                    itemHomeList.add(new ItemHome(image, titleName, fragmentClass));
+                }
+                homeAdapter.notifyDataSetChanged();
+            }
+        }).addOnFailureListener(e -> {
+            Log.e("SSSSSSSSSSXXX", "error");
+        });
     }
-
 }
