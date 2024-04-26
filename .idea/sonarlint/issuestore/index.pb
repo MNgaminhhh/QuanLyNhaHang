@@ -118,3 +118,9 @@ z
 Japp/src/main/java/vn/mn/quanlynhahang/viewmodel/RegisterUserViewModel.java,6\f\6f9d0f1972367989a6a5e39ed080bc064718ae81
 t
 Dapp/src/main/java/vn/mn/quanlynhahang/model/UserCreationRequest.java,2\6\26b536444d10c95a10905e97e2990c06289078f8
+r
+Bapp/src/main/java/vn/mn/quanlynhahang/fragment/DetailFragment.java,3\a\3a96d2d734825f7709325fc5f96bc8011b6efbd2
+e
+5app/src/main/java/vn/mn/quanlynhahang/model/Role.java,c\8\c8378b22841c84f821298a5eb717f31488be449c
+s
+Capp/src/main/java/vn/mn/quanlynhahang/view/UserDetailActivitty.java,b\d\bdbff2f3cb421f5edb5e330cc3444631a07180fd

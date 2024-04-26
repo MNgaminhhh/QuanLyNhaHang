@@ -35,12 +35,15 @@ import com.bumptech.glide.Glide;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import vn.mn.quanlynhahang.R;
+import vn.mn.quanlynhahang.model.Role;
 import vn.mn.quanlynhahang.model.User;
 import vn.mn.quanlynhahang.view.AccountActivity;
 import vn.mn.quanlynhahang.viewmodel.HomeViewModel;
@@ -246,9 +249,13 @@ public class UserDetailFragment extends Fragment {
         datePickerDialog.show();
     }
 
-    private void loadServices() {
-        serviceViewModel.getServices().observe(getViewLifecycleOwner(), services -> {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, services);
+    public void loadServices() {
+        serviceViewModel.getServices().observe(getViewLifecycleOwner(), roles -> {
+            List<String> roleNames = new ArrayList<>();
+            for (Role role : roles) {
+                roleNames.add(role.getTenChucVu());
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, roleNames);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerRole.setAdapter(adapter);
         });
