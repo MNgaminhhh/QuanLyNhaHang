@@ -53,7 +53,7 @@ public class AddDishFragment extends Fragment {
         btnCancel = view.findViewById(R.id.btnCancel);
         picDish = view.findViewById(R.id.picDish);
 
-        DishDB dishDB = new DishDB(requireContext());
+        DishDB dishDB = new DishDB(requireContext(), DishManageFragment.dishList);
 
         btnUploadDish.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_PICK);

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,6 +55,27 @@ public class DishAdapter extends ArrayAdapter<Dish> {
         txtDishPrice.setText("Giá: " + dish.getPrice()+ " VNĐ");
         Glide.with(context).load(dish.getUrlImage()).placeholder(R.drawable.baseline_sync_24)
                 .error(R.drawable.imageerror).into(dishImage);
+        if (resource==R.layout.custom_select_dish_layout){
+            Button btnAdd = convertView.findViewById(R.id.btnAdd);
+            Button btnMinus = convertView.findViewById(R.id.btnMinus);
+            TextView txtQuantity = convertView.findViewById(R.id.txtQuantity);
+
+            btnAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    txtQuantity.setText((Integer.parseInt(txtQuantity.getText().toString())+1)+"");
+                }
+            });
+            btnMinus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final int value = Integer.parseInt(txtQuantity.getText().toString());
+                    if (value>0) {
+                        txtQuantity.setText((value-1)+"");
+                    }
+                }
+            });
+        }
         return convertView;
     }
 }

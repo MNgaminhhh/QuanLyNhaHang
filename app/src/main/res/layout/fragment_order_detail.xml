@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.OrderDetailFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#F3F1F1">
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/btnBack"
+            android:background="@drawable/baseline_arrow_back_24"/>
+        <Space
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_custom"
+            android:fontFamily="@font/telex"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:id="@+id/btnEditOrder"
+            android:text="Chỉnh sửa Order"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HÓA ĐƠN"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bàn: 00"
+            android:id="@+id/txtTableId"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mã hóa đơn: 00"
+            android:id="@+id/txtOrderId"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtTimeIn"
+        android:text="Ngày: dd/MM/yyyy"
+        android:layout_margin="10dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="STT"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Tên Món"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_weight="10"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Số lượng"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_weight="3"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Đơn giá"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_weight="4"/>
+    </LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lstOrder"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thành tiền: "
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="xxxx "
+            android:id="@+id/txtThanhTien"
+            android:textColor="@color/black"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:textSize="20sp"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Phương thức thanh toán: "
+        android:textColor="@color/black"
+        android:layout_margin="10dp"
+        android:textSize="20sp"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/radPayment">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radCash"
+            android:text="Tiền mặt"
+            android:layout_marginRight="150dp"
+            android:textColor="@color/black"
+            android:checked="true"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radMomo"
+            android:textColor="@color/black"
+            android:text="Momo"/>
+    </RadioGroup>
+    <ImageButton
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:id="@+id/btnMomo"
+        android:src="@drawable/momo_logo"
+        android:scaleType="fitXY"
+        android:visibility="invisible"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_custom"
+            android:fontFamily="@font/telex"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:id="@+id/btnCancel"
+            android:text="Hủy Order"/>
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="match_parent" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_custom"
+            android:fontFamily="@font/telex"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:id="@+id/btnPaid"
+            android:text="Đã thanh toán"/>
+    </LinearLayout>
+</LinearLayout>
