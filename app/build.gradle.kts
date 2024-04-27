@@ -44,6 +44,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
+
     implementation("androidx.navigation:navigation-fragment:2.7.7")
     implementation("androidx.navigation:navigation-ui:2.7.7")
     implementation("androidx.appcompat:appcompat:1.6.1")
