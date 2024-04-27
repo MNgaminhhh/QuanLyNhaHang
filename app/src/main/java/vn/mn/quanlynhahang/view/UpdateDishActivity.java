@@ -43,7 +43,7 @@ public class UpdateDishActivity extends AppCompatActivity {
         btnCancel = this.findViewById(R.id.btnCancel);
         picDish = this.findViewById(R.id.picDish);
 
-        DishDB dishDB = new DishDB(this);
+        DishDB dishDB = new DishDB(this, DishManageFragment.dishList);
 
         Intent intent = getIntent();
         int index = intent.getIntExtra("id", -1);

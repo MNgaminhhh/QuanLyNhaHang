@@ -3,43 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#EDEDED"
     android:layout_height="match_parent"
-    tools:context=".view.TableManageActivity">
+    android:background="#EDEDED"
+    tools:context=".fragment.SelectDishFragment">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/telex"
-        android:textSize="22sp"
-        android:textStyle="bold"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Danh Sách Bàn Ăn"
+        android:text="Danh Sách Món Ăn"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <GridView
-        android:id="@+id/gridTable2"
+    <ListView
+        android:id="@+id/lstDish"
         android:layout_width="0dp"
-        android:background="@drawable/shape_item_item_main"
         android:layout_height="0dp"
-        android:numColumns="2"
+        android:background="@drawable/shape_item_item_main"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnAddTable"
+        android:id="@+id/btnOrder"
+        android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        android:contentDescription="TODO"
-        android:src="@drawable/baseline_add_24"
+        android:src="@drawable/baseline_keyboard_double_arrow_right_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

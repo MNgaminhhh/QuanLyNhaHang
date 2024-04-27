@@ -55,7 +55,7 @@ public class UpdateDishFragment extends Fragment {
         btnCancel = view.findViewById(R.id.btnCancel);
         picDish = view.findViewById(R.id.picDish);
 
-        DishDB dishDB = new DishDB(requireContext());
+        DishDB dishDB = new DishDB(requireContext(), DishManageFragment.dishList);
 
         Bundle args = getArguments();
         if (args != null) {
