@@ -60,7 +60,7 @@ public class DishManageFragment extends Fragment {
             adapter.notifyDataSetChanged();
         });
 
-        DishDB dishDB = new DishDB(requireContext());
+        DishDB dishDB = new DishDB(requireContext(), dishList);
         dishDB.getAllDish();
 
         btnAddDish.setOnClickListener(v -> {
@@ -82,7 +82,7 @@ public class DishManageFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        final DishDB dishDB = new DishDB(requireContext());
+        final DishDB dishDB = new DishDB(requireContext(), dishList);
         final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         if (item.getItemId() == R.id.mnuUpdate) {

@@ -83,6 +83,7 @@ public class HomeFragment extends Fragment {
         itemHomeList.add(new ItemHome(R.drawable.icon_service, "Chức Vụ", ServiceFragment.class));
         itemHomeList.add(new ItemHome(R.drawable.icon_table, "Bàn Ăn", TableManageFragment.class));
         itemHomeList.add(new ItemHome(R.drawable.icon_dish, "Món Ăn", DishManageFragment.class));
+        itemHomeList.add(new ItemHome(R.drawable.icon_table,"Order", OrderFragment.class));
         return itemHomeList;
     }
 

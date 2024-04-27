@@ -8,6 +8,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,9 +34,10 @@ import vn.mn.quanlynhahang.view.TableManageActivity;
 
 public class DishDB {
     private Context context;
-
-    public DishDB(Context context) {
+    MutableLiveData<ArrayList<Dish>> dishList;
+    public DishDB(Context context, MutableLiveData<ArrayList<Dish>> dishList) {
         this.context = context;
+        this.dishList = dishList;
     }
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReference("dish");
@@ -50,7 +52,7 @@ public class DishDB {
                 for (DocumentSnapshot snapshot:queryDocumentSnapshots.getDocuments()){
                     arrayList.add(snapshot.toObject(Dish.class));
                 }
-                DishManageFragment.dishList.setValue(arrayList);
+                dishList.postValue(arrayList);
             }
         });
     }
