@@ -8,7 +8,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,11 +31,12 @@ import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.adapter.OrderDetailAdapter;
 import vn.mn.quanlynhahang.model.Order;
 import vn.mn.quanlynhahang.model.OrderDB;
+import vn.mn.quanlynhahang.viewmodel.HomeViewModel;
 
 public class OrderDetailFragment extends Fragment {
     int id;
     Button btnBack, btnEditOrder, btnCancel, btnPaid;
-    TextView txtTableId, txtOrderId, txtTimeIn, txtThanhTien;
+    TextView txtTableId, txtOrderId, txtOrderEmp, txtTimeIn, txtThanhTien;
     ListView lstOrder;
     RadioGroup radPayment;
     RadioButton radCash, radMomo;
@@ -55,6 +60,7 @@ public class OrderDetailFragment extends Fragment {
         txtTableId = view.findViewById(R.id.txtTableId);
         txtTimeIn = view.findViewById(R.id.txtTimeIn);
         txtThanhTien = view.findViewById(R.id.txtThanhTien);
+        txtOrderEmp = view.findViewById(R.id.txtOrderEmp);
         lstOrder = view.findViewById(R.id.lstOrder);
         radPayment = view.findViewById(R.id.radPayment);
         radCash = view.findViewById(R.id.radCash);
@@ -92,6 +98,7 @@ public class OrderDetailFragment extends Fragment {
                     order = orderValue;
                     txtOrderId.setText("Bàn: " + order.getIdTable()+"");
                     txtTableId.setText("Mã hóa đơn: " + order.getId());
+                    txtOrderEmp.setText("Nhân viên: "+ order.getOrderEmp());
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
                     txtTimeIn.setText("Ngày tạo: "+sdf.format(order.getTimeOrder()));
                     txtThanhTien.setText(order.totalPrice()+" VNĐ");

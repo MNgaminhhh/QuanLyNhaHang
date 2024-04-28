@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import vn.mn.quanlynhahang.model.DishDB;
 import vn.mn.quanlynhahang.model.Order;
 import vn.mn.quanlynhahang.model.OrderDB;
 import vn.mn.quanlynhahang.model.OrderQuantity;
+import vn.mn.quanlynhahang.viewmodel.HomeViewModel;
 
 public class SelectDishFragment extends Fragment {
     ListView lstDish;
@@ -119,6 +121,7 @@ public class SelectDishFragment extends Fragment {
                     order.setOrder(dishOrder);
                     order.setIdTable(index);
                     order.setPaymentStatus(false);
+                    order.setOrderEmp(HomeFragment.currentUserName);
                     orderDB.addNewOrder(order);
                 }
                 else {

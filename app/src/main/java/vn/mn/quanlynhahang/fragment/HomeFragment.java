@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
     private HomeAdapter homeAdapter;
     private String roleUser;
     private ServiceViewModel serviceViewModel;
+    public static String currentUserName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +63,7 @@ public class HomeFragment extends Fragment {
                         createItemHome(roleUser);
                         Log.e("SSSSSSSSSSXX", roleUser);
                         String userDetails = "Xin chào, " + user.getFullname();
+                        currentUserName = user.getFullname();
                         txtUserDetails.setText(userDetails);
                         Glide.with(requireContext())
                                 .load(user.getAvatarurl())
