@@ -86,6 +86,7 @@ public class HomeFragment extends Fragment {
     private void createItemHome(String roleAccoutUser) {
         itemHomeList.clear();
         itemHomeList.add(new ItemHome(R.drawable.icon_table,"Order", OrderFragment.class));
+        itemHomeList.add(new ItemHome(R.drawable.icon_table,"Lich Lam Viec", WorkScheduleFragment.class));
         serviceViewModel.getRole(roleAccoutUser).addOnSuccessListener(role -> {
             if (role != null) {
                 List<String> danhSach = role.getDanhSach();
@@ -115,6 +116,7 @@ public class HomeFragment extends Fragment {
                             titleName = "Bàn Ăn";
                             fragmentClass = TableManageFragment.class;
                             break;
+
                         default:
                             continue;
                     }

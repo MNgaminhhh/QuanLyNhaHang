@@ -60,6 +60,9 @@
             android:name=".view.UpdateTableActivity"
             android:exported="false" />
         <activity
+            android:name=".view.LichActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>
