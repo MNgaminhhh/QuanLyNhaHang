@@ -1,0 +1,154 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints"
+    tools:context=".fragment.WorkScheduleFragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ĐĂNG KÝ LỊCH LÀM VIỆC"
+        android:background="#03A9F4"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:padding="8dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1"
+        android:layout_below="@+id/textView"
+        android:text="Thông tin cá nhân"
+        android:textColor="#B81919"
+        android:textStyle="italic"
+        android:layout_marginStart="45dp"/>
+
+    <EditText
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView1"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="1dp"
+        android:hint="Nhập họ tên"
+        android:padding="8dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView2"
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textStyle="bold"
+            android:text="Chức vụ : " />
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/linearLayoutSpinner"
+        android:text="Ngày làm việc"
+        android:textColor="#B81919"
+        android:textStyle="italic"
+        android:layout_marginStart="50dp" />
+    <LinearLayout
+        android:id="@+id/linearLayoutButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView3"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        android:padding="8dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/buttonPreviousDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày bắt đầu"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="5dp"
+            android:backgroundTint="#857F7F"/>
+        <Button
+            android:id="@+id/buttonNextDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày kết thúc"
+            android:layout_marginStart="60dp"
+            android:backgroundTint="#857F7F"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/linearLayoutButtons"
+        android:text="Giờ làm việc"
+        android:textColor="#B81919"
+        android:textStyle="italic"
+        android:layout_marginStart="50dp"
+        android:padding="8dp"/>
+    <RelativeLayout
+        android:id="@+id/RelativeLayoutCheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView4"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        android:padding="8dp"
+        android:orientation="horizontal" >
+        <CheckBox
+            android:id="@+id/checkBoxMorning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Ca sáng (06:00 - 14:00)" />
+
+        <CheckBox
+            android:id="@+id/checkBoxNight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/checkBoxMorning"
+            android:text="Ca tối (14:00 - 22:00)" />
+
+        <CheckBox
+            android:id="@+id/checkBoxBreak1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/checkBoxNight"
+            android:text="Ca gãy (10:00 - 14:00)" />
+
+        <CheckBox
+            android:id="@+id/checkBoxBreak2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/checkBoxBreak1"
+            android:text="Ca gãy (18:00 - 22:00)" />
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xác nhận"
+        android:layout_below="@id/RelativeLayoutCheckBox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:onClick="onSubmit"/>
+
+</RelativeLayout>
+
