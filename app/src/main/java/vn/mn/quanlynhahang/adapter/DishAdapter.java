@@ -2,6 +2,7 @@ package vn.mn.quanlynhahang.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,9 +54,13 @@ public class DishAdapter extends ArrayAdapter<Dish> {
 
         txtDishName.setText("Món: " + dish.getDishName() + "");
         txtDishPrice.setText("Giá: " + dish.getPrice()+ " VNĐ");
+        if (!dish.getInStocks()) {
+            txtDishName.setPaintFlags(txtDishName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            txtDishPrice.setPaintFlags(txtDishName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
         Glide.with(context).load(dish.getUrlImage()).placeholder(R.drawable.baseline_sync_24)
                 .error(R.drawable.imageerror).into(dishImage);
-        if (resource==R.layout.custom_select_dish_layout){
+        if (resource==R.layout.custom_select_dish_layout && dish.getInStocks()){
             Button btnAdd = convertView.findViewById(R.id.btnAdd);
             Button btnMinus = convertView.findViewById(R.id.btnMinus);
             TextView txtQuantity = convertView.findViewById(R.id.txtQuantity);

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
@@ -77,7 +79,7 @@ public class DishManageFragment extends Fragment {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = requireActivity().getMenuInflater();
-        inflater.inflate(R.menu.table_menu, menu);
+        inflater.inflate(R.menu.dish_menu, menu);
     }
 
     @Override
@@ -116,6 +118,13 @@ public class DishManageFragment extends Fragment {
             });
             AlertDialog alertDialog1 = builder1.create();
             alertDialog1.show();
+        } else if (item.getItemId() == R.id.mnuState) {
+            final Dish newDish = dishList.getValue().get(info.position);
+            newDish.changStocksStatus();
+            dishDB.updateDish(newDish.getId()+"", null, newDish);
+            dishList.getValue().set(info.position, newDish);
+            adapter.notifyDataSetChanged();
+            //Toast.makeText(getContext(), "Đổi trạng thái thành công!", Toast.LENGTH_SHORT).show();
         }
         return super.onContextItemSelected(item);
     }

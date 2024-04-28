@@ -5,8 +5,10 @@ public class Dish {
     String dishName;
     int price;
     String urlImage;
+    Boolean inStocks;
 
     public Dish() {
+        this.inStocks =true;
     }
 
     public Dish(int id, String dishName, int price, String urlImage) {
@@ -14,6 +16,9 @@ public class Dish {
         this.dishName = dishName;
         this.price = price;
         this.urlImage = urlImage;
+    }
+    public void changStocksStatus(){
+        this.inStocks = !(this.inStocks);
     }
 
     public int getId() {
@@ -46,5 +51,13 @@ public class Dish {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
+    }
+
+    public Boolean getInStocks() {
+        return inStocks;
+    }
+
+    public void setInStocks(Boolean inStocks) {
+        this.inStocks = inStocks;
     }
 }

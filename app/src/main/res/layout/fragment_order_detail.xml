@@ -66,6 +66,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/txtOrderEmp"
+        android:text="Nhân viên: Nguyen Van A"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/txtTimeIn"
         android:text="Ngày: dd/MM/yyyy"
         android:layout_margin="10dp"
