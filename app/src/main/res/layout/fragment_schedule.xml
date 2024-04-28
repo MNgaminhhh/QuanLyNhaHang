@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.ScheduleFragment">
+
+    <LinearLayout
+        android:id="@+id/upperLayout"
+        android:background="#F86191"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:padding="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txtMonthYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tháng 5, 2024"
+            android:textColor="#000"
+            android:textSize="25sp"/>
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15"
+            android:textColor="#000"
+            android:textSize="80sp"/>
+        <TextView
+            android:id="@+id/txtDayOfWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thứ 5"
+            android:textColor="#000"
+            android:textSize="27sp"/>
+    </LinearLayout>
+
+
+    <com.applandeo.materialcalendarview.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:highlightedDaysLabelsColor="#FF0404"
+        app:anotherMonthsDaysLabelsColor="#fff"
+        android:layout_below="@id/upperLayout" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_custom"
+        android:fontFamily="@font/telex"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:id="@+id/btnSign"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Đăng ký"/>
+</RelativeLayout >
