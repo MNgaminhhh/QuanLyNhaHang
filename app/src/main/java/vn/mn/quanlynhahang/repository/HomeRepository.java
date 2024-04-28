@@ -16,6 +16,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -39,16 +44,20 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import vn.mn.quanlynhahang.R;
+import vn.mn.quanlynhahang.model.NotifUser;
 import vn.mn.quanlynhahang.model.User;
+import vn.mn.quanlynhahang.model.UserUid;
 import vn.mn.quanlynhahang.view.AccountActivity;
 import vn.mn.quanlynhahang.view.AddUserActivity;
 
 public class HomeRepository {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
+    private DatabaseReference databaseReference;
     public HomeRepository() {
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     public LiveData<FirebaseUser> getCurrentUser() {
@@ -111,6 +120,54 @@ public class HomeRepository {
 
         return userData;
     }
+
+
+    public LiveData<List<UserUid>> getUserRole() {
+        MutableLiveData<List<UserUid>> mutableLiveData = new MutableLiveData<>();
+        firestore.collection("users").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                List<UserUid> userList = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    UserUid userUid = document.toObject(UserUid.class);
+                    userUid.setUserId(document.getId());
+                    userList.add(userUid);
+                }
+                mutableLiveData.setValue(userList);
+            } else {
+                mutableLiveData.setValue(null);
+            }
+        });
+        return mutableLiveData;
+    }
+
+    public LiveData<List<NotifUser>> getNotifications(String userUid) {
+        MutableLiveData<List<NotifUser>> mutableLiveData = new MutableLiveData<>();
+        DatabaseReference notificationRef = databaseReference.child("notification");
+
+        notificationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<NotifUser> notificationList = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    NotifUser notification = snapshot.getValue(NotifUser.class);
+                    if (notification != null && notification.getUserUid().equals(userUid)) {
+                        NotifUser userNotification = new NotifUser(notification.getUserUid(), notification.getNotificationContent(),
+                                notification.getSenderName(), notification.getTimeSent());
+                        notificationList.add(userNotification);
+                    }
+                }
+                mutableLiveData.setValue(notificationList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                mutableLiveData.setValue(null);
+            }
+        });
+
+        return mutableLiveData;
+    }
+
     public LiveData<Boolean> updateUser(User user) {
         MutableLiveData<Boolean> updateResultLiveData = new MutableLiveData<>();
         Query query = firestore.collection("users").whereEqualTo("phone", user.getPhone());
@@ -172,6 +229,11 @@ public class HomeRepository {
         return updateResultLiveData;
     }
 
+    public Task<Void> addNotification(NotifUser notifUser) {
+        DatabaseReference notificationRef = databaseReference.child("notification");
+        String key = String.valueOf(System.currentTimeMillis());
+        return notificationRef.child(key).setValue(notifUser);
+    }
 
     public LiveData<Boolean> deleteUserByPhone(String phoneNumber) {
         MutableLiveData<Boolean> deleteResultLiveData = new MutableLiveData<>();
