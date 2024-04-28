@@ -58,6 +58,7 @@ public class HomeFragment extends Fragment {
             if (firebaseUser != null) {
                 homeViewModel.getUserData(firebaseUser.getUid()).observe(getViewLifecycleOwner(), user -> {
                     if (user != null) {
+                        ScheduleFragment.user = user;
                         Log.e("EEEXXXXXXXX", firebaseUser.getUid());
                         roleUser = user.getRole();
                         createItemHome(roleUser);
@@ -86,6 +87,7 @@ public class HomeFragment extends Fragment {
     private void createItemHome(String roleAccoutUser) {
         itemHomeList.clear();
         itemHomeList.add(new ItemHome(R.drawable.icon_table,"Order", OrderFragment.class));
+        itemHomeList.add(new ItemHome(R.drawable.icon_table, "Lịch làm việc", ScheduleFragment.class));
         serviceViewModel.getRole(roleAccoutUser).addOnSuccessListener(role -> {
             if (role != null) {
                 List<String> danhSach = role.getDanhSach();
