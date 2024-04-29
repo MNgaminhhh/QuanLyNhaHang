@@ -63,6 +63,12 @@
             android:name=".view.LichActivity"
             android:exported="false" />
         <activity
+            android:name=".view.PeriodRevenueActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.TotalRevenueActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>

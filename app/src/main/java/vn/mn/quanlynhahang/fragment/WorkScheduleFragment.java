@@ -56,7 +56,6 @@ public class WorkScheduleFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Ánh xạ các view
         editTextName = view.findViewById(R.id.textView2);
         spinnerPosition = view.findViewById(R.id.spinner);
         textViewStartDate = view.findViewById(R.id.buttonPreviousDay);
@@ -67,16 +66,13 @@ public class WorkScheduleFragment extends Fragment {
         checkBoxBreak2 = view.findViewById(R.id.checkBoxBreak2);
         Button submitButton = view.findViewById(R.id.submitButton);
 
-        // Thiết lập adapter cho spinner
         String[] positions = {"Phục vụ bàn", "Nhân viên bếp", "Thu ngân"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, positions);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPosition.setAdapter(adapter);
 
-        // Khởi tạo FirebaseFirestore
         db = FirebaseFirestore.getInstance();
 
-        // Khởi tạo lịch
         Calendar calendar = Calendar.getInstance();
         startYear = calendar.get(Calendar.YEAR);
         startMonth = calendar.get(Calendar.MONTH);
@@ -85,15 +81,13 @@ public class WorkScheduleFragment extends Fragment {
         endMonth = calendar.get(Calendar.MONTH);
         endDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-        // Gán bộ lắng nghe sự kiện cho nút "Submit"
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSubmit(v); // Gọi phương thức onSubmit và truyền tham số View vào
+                onSubmit(v);
             }
         });
 
-        // Gán bộ lắng nghe sự kiện cho textViewStartDate để hiển thị DatePickerDialog khi được nhấn
         textViewStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +95,6 @@ public class WorkScheduleFragment extends Fragment {
             }
         });
 
-        // Gán bộ lắng nghe sự kiện cho textViewEndDate để hiển thị DatePickerDialog khi được nhấn
         textViewEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,16 +102,13 @@ public class WorkScheduleFragment extends Fragment {
             }
         });
 
-        // Gán bộ lắng nghe sự kiện cho Spinner
         spinnerPosition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Do nothing for now
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing for now
             }
         });
     }
