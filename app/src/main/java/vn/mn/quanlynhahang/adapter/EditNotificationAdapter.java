@@ -54,7 +54,11 @@ public class EditNotificationAdapter extends RecyclerView.Adapter<EditNotificati
     @Override
     public void onBindViewHolder(@NonNull EditNotificationViewHolder holder, int position) {
         NotifUser user = notifUserList.get(position);
-        holder.txtName.setText("Đến: " +user.getSenderName());
+        String senderName = user.getSenderName();
+        if (!senderName.startsWith("Đến: ")) {
+            senderName = "Đến: " + senderName;
+        }
+        holder.txtName.setText(senderName);
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
         String formattedTime = sdf.format(new Date(Long.parseLong(user.getTimeSent())));
         holder.txtTime.setText(formattedTime);
@@ -63,6 +67,8 @@ public class EditNotificationAdapter extends RecyclerView.Adapter<EditNotificati
             user.setSelected(isChecked);
         });
     }
+
+
 
     @Override
     public int getItemCount() {

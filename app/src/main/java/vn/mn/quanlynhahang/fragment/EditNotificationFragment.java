@@ -83,7 +83,7 @@ public class EditNotificationFragment extends Fragment {
         spinnerDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedDate = spinnerDate.getSelectedItem().toString();
+                String selectedDate = spinnerDate.getSelectedItem().toString();
                 filterNotificationsByDate(selectedDate);
             }
 
@@ -91,6 +91,10 @@ public class EditNotificationFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+
+
+
         btnDelete.setOnClickListener(v -> deleteSelectedItems());
         btnSuaThongTin.setOnClickListener(v -> editSelectedItems(edtText.getText().toString().trim()));
     }
@@ -151,22 +155,25 @@ public class EditNotificationFragment extends Fragment {
                 allList.clear();
                 allList.addAll(notificationList);
                 displayList.clear();
+                final int[] observerCount = {0};
                 for (NotifUser notification : notificationList) {
                     homeViewModel.getUserData(notification.getUserUid()).observe(getViewLifecycleOwner(), userData -> {
                         if (userData != null) {
                             String fullname = userData.getFullname();
                             notification.setSenderName("Đến: " + fullname);
                         }
+                        observerCount[0]++;
+                        if (observerCount[0] == notificationList.size()) {
+                            displayList.addAll(allList);
+                            adapter.notifyDataSetChanged();
+                            List<String> notificationDates = extractDates(displayList);
+                            updateSpinnerDates(notificationDates);
+                        }
                     });
                 }
-                displayList.addAll(allList);
-                adapter.notifyDataSetChanged();
-                List<String> notificationDates = extractDates(displayList);
-                updateSpinnerDates(notificationDates);
             }
         });
     }
-
 
 
     private void filterNotificationsByDate(String selectedDate) {
@@ -184,7 +191,9 @@ public class EditNotificationFragment extends Fragment {
             }
         }
         adapter.updateList(displayList);
+        adapter.notifyDataSetChanged();
     }
+
 
     private List<String> extractDates(List<NotifUser> notificationList) {
         Set<String> dateSet = new HashSet<>();
