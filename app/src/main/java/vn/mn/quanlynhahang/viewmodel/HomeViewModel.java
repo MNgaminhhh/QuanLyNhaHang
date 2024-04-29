@@ -6,12 +6,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.util.List;
 
+import vn.mn.quanlynhahang.model.NotifUser;
 import vn.mn.quanlynhahang.model.User;
+import vn.mn.quanlynhahang.model.UserUid;
 import vn.mn.quanlynhahang.repository.HomeRepository;
 
 public class HomeViewModel extends ViewModel {
@@ -26,9 +29,17 @@ public class HomeViewModel extends ViewModel {
     public LiveData<FirebaseUser> getCurrentUser() {
         return homeRepository.getCurrentUser();
     }
-
+    public LiveData<List<NotifUser>> getNotifications(String userUid){
+        return homeRepository.getNotifications(userUid);
+    }
+    public Task<Void> addNotification(NotifUser notifUser){
+        return homeRepository.addNotification(notifUser);
+    }
     public LiveData<User> getUserData(String userId) {
         return homeRepository.getUserData(userId);
+    }
+    public LiveData<List<UserUid>> getUserRole() {
+        return homeRepository.getUserRole();
     }
 
     public LiveData<List<User>> getAllUsers() {
