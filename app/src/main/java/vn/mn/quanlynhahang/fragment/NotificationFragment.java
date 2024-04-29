@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -34,8 +36,9 @@ public class NotificationFragment extends Fragment {
     private List<NotifUser> notifUserList;
     private HomeViewModel homeViewModel;
     private String userId;
-    private FloatingActionButton fabCreateNotif;
-
+    private FloatingActionButton fabCreateNotif, fabNotif, fabEditeNotif;
+    private Animation rotateOpen, rotateClose, formBottom, toBottom;
+    private boolean isOpen = false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,7 +51,14 @@ public class NotificationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.rvItemNotif);
+        fabNotif = view.findViewById(R.id.btnNotif);
         fabCreateNotif = view.findViewById(R.id.btnAddNotif);
+        fabEditeNotif= view.findViewById(R.id.btnEditNotif);
+
+        rotateOpen = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_open_anim);
+        rotateClose = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_close_anim);
+        formBottom = AnimationUtils.loadAnimation(requireContext(), R.anim.form_bottom_anim);
+        toBottom = AnimationUtils.loadAnimation(requireContext(), R.anim.to_bottom_anim);
 
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
 
@@ -63,6 +73,13 @@ public class NotificationFragment extends Fragment {
                 loadNotifiAccount();
             }
         });
+        fabNotif.setOnClickListener(v -> {
+            if (isOpen) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
 
         fabCreateNotif.setOnClickListener(v ->{
             AddNotificationFragment addNotificationFragment = new AddNotificationFragment();
@@ -72,19 +89,41 @@ public class NotificationFragment extends Fragment {
                     .commit();
         });
 
+        fabEditeNotif.setOnClickListener(v ->{
+            EditNotificationFragment editNotificationFragment = new EditNotificationFragment();
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.container, editNotificationFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+    }
+    private void openMenu() {
+        fabNotif.startAnimation(rotateOpen);
+        fabCreateNotif.startAnimation(formBottom);
+        fabEditeNotif.startAnimation(formBottom);
+        fabCreateNotif.setClickable(true);
+        fabEditeNotif.setClickable(true);
+        isOpen = true;
     }
 
+    private void closeMenu() {
+        fabNotif.startAnimation(rotateClose);
+        fabCreateNotif.startAnimation(toBottom);
+        fabEditeNotif.startAnimation(toBottom);
+        fabCreateNotif.setClickable(false);
+        fabEditeNotif.setClickable(false);
+        isOpen = false;
+    }
     private void loadNotifiAccount() {
-        Log.e("UUUUUUDDDS", userId);
         homeViewModel.getNotifications(userId).observe(getViewLifecycleOwner(), ntUser -> {
             if(ntUser != null) {
                 List<NotifUser> notifUsers = ntUser;
                 notifUserList.clear();
                 for (NotifUser userid : notifUsers) {
-                    Log.e("UUUUUUDDD", userid.toString());
                     NotifUser notifUser = new NotifUser();
                     notifUser.setNotificationContent(userid.getNotificationContent());
-                    notifUser.setSenderName(userid.getSenderName());
+                    notifUser.setSenderName("Từ: " + userid.getSenderName());
                     notifUser.setTimeSent(userid.getTimeSent());
                     notifUserList.add(notifUser);
                 }

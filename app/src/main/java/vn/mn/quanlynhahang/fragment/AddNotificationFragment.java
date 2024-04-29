@@ -82,10 +82,10 @@ public class AddNotificationFragment extends Fragment {
                 homeViewModel.getUserData(firebaseUser.getUid()).observe(getViewLifecycleOwner(), user -> {
                     if (user != null) {
                         fullname = user.getFullname();
+                        loadNotifiUser();
                     }
                 });
                 userId = firebaseUser.getUid();
-                loadNotifiUser();
             }
         });
         loadServices();
@@ -98,14 +98,13 @@ public class AddNotificationFragment extends Fragment {
             List<String> selectedUIDs = adapter.getSelectedUIDs();
             if (!selectedUIDs.isEmpty()) {
                 for (String uid : selectedUIDs) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
-                    String currentTime = sdf.format(new Date());
-                    NotifUser user = new NotifUser(uid, edtThongBao.getText().toString().trim(), fullname, currentTime);
+                    String currentTimeMillis = String.valueOf(System.currentTimeMillis());
+                    NotifUser user = new NotifUser(uid, edtThongBao.getText().toString().trim(), userId, fullname, currentTimeMillis);
                     homeViewModel.addNotification(user).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Log.e("Notification", "Notification added successfully");
+                            Toast.makeText(requireContext(), "Tạo thông báo thành công !", Toast.LENGTH_SHORT).show();
                         } else {
-                            Log.e("Notification", "Error adding notification: " + task.getException());
+                            Toast.makeText(requireContext(), "Lỗi", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -113,6 +112,7 @@ public class AddNotificationFragment extends Fragment {
                 Toast.makeText(requireContext(), "Không có item nào được chọn", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
 

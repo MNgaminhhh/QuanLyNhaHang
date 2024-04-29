@@ -3,17 +3,36 @@ package vn.mn.quanlynhahang.model;
 public class NotifUser {
     private String userUid;
     private String notificationContent;
+    private String senderUid;
     private String senderName;
-    private String timeSent;
 
+    private String timeSent;
+    private boolean isSelected;
     public NotifUser() {
     }
 
-    public NotifUser(String userUid, String notificationContent, String senderName, String timeSent) {
+    public NotifUser(String userUid, String notificationContent, String senderUid, String senderName, String timeSent) {
         this.userUid = userUid;
         this.notificationContent = notificationContent;
+        this.senderUid = senderUid;
         this.senderName = senderName;
         this.timeSent = timeSent;
+    }
+    public boolean isSelected() {
+        return isSelected;
+    }
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+    @Override
+    public String toString() {
+        return "NotifUser{" +
+                "userUid='" + userUid + '\'' +
+                ", notificationContent='" + notificationContent + '\'' +
+                ", senderUid='" + senderUid + '\'' +
+                ", senderName='" + senderName + '\'' +
+                ", timeSent='" + timeSent + '\'' +
+                '}';
     }
 
     public String getUserUid() {
@@ -32,6 +51,14 @@ public class NotifUser {
         this.notificationContent = notificationContent;
     }
 
+    public String getSenderUid() {
+        return senderUid;
+    }
+
+    public void setSenderUid(String senderUid) {
+        this.senderUid = senderUid;
+    }
+
     public String getSenderName() {
         return senderName;
     }
@@ -46,15 +73,5 @@ public class NotifUser {
 
     public void setTimeSent(String timeSent) {
         this.timeSent = timeSent;
-    }
-
-    @Override
-    public String toString() {
-        return "NotifUser{" +
-                "userUid='" + userUid + '\'' +
-                ", notificationContent='" + notificationContent + '\'' +
-                ", senderName='" + senderName + '\'' +
-                ", timeSent='" + timeSent + '\'' +
-                '}';
     }
 }

@@ -84,6 +84,8 @@ public class HomeRepository {
         });
         return userDataLiveData;
     }
+
+
     public LiveData<List<User>> getAllUsers() {
         MutableLiveData<List<User>> mutableLiveData = new MutableLiveData<>();
         CollectionReference usersRef = firestore.collection("users");
@@ -139,6 +141,39 @@ public class HomeRepository {
         });
         return mutableLiveData;
     }
+    public LiveData<Boolean> deleteNotification(String keyId) {
+        MutableLiveData<Boolean> deleteResultLiveData = new MutableLiveData<>();
+
+        DatabaseReference notificationRef = databaseReference.child("notification").child(keyId);
+
+        notificationRef.removeValue()
+                .addOnSuccessListener(aVoid -> {
+                    deleteResultLiveData.setValue(true);
+                })
+                .addOnFailureListener(e -> {
+                    deleteResultLiveData.setValue(false);
+                });
+
+        return deleteResultLiveData;
+    }
+
+
+    public LiveData<Boolean> updateNotification(String keyId, String newNotificationContent) {
+        MutableLiveData<Boolean> updateResultLiveData = new MutableLiveData<>();
+
+        DatabaseReference notificationRef = databaseReference.child("notification").child(keyId);
+        notificationRef.child("notificationContent").setValue(newNotificationContent)
+                .addOnSuccessListener(aVoid -> {
+                    updateResultLiveData.setValue(true);
+                })
+                .addOnFailureListener(e -> {
+                    updateResultLiveData.setValue(false);
+                });
+
+        return updateResultLiveData;
+    }
+
+
 
     public LiveData<List<NotifUser>> getNotifications(String userUid) {
         MutableLiveData<List<NotifUser>> mutableLiveData = new MutableLiveData<>();
@@ -151,7 +186,7 @@ public class HomeRepository {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     NotifUser notification = snapshot.getValue(NotifUser.class);
                     if (notification != null && notification.getUserUid().equals(userUid)) {
-                        NotifUser userNotification = new NotifUser(notification.getUserUid(), notification.getNotificationContent(),
+                        NotifUser userNotification = new NotifUser(notification.getUserUid(), notification.getNotificationContent(),notification.getSenderUid(),
                                 notification.getSenderName(), notification.getTimeSent());
                         notificationList.add(userNotification);
                     }
@@ -166,6 +201,32 @@ public class HomeRepository {
         });
 
         return mutableLiveData;
+    }
+
+    public LiveData<List<NotifUser>> loadNotificationUser(String userUid) {
+        MutableLiveData<List<NotifUser>> notificationLiveData = new MutableLiveData<>();
+        DatabaseReference notificationRef = databaseReference.child("notification");
+
+        notificationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<NotifUser> notificationList = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    NotifUser notification = snapshot.getValue(NotifUser.class);
+                    if (notification != null && notification.getSenderUid().equals(userUid)) {
+                        notificationList.add(notification);
+                    }
+                }
+                notificationLiveData.setValue(notificationList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                notificationLiveData.setValue(null);
+            }
+        });
+
+        return notificationLiveData;
     }
 
     public LiveData<Boolean> updateUser(User user) {
@@ -231,7 +292,7 @@ public class HomeRepository {
 
     public Task<Void> addNotification(NotifUser notifUser) {
         DatabaseReference notificationRef = databaseReference.child("notification");
-        String key = String.valueOf(System.currentTimeMillis());
+        String key = notifUser.getTimeSent();
         return notificationRef.child(key).setValue(notifUser);
     }
 

@@ -138,8 +138,6 @@ u
 Eapp/src/main/java/vn/mn/quanlynhahang/adapter/OrderDetailAdapter.java,7\a\7a0c4af97667d95d4719952b367586cf2116b62e
 x
 Happ/src/main/java/vn/mn/quanlynhahang/fragment/NotificationFragment.java,7\3\737e520c9c0bcab291ab0e20caaff29a02aaea2e
-w
-Gapp/src/main/java/vn/mn/quanlynhahang/adapter/NotificationFragment.java,6\f\6fe37708c2909afa622c13c5e9945395efa1531b
 v
 Fapp/src/main/java/vn/mn/quanlynhahang/adapter/NotificationAdapter.java,c\a\cad3fe3cb07f3db37c989c35dc51cacf6a24cf53
 s
@@ -156,3 +154,15 @@ y
 Iapp/src/main/java/vn/mn/quanlynhahang/adapter/AddNotificationAdapter.java,8\6\865aebe82a4e657bdbdfd34e93d8a4de54381fa8
 t
 Dapp/src/main/java/vn/mn/quanlynhahang/fragment/AddTableFragment.java,1\8\1845c09eb8424f1ae6a04de7a0ec5b67f144148a
+|
+Lapp/src/main/java/vn/mn/quanlynhahang/fragment/EditNotificationFragment.java,a\9\a98884722130c6b7004c39321848bb955827e758
+n
+>app/src/main/java/vn/mn/quanlynhahang/model/OrderQuantity.java,9\1\91a1d90ddb64eba92fe3530f2b6c8e6f3bee2d47
+h
+8app/src/main/java/vn/mn/quanlynhahang/model/OrderDB.java,1\4\14d917467027acd723d5586072450be1c816fb03
+f
+6app/src/main/java/vn/mn/quanlynhahang/model/Order.java,a\6\a6f8b4134d942e5b14030a6ab1f21b7952582941
+s
+Capp/src/main/java/vn/mn/quanlynhahang/fragment/AddDishFragment.java,b\0\b028a157a3b56c3a3a91904599813359b4ece6e5
+z
+Japp/src/main/java/vn/mn/quanlynhahang/adapter/EditNotificationAdapter.java,8\8\882024bd5d568fd6e01ca4a640d7282a2c86c82c
