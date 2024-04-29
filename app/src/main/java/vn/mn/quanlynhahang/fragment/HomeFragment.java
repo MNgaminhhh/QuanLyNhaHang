@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.mn.quanlynhahang.R;
+import vn.mn.quanlynhahang.TimeKeepingFragment;
 import vn.mn.quanlynhahang.adapter.HomeAdapter;
 import vn.mn.quanlynhahang.model.ItemHome;
 import vn.mn.quanlynhahang.viewmodel.HomeViewModel;
@@ -88,6 +89,7 @@ public class HomeFragment extends Fragment {
         itemHomeList.clear();
         itemHomeList.add(new ItemHome(R.drawable.icon_table,"Order", OrderFragment.class));
         itemHomeList.add(new ItemHome(R.drawable.icon_table, "Lịch làm việc", ScheduleFragment.class));
+        itemHomeList.add(new ItemHome(R.drawable.icon_table, "Chấm công", TimeKeepingFragment.class));
         serviceViewModel.getRole(roleAccoutUser).addOnSuccessListener(role -> {
             if (role != null) {
                 List<String> danhSach = role.getDanhSach();
