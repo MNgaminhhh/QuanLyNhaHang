@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -53,7 +55,8 @@ public class DetailFragment extends Fragment {
         titletofragment.put("Quản lý nhân viên", "AccountFragment");
         titletofragment.put("Quản lý món ăn", "DishManageFragment");
         titletofragment.put("Quản lý bàn ăn", "TableManageFragment");
-        titletofragment.put("Đặt món ăn", "OrderFragment");
+        titletofragment.put("Chấm công", "TimeKeepingFragment");
+        titletofragment.put("Lịch làm việc", "ScheduleFragment");
 
         Bundle extras = getArguments();
         if (extras != null) {
@@ -96,13 +99,9 @@ public class DetailFragment extends Fragment {
                     }
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(requireContext(), "Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Snackbar.make(requireView(), "Failed: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                 });
     }
-
-
-
-
 
     private void saveSelectedItems(List<String> selectedItems) {
         if (selectedItems.isEmpty()) {
@@ -118,10 +117,10 @@ public class DetailFragment extends Fragment {
         Role newRole = new Role(title, selectedClasses);
         serviceViewModel.updateRole(title, newRole)
                 .addOnSuccessListener(aVoid -> {
-
+                    Snackbar.make(requireView(), "Dịch vụ đã được cập nhật thành công", Snackbar.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
+                    Snackbar.make(requireView(), "Cập nhật dịch vụ thất bại: " + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                 });
-
     }
 }
