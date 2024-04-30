@@ -9,7 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.model.NotifUser;
@@ -29,12 +32,20 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_notif, parent, false);
         return new NotificationViewHolder(view);
     }
+    public void updateData(List<NotifUser> newData) {
+        notifUserList.clear();
+        notifUserList.addAll(newData);
+        notifyDataSetChanged();
+    }
 
     @Override
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
-        NotifUser user = notifUserList.get(position);
+        int reversePosition = getItemCount() - 1 - position;
+        NotifUser user = notifUserList.get(reversePosition);
         holder.txtName.setText(user.getSenderName());
-        holder.txtTime.setText(user.getTimeSent());
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
+        String formattedTime = sdf.format(new Date(Long.parseLong(user.getTimeSent())));
+        holder.txtTime.setText(formattedTime);
         holder.txtContent.setText(user.getNotificationContent());
     }
 

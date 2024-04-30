@@ -10,6 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:text="Thêm Món Mới"
         android:layout_gravity="center"
         android:textStyle="bold"
@@ -26,6 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/telex"
+                android:textColor="@color/black"
                 android:text="Tên món ăn :"
                 android:textSize="20sp"/>
             <EditText
@@ -49,6 +51,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:id="@+id/edtDishPrice"
                 android:fontFamily="@font/telex"
                 android:textSize="22sp"

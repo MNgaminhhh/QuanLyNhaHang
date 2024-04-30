@@ -44,13 +44,48 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnNotif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="152dp"
+        android:backgroundTint="#70D2FF"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/baseline_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/fab_4_rounded" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddNotif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        android:src="@drawable/baseline_add_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#A0A0A0"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible"
+        android:src="@drawable/baseline_post_add_24"
+        app:layout_constraintBottom_toTopOf="@+id/btnNotif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/fab_3_rounded" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnEditNotif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#A0A0A0"
+        android:clickable="true"
+        android:visibility="invisible"
+        android:focusable="true"
+        android:src="@drawable/baseline_edit_24"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddNotif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/fab_3_rounded" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

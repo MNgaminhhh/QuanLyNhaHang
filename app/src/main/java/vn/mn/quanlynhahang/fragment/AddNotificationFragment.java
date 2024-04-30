@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,13 +32,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.adapter.AddNotificationAdapter;
 import vn.mn.quanlynhahang.adapter.NotificationAdapter;
 import vn.mn.quanlynhahang.model.NotifUser;
+import vn.mn.quanlynhahang.model.NotificationData;
+import vn.mn.quanlynhahang.model.NotificationRequestBody;
 import vn.mn.quanlynhahang.model.Role;
 import vn.mn.quanlynhahang.model.UserUid;
+import vn.mn.quanlynhahang.repository.FCMService;
 import vn.mn.quanlynhahang.viewmodel.HomeViewModel;
+import vn.mn.quanlynhahang.viewmodel.LoginViewModel;
 import vn.mn.quanlynhahang.viewmodel.ServiceViewModel;
 
 public class AddNotificationFragment extends Fragment {
@@ -53,6 +65,8 @@ public class AddNotificationFragment extends Fragment {
     private CardView cvLocQuyen;
     private List<UserUid> allUserList = new ArrayList<>();
     private List<UserUid> displayUserList = new ArrayList<>();
+    private LoginViewModel loginViewModel;
+    private static final String TAG = "AddNotificationFragment";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,6 +84,7 @@ public class AddNotificationFragment extends Fragment {
 
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         serviceViewModel = new ViewModelProvider(requireActivity()).get(ServiceViewModel.class);
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
 
         userUidList = new ArrayList<>();
@@ -82,10 +97,10 @@ public class AddNotificationFragment extends Fragment {
                 homeViewModel.getUserData(firebaseUser.getUid()).observe(getViewLifecycleOwner(), user -> {
                     if (user != null) {
                         fullname = user.getFullname();
+                        loadNotifiUser();
                     }
                 });
                 userId = firebaseUser.getUid();
-                loadNotifiUser();
             }
         });
         loadServices();
@@ -98,14 +113,18 @@ public class AddNotificationFragment extends Fragment {
             List<String> selectedUIDs = adapter.getSelectedUIDs();
             if (!selectedUIDs.isEmpty()) {
                 for (String uid : selectedUIDs) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
-                    String currentTime = sdf.format(new Date());
-                    NotifUser user = new NotifUser(uid, edtThongBao.getText().toString().trim(), fullname, currentTime);
+                    String currentTimeMillis = String.valueOf(System.currentTimeMillis());
+                    NotifUser user = new NotifUser(uid, edtThongBao.getText().toString().trim(), userId, fullname, currentTimeMillis);
                     homeViewModel.addNotification(user).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Log.e("Notification", "Notification added successfully");
+                            sendNotificationToSelectedUsers(user);
+                            NotificationFragment notificationFragment = new NotificationFragment();
+                            getParentFragmentManager().beginTransaction()
+                                    .replace(R.id.container, notificationFragment)
+                                    .addToBackStack(null)
+                                    .commit();
                         } else {
-                            Log.e("Notification", "Error adding notification: " + task.getException());
+                            Toast.makeText(requireContext(), "Lỗi", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -113,8 +132,38 @@ public class AddNotificationFragment extends Fragment {
                 Toast.makeText(requireContext(), "Không có item nào được chọn", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
+    private void sendNotificationToSelectedUsers(NotifUser user) {
+        loginViewModel.getUserTokenFromDatabase(user.getUserUid()).observe(getViewLifecycleOwner(), token -> {
+            if (token != null) {
+
+                NotificationData notificationData = new NotificationData();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
+                String formattedTime = sdf.format(new Date(Long.parseLong(user.getTimeSent())));
+                notificationData.setTitle("Từ: " + user.getSenderName() + ", " + formattedTime);
+                notificationData.setBody(user.getNotificationContent());
+                NotificationRequestBody requestBody = new NotificationRequestBody();
+                requestBody.setTo(token);
+                requestBody.setNotification(notificationData);
+                FCMService.fcmService.sendNotification(requestBody).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Log.e(TAG, "done");
+                        Log.e(TAG, token);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable throwable) {
+                        Log.e(TAG, "fail");
+                    }
+                });
+            } else {
+                Log.e(TAG, "Không tìm thấy token trong cơ sở dữ liệu.");
+            }
+        });
+    }
 
     private void loadNotifiUser() {
         homeViewModel.getUserRole().observe(getViewLifecycleOwner(), userList -> {

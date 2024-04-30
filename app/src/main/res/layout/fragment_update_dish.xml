@@ -5,10 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     android:padding="10dp"
     tools:context=".view.UpdateDishActivity">
     <TextView
         android:layout_width="wrap_content"
+        android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:text="Chỉnh Sửa Thông Tin Món Ăn"
         android:layout_gravity="center"
@@ -24,11 +26,13 @@
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="Tên món ăn :"
                 android:fontFamily="@font/telex"
                 android:textSize="20sp"/>
             <EditText
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtDishName"
@@ -42,6 +46,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="Giá :"
                 android:fontFamily="@font/telex"
@@ -50,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtDishPrice"
+                android:textColor="@color/black"
                 android:textAlignment="center"
                 android:inputType="number"
                 android:fontFamily="@font/telex"
@@ -61,6 +67,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="Hình ảnh :"
                 android:fontFamily="@font/telex"

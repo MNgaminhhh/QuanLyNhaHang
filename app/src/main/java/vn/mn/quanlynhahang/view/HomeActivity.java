@@ -24,6 +24,7 @@ import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.fragment.AccountDetailFragment;
 import vn.mn.quanlynhahang.fragment.HomeFragment;
 import vn.mn.quanlynhahang.fragment.NotificationFragment;
+import vn.mn.quanlynhahang.fragment.OrderFragment;
 import vn.mn.quanlynhahang.viewmodel.HomeViewModel;
 
 public class HomeActivity extends AppCompatActivity {
@@ -54,6 +55,9 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             } else if (id == R.id.notification) {
                 loadFragment(new NotificationFragment());
+                return true;
+            }  else if (id == R.id.order) {
+                loadFragment(new OrderFragment());
                 return true;
             } else {
                 return false;

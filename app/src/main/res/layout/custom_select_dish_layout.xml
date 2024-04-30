@@ -3,10 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:orientation="horizontal"
     android:padding="10dp">
     <androidx.cardview.widget.CardView
         android:layout_width="100dp"
+        app:cardBackgroundColor="@color/white"
         android:layout_height="100dp"
         app:cardCornerRadius="30dp"
         android:layout_margin="2dp">
@@ -56,6 +58,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:id="@+id/txtQuantity"
                 android:text="0"
                 android:textSize="22sp"/>

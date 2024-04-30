@@ -6,4 +6,6 @@
         <item name="colorAccent">#000000</item>
     </style>
     <style name="Theme.QuanLyNhaHang" parent="Base.Theme.QuanLyNhaHang" />
+
+
 </resources>

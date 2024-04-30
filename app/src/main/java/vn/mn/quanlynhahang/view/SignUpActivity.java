@@ -7,11 +7,12 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -31,13 +32,13 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        edtCreateFullname = (EditText) findViewById(R.id.edtCreateFullname);
-        edtCreatePassword = (EditText) findViewById(R.id.edtCreatePassword);
-        edtCreateEmail = (EditText) findViewById(R.id.edtCreateEmail);
-        edtCreatePhone = (EditText) findViewById(R.id.edtCreatePhone);
-        edtDateBirthday = (EditText) findViewById(R.id.edtDateBirthday);
-        radioGender = (RadioGroup) findViewById(R.id.radioGender);
-        btnSignUp = (Button) findViewById(R.id.btnSignUp);
+        edtCreateFullname = findViewById(R.id.edtCreateFullname);
+        edtCreatePassword = findViewById(R.id.edtCreatePassword);
+        edtCreateEmail = findViewById(R.id.edtCreateEmail);
+        edtCreatePhone = findViewById(R.id.edtCreatePhone);
+        edtDateBirthday = findViewById(R.id.edtDateBirthday);
+        radioGender = findViewById(R.id.radioGender);
+        btnSignUp = findViewById(R.id.btnSignUp);
         signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
 
         edtDateBirthday.setOnClickListener(v -> {
@@ -72,7 +73,7 @@ public class SignUpActivity extends AppCompatActivity {
             String birthday = edtDateBirthday.getText().toString().trim();
             String gender = radioGender.getCheckedRadioButtonId() == R.id.radioMale ? "Nam" : "Nữ";
 
-            User user = new User(null , phone, fullname, birthday, "admin", gender);
+            User user = new User(null , phone, fullname, birthday, null, gender);
             signUpViewModel.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -80,20 +81,20 @@ public class SignUpActivity extends AppCompatActivity {
                             signUpViewModel.saveUserInfoToFirestore(user, userId)
                                     .addOnCompleteListener(task1 -> {
                                         if (task1.isSuccessful()) {
-                                            Toast.makeText(SignUpActivity.this, "Đăng ký tài khoản thành công!", Toast.LENGTH_SHORT).show();
+                                            Snackbar.make(btnSignUp, "Đăng ký tài khoản thành công!", Snackbar.LENGTH_SHORT).show();
                                             Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                             startActivity(intent);
                                             finish();
                                         } else {
-                                            Toast.makeText(SignUpActivity.this, "Lưu thông tin người dùng thất bại!", Toast.LENGTH_SHORT).show();
+                                            Snackbar.make(btnSignUp, "Lưu thông tin người dùng thất bại!", Snackbar.LENGTH_SHORT).show();
                                         }
                                     });
                         } else {
-                            Toast.makeText(SignUpActivity.this, "Đăng ký tài khoản thất bại! Vui lòng thử lại sau.", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(btnSignUp, "Đăng ký tài khoản thất bại! Vui lòng thử lại sau.", Snackbar.LENGTH_SHORT).show();
                         }
                     });
         } else {
-            Toast.makeText(SignUpActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+            Snackbar.make(btnSignUp, "Vui lòng nhập đầy đủ thông tin!", Snackbar.LENGTH_SHORT).show();
         }
     }
 }

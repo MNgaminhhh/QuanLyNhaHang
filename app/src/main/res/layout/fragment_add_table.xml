@@ -36,6 +36,7 @@
             <EditText
                 android:id="@+id/edtTableID"
                 android:fontFamily="@font/telex"
+                android:textColor="@color/black"
                 android:textSize="22sp"
                 android:layout_width="274dp"
                 android:layout_height="wrap_content"

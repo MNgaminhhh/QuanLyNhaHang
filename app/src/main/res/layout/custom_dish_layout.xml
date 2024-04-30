@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:padding="10dp">
     <androidx.cardview.widget.CardView
         android:layout_width="100dp"
+        app:cardBackgroundColor="@color/white"
         android:layout_height="100dp"
         app:cardCornerRadius="30dp"
         android:layout_margin="2dp">
@@ -21,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginLeft="20dp"
+        android:background="@color/white"
         android:orientation="vertical"
         android:layout_gravity="center">
         <TextView
