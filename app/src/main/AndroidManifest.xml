@@ -69,6 +69,12 @@
             android:name=".view.TotalRevenueActivity"
             android:exported="false" />
         <activity
+            android:name=".view.ChartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ChartNextActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>

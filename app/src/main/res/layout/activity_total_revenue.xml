@@ -4,14 +4,20 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/yearEditText"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập năm"
-        android:inputType="number"
         android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="20dp"/>
+        android:layout_marginHorizontal="20dp">
+
+        <EditText
+            android:id="@+id/yearEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập năm"
+            android:inputType="number"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,12 +60,28 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/backButton"
-        android:src="@drawable/baseline_arrow_back_ios_24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="back" />
+
+    <ActionMenuView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btnThongKeOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="61dp"
+            android:layout_alignBaseline="@id/yearEditText"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="26dp"
+            android:layout_marginEnd="2dp"
+            android:src="@android:drawable/ic_menu_crop" />
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/baseline_arrow_back_ios_24" />
+
+    </ActionMenuView>
 
 </LinearLayout>
