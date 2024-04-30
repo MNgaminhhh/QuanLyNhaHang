@@ -21,6 +21,7 @@
         android:text=""
         android:id="@+id/txtNoti"
         android:textSize="20dp"
+        android:textColor="#F82C2C"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"/>
     <TextView
@@ -39,4 +40,11 @@
         android:id="@+id/txtTimeCheckOut"
         android:textSize="20dp"
         android:layout_marginLeft="20dp"/>
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:scaleType="fitCenter"
+        android:id="@+id/imgPic"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"/>
 </LinearLayout>
