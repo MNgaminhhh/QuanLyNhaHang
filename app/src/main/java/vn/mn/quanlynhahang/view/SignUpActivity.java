@@ -72,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
             String birthday = edtDateBirthday.getText().toString().trim();
             String gender = radioGender.getCheckedRadioButtonId() == R.id.radioMale ? "Nam" : "Nữ";
 
-            User user = new User(null , phone, fullname, birthday, "admin", gender);
+            User user = new User(null , phone, fullname, birthday, "", gender);
             signUpViewModel.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {

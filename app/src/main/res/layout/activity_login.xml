@@ -6,7 +6,7 @@
     android:layout_gravity="center"
     android:layout_margin="10dp"
     app:cardCornerRadius="30dp"
-    android:layout_height="300dp">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -49,26 +49,47 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email"/>
 
-        <Button
-            android:id="@+id/btnCreateAccount"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="251dp"
-            android:fontFamily="@font/telex"
-            android:text="Tạo Tài Khoản"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
+            android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnLogin"/>
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin">
+
+            <Button
+                android:id="@+id/btnCreateAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/button_custom"
+                android:fontFamily="@font/telex"
+                android:text="Tạo Tài Khoản"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+            <Button
+                android:id="@+id/btnForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/button_custom"
+                android:fontFamily="@font/telex"
+                android:text="Quên Mật Khẩu"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginBottom="24dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_custom"
             android:fontFamily="@font/telex"
             android:text="Đăng Nhập"
+            android:textColor="@color/black"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/password"/>
