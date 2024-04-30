@@ -1,9 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="30dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
+    app:cardBackgroundColor="@color/white"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     android:layout_width="match_parent"
@@ -16,6 +18,7 @@
 
         <TextView
             android:id="@+id/txtNameNotif"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -30,6 +33,7 @@
             android:id="@+id/txtTimeNotif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#3D3D3D"
             android:layout_alignParentEnd="true"
             android:layout_marginLeft="8dp"
             android:fontFamily="@font/telex"
@@ -43,6 +47,7 @@
             android:id="@+id/txtContentNotif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_centerInParent="true"
             android:layout_marginTop="8dp"
             android:layout_marginLeft="5dp"

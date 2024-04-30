@@ -1,97 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_gravity="center"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="30dp"
-    android:layout_height="wrap_content">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/imgView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.LoginActivity">
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo_bg_login"
+        android:contentDescription="TODO" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvLogin"
+        app:cardBackgroundColor="#E2FFFFFF"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:id="@+id/txtQuanLyNhaHang"
-            android:textColor="#963C3C"
-            android:text="Quản Lý Nhà Hàng"
-            android:fontFamily="@font/telex"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
-
-        <AutoCompleteTextView
-            android:id="@+id/email"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="Email"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtQuanLyNhaHang"/>
+            android:layout_height="match_parent"
+            tools:context=".view.LoginActivity">
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:hint="Mật khẩu"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email"/>
+            <TextView
+                android:id="@+id/txtQuanLyNhaHang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/telex"
+                android:text="Quản Lý Nhà Hàng"
+                android:textColor="#963C3C"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLogin">
+            <AutoCompleteTextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:textColor="@color/black"
+                android:hint="Email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtQuanLyNhaHang" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:textColor="@color/black"
+                android:hint="Mật khẩu"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin">
+
+                <Button
+                    android:id="@+id/btnCreateAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/button_custom"
+                    android:fontFamily="@font/telex"
+                    android:text="Tạo Tài Khoản"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/btnForgotPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/button_custom"
+                    android:fontFamily="@font/telex"
+                    android:text="Quên Mật Khẩu"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
 
             <Button
-                android:id="@+id/btnCreateAccount"
-                android:layout_width="wrap_content"
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:background="@drawable/button_custom"
                 android:fontFamily="@font/telex"
-                android:text="Tạo Tài Khoản"
+                android:text="Đăng Nhập"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
-            <Button
-                android:id="@+id/btnForgotPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:background="@drawable/button_custom"
-                android:fontFamily="@font/telex"
-                android:text="Quên Mật Khẩu"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-        </LinearLayout>
-
-
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/button_custom"
-            android:fontFamily="@font/telex"
-            android:text="Đăng Nhập"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/password"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/password" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

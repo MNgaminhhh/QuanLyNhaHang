@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:background="@color/white"
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".fragment.Fragment1">
@@ -29,7 +30,7 @@
         android:textColor="#444444"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="Quản lý nhân viên, quản lý tài khoản, quản lý cơ sở vật chất, quản lý tài chính, tạo thông báo, điểm danh... cùng nhiều tính năng khác."/>
+        android:text="Quản lý nhân viên, quản lý tài khoản, quản lý cơ sở vật chất, quản lý tài chính, tạo thông báo, điểm danh... cùng nhiều tính năng khác.Hãy khám phá thôi nào!"/>
     <Button
         android:id="@+id/btnStart"
         android:layout_width="wrap_content"

@@ -34,18 +34,20 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         checkAndRequestPermissions();
-        btnSignUp = (Button) findViewById(R.id.btnCreateAccount);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnForgotPassword = (Button) findViewById(R.id.btnForgotPassword);
-        edtPassword = (EditText) findViewById(R.id.password);
-        edtEmail = (EditText) findViewById(R.id.email);
+        btnSignUp = findViewById(R.id.btnCreateAccount);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnForgotPassword = findViewById(R.id.btnForgotPassword);
+        edtPassword = findViewById(R.id.password);
+        edtEmail = findViewById(R.id.email);
 
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         btnLogin.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
-            if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                Snackbar.make(v, "Vui lòng nhập email và mật khẩu.", Snackbar.LENGTH_SHORT).show();
+            } else {
                 loginViewModel.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
@@ -54,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                                     FirebaseMessaging.getInstance().getToken()
                                             .addOnCompleteListener(tokenTask -> {
                                                 if (!tokenTask.isSuccessful()) {
-                                                    Log.w(TAG, "Fetching FCM registration token failed", tokenTask.getException());
                                                     return;
                                                 }
                                                 String token = tokenTask.getResult();
@@ -76,13 +77,11 @@ public class LoginActivity extends AppCompatActivity {
         btnForgotPassword.setOnClickListener(v -> {
             Intent i = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
             startActivity(i);
-            finish();
         });
 
         btnSignUp.setOnClickListener(v -> {
             Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity(i);
-            finish();
         });
     }
     @Override

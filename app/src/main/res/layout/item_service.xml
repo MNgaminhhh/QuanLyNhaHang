@@ -7,12 +7,14 @@
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     android:layout_width="match_parent"
+    app:cardBackgroundColor="@color/white"
     android:layout_height="wrap_content">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtNameService"
         android:fontFamily="@font/telex"
+        android:textColor="@color/black"
         android:text="quan ly nha hang"
         android:textSize="24sp"
         android:layout_gravity="center"

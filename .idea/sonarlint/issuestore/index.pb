@@ -175,8 +175,6 @@ Aapp/src/main/java/vn/mn/quanlynhahang/model/NotificationData.java,5\2\528733b8
 p
 @app/src/main/java/vn/mn/quanlynhahang/repository/FCMService.java,2\5\255f19a713a15203708caf4d9c5b0043d47abe77
 v
-Fapp/src/main/java/vn/mn/quanlynhahang/view/ForgotPasswrodActivity.java,2\3\234185c4004aeb399c3db97053d13851b37552cc
-v
 Fapp/src/main/java/vn/mn/quanlynhahang/view/ForgotPasswordActivity.java,2\9\299090d9a344c5be9ece784374d34278acee905e
 r
 Bapp/src/main/java/vn/mn/quanlynhahang/view/OnBoardingActivity.java,f\a\fac6785e5a71d78f9fa89d9ad45ad2564c6f7824

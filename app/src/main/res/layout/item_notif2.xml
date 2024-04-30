@@ -1,8 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="15dp"
+    app:cardBackgroundColor="@color/white"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
     android:layout_marginStart="16dp"
@@ -27,6 +29,7 @@
             android:id="@+id/txtNameNotif"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginStart="2dp"
             android:fontFamily="@font/telex"
             android:text="Từ: Name"
@@ -40,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/telex"
-            android:textColor="#C4C4C4"
+            android:textColor="#5F5F5F"
             android:text="12:00 17/08/2024"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
