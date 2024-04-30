@@ -35,10 +35,10 @@ public class NotificationFragment extends Fragment {
     private NotificationAdapter adapter;
     private List<NotifUser> notifUserList;
     private HomeViewModel homeViewModel;
-    private String userId;
     private FloatingActionButton fabCreateNotif, fabNotif, fabEditeNotif;
     private Animation rotateOpen, rotateClose, formBottom, toBottom;
     private boolean isOpen = false;
+    private String userId;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,18 +61,13 @@ public class NotificationFragment extends Fragment {
         toBottom = AnimationUtils.loadAnimation(requireContext(), R.anim.to_bottom_anim);
 
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-
+        userId = HomeFragment.userid;
         notifUserList = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new NotificationAdapter(requireContext(), notifUserList);
         recyclerView.setAdapter(adapter);
 
-        homeViewModel.getCurrentUser().observe(getViewLifecycleOwner(), firebaseUser -> {
-            if (firebaseUser != null) {
-                userId = firebaseUser.getUid();
-                loadNotifiAccount();
-            }
-        });
+
         fabNotif.setOnClickListener(v -> {
             if (isOpen) {
                 closeMenu();
@@ -96,7 +91,7 @@ public class NotificationFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
-
+        loadNotifiAccount();
     }
     private void openMenu() {
         fabNotif.startAnimation(rotateOpen);

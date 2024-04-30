@@ -35,7 +35,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {
-        NotifUser user = notifUserList.get(position);
+        int reversePosition = getItemCount() - 1 - position;
+        NotifUser user = notifUserList.get(reversePosition);
         holder.txtName.setText(user.getSenderName());
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
         String formattedTime = sdf.format(new Date(Long.parseLong(user.getTimeSent())));

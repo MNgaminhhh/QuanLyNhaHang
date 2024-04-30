@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
     private String roleUser;
     private ServiceViewModel serviceViewModel;
     public static String currentUserName;
+    public static String userid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,8 +60,8 @@ public class HomeFragment extends Fragment {
                 homeViewModel.getUserData(firebaseUser.getUid()).observe(getViewLifecycleOwner(), user -> {
                     if (user != null) {
                         ScheduleFragment.user = user;
-                        Log.e("EEEXXXXXXXX", firebaseUser.getUid());
                         roleUser = user.getRole();
+                        userid = firebaseUser.getUid();
                         createItemHome(roleUser);
                         Log.e("SSSSSSSSSSXX", roleUser);
                         String userDetails = "Xin chào, " + user.getFullname();
