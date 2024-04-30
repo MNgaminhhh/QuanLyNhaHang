@@ -29,7 +29,7 @@ public class HomeViewModel extends ViewModel {
     public LiveData<FirebaseUser> getCurrentUser() {
         return homeRepository.getCurrentUser();
     }
-    public LiveData<List<NotifUser>> getNotifications(String userUid){
+    public MutableLiveData<List<NotifUser>> getNotifications(String userUid){
         return homeRepository.getNotifications(userUid);
     }
     public Task<Void> addNotification(NotifUser notifUser){

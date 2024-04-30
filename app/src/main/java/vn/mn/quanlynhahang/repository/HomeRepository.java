@@ -175,14 +175,14 @@ public class HomeRepository {
 
 
 
-    public LiveData<List<NotifUser>> getNotifications(String userUid) {
+    public MutableLiveData<List<NotifUser>> getNotifications(String userUid) {
         MutableLiveData<List<NotifUser>> mutableLiveData = new MutableLiveData<>();
         DatabaseReference notificationRef = databaseReference.child("notification");
-
-        notificationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        List<NotifUser> notificationList = new ArrayList<>();
+        notificationRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<NotifUser> notificationList = new ArrayList<>();
+                notificationList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     NotifUser notification = snapshot.getValue(NotifUser.class);
                     if (notification != null && notification.getUserUid().equals(userUid)) {
@@ -191,17 +191,17 @@ public class HomeRepository {
                         notificationList.add(userNotification);
                     }
                 }
-                mutableLiveData.setValue(notificationList);
+                mutableLiveData.postValue(notificationList);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                mutableLiveData.setValue(null);
             }
         });
 
         return mutableLiveData;
     }
+
 
     public LiveData<List<NotifUser>> loadNotificationUser(String userUid) {
         MutableLiveData<List<NotifUser>> notificationLiveData = new MutableLiveData<>();

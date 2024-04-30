@@ -32,6 +32,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_notif, parent, false);
         return new NotificationViewHolder(view);
     }
+    public void updateData(List<NotifUser> newData) {
+        notifUserList.clear();
+        notifUserList.addAll(newData);
+        notifyDataSetChanged();
+    }
 
     @Override
     public void onBindViewHolder(@NonNull NotificationViewHolder holder, int position) {

@@ -62,11 +62,22 @@ public class NotificationFragment extends Fragment {
 
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         userId = HomeFragment.userid;
-        notifUserList = new ArrayList<>();
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new NotificationAdapter(requireContext(), notifUserList);
-        recyclerView.setAdapter(adapter);
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        homeViewModel.getNotifications(userId).observe(getViewLifecycleOwner(), ntUser -> {
+            notifUserList = new ArrayList<>();
+            for (NotifUser userid : ntUser) {
+                NotifUser notifUser = new NotifUser();
+                notifUser.setNotificationContent(userid.getNotificationContent());
+                notifUser.setSenderName("Từ: " + userid.getSenderName());
+                notifUser.setTimeSent(userid.getTimeSent());
+                notifUserList.add(notifUser);
+            }
+            adapter = new NotificationAdapter(requireContext(), notifUserList);
+            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        });
 
         fabNotif.setOnClickListener(v -> {
             if (isOpen) {
@@ -91,7 +102,7 @@ public class NotificationFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
-        loadNotifiAccount();
+//        loadNotifiAccount();
     }
     private void openMenu() {
         fabNotif.startAnimation(rotateOpen);
@@ -122,6 +133,8 @@ public class NotificationFragment extends Fragment {
                     notifUser.setTimeSent(userid.getTimeSent());
                     notifUserList.add(notifUser);
                 }
+                adapter = new NotificationAdapter(requireContext(), notifUserList);
+                recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
         });
