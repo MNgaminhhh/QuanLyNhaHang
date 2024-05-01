@@ -124,7 +124,7 @@ public class AddNotificationFragment extends Fragment {
                             sendNotificationToSelectedUsers(user);
                             successfulCount.getAndIncrement();
                             if (successfulCount.get() == selectedUIDs.size()) {
-                                showSnackbar("Tất cả thông báo đã được gửi thành công");
+                                showSnackbar("Thông báo đã được gửi thành công");
                             }
                         } else {
                             Toast.makeText(requireContext(), "Lỗi", Toast.LENGTH_SHORT).show();
@@ -188,16 +188,20 @@ public class AddNotificationFragment extends Fragment {
 
     private void filterUsersByRole(String role) {
         displayUserList.clear();
-        if (role.equals("Tất cả")) {
-            displayUserList.addAll(allUserList);
-        } else {
-            for (UserUid user : allUserList) {
-                if (user.getRole().equals(role) && !user.getUserId().equals(userId)) {
-                    displayUserList.add(user);
+        if (role != null) {
+            if (role.equals("Tất cả")) {
+                displayUserList.addAll(allUserList);
+            } else {
+                for (UserUid user : allUserList) {
+                    if (user.getRole() != null && user.getRole().equals(role) && !user.getUserId().equals(userId)) {
+                        displayUserList.add(user);
+                    }
                 }
             }
+            adapter.updateList(displayUserList);
+        } else {
+
         }
-        adapter.updateList(displayUserList);
     }
     public void loadServices() {
         serviceViewModel.getServices().observe(getViewLifecycleOwner(), roles -> {

@@ -6,17 +6,17 @@
     android:orientation="vertical"
     tools:context=".TimeKeepingFragment">
 
-    <Button
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:background="@drawable/button_custom"
+        android:fontFamily="@font/telex"
+        android:gravity="center"
+        android:padding="20dp"
         android:textColor="@color/black"
-        android:id="@+id/btnCheckin"
-        android:text="Bắt đầu ca làm"
-        android:layout_gravity="center"
-        android:textSize="20dp"
-        android:layout_margin="30dp"/>
+        android:text="Chấm Công"
+        android:textSize="22sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,9 +48,20 @@
         android:id="@+id/txtTimeCheckOut"
         android:textSize="20dp"
         android:layout_marginLeft="20dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:background="@drawable/button_custom"
+        android:textColor="@color/black"
+        android:id="@+id/btnCheckin"
+        android:text="Bắt đầu ca làm"
+        android:layout_gravity="center"
+        android:textSize="20dp"
+        android:layout_margin="30dp"/>
     <ImageView
         android:layout_width="300dp"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         android:scaleType="fitCenter"
         android:id="@+id/imgPic"
         android:layout_marginTop="20dp"

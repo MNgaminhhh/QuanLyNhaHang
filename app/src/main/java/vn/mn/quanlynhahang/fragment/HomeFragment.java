@@ -1,5 +1,6 @@
 package vn.mn.quanlynhahang.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,7 @@ import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.TimeKeepingFragment;
 import vn.mn.quanlynhahang.adapter.HomeAdapter;
 import vn.mn.quanlynhahang.model.ItemHome;
+import vn.mn.quanlynhahang.view.LoginActivity;
 import vn.mn.quanlynhahang.viewmodel.HomeViewModel;
 import vn.mn.quanlynhahang.viewmodel.ServiceViewModel;
 
@@ -63,8 +67,15 @@ public class HomeFragment extends Fragment {
                         ScheduleFragment.user = user;
                         roleUser = user.getRole();
                         userid = firebaseUser.getUid();
-                        createItemHome(roleUser);
-                        Log.e("SSSSSSSSSSXX", roleUser);
+                        if(roleUser == null) {
+                            homeViewModel.signOutUser();
+                            Toast.makeText(requireContext(), "Bạn không có quyền truy cập ứng dụng", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(requireContext(), LoginActivity.class));
+                            requireActivity().finish();
+                        }else{
+                            createItemHome(roleUser);
+                        }
+
                         String userDetails = "Xin chào, " + user.getFullname();
                         currentUserName = user.getFullname();
                         txtUserDetails.setText(userDetails);
@@ -74,7 +85,7 @@ public class HomeFragment extends Fragment {
                                 .error(R.drawable.imageerror)
                                 .into(imgAvatarHome);
                     } else {
-                        txtUserDetails.setText(".....");
+                        txtUserDetails.setText("......");
                     }
                 });
             }
@@ -149,6 +160,7 @@ public class HomeFragment extends Fragment {
                     recyclerView.setAdapter(homeAdapter);
                     homeAdapter.notifyDataSetChanged();
                 }
+            }else {
             }
         }).addOnFailureListener(e -> {
             Log.e("SSSSSSSSSSXXX", "error");

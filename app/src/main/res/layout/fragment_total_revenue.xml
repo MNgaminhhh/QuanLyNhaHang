@@ -4,7 +4,17 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="16dp">
-
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/telex"
+        android:gravity="center"
+        android:padding="7dp"
+        android:textColor="@color/black"
+        android:text="Doanh Thu"
+        android:textSize="22sp"
+        android:textStyle="bold"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,6 +22,7 @@
         android:layout_marginHorizontal="20dp">
         <TextView
             android:layout_width="wrap_content"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:text="Năm:"
             android:fontFamily="@font/telex"/>

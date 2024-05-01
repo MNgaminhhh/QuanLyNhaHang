@@ -88,6 +88,7 @@ public class NotificationFragment extends Fragment {
         });
 
         fabCreateNotif.setOnClickListener(v ->{
+            isOpen = false;
             AddNotificationFragment addNotificationFragment = new AddNotificationFragment();
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.container, addNotificationFragment)
@@ -96,6 +97,7 @@ public class NotificationFragment extends Fragment {
         });
 
         fabEditeNotif.setOnClickListener(v ->{
+            isOpen = false;
             EditNotificationFragment editNotificationFragment = new EditNotificationFragment();
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.container, editNotificationFragment)

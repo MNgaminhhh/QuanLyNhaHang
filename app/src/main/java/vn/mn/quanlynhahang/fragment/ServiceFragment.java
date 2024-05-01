@@ -59,8 +59,13 @@ public class ServiceFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         serviceViewModel.getServices().observe(getViewLifecycleOwner(), roles -> {
-            adapter.setRoleList(roles);
-
+            List<Role> filteredRoles = new ArrayList<>();
+            for (Role role : roles) {
+                if (!TextUtils.equals(role.getTenChucVu(), "admin")) {
+                    filteredRoles.add(role);
+                }
+            }
+            adapter.setRoleList(filteredRoles);
         });
 
         btnThem.setOnClickListener(v -> clickAddRole());
@@ -156,71 +161,4 @@ public class ServiceFragment extends Fragment {
         }
     }
 
-
-//    private void clickDeleteService() {
-//        if (selectedPosition != RecyclerView.NO_POSITION) {
-//            List<String> serviceList = adapter.getServiceList();
-//            if (selectedPosition < serviceList.size()) {
-//                String serviceName = serviceList.get(selectedPosition);
-//                serviceViewModel.deleteService(serviceName)
-//                        .addOnSuccessListener(aVoid -> {
-//                            serviceList.remove(selectedPosition);
-//                            adapter.notifyDataSetChanged();
-//                            btnSua.setEnabled(false);
-//                            btnXoa.setEnabled(false);
-//                            Toast.makeText(requireContext(), "Xóa dịch vụ thành công", Toast.LENGTH_SHORT).show();
-//                        })
-//                        .addOnFailureListener(e -> {
-//                            Toast.makeText(requireContext(), "Xóa dịch vụ thất bại", Toast.LENGTH_SHORT).show();
-//                        });
-//            } else {
-//                Toast.makeText(requireContext(), "Vui lòng chọn một dịch vụ để xóa", Toast.LENGTH_SHORT).show();
-//            }
-//        } else {
-//            Toast.makeText(requireContext(), "Vui lòng chọn một dịch vụ để xóa", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//
-//    private void clickUpdateService() {
-//        String tenChucVuMoi = edtTenChucVu.getText().toString().trim();
-//        if (!TextUtils.isEmpty(tenChucVuMoi)) {
-//            if (selectedPosition != RecyclerView.NO_POSITION) {
-//                serviceViewModel.updateService(adapter.getServiceList().get(selectedPosition), tenChucVuMoi)
-//                        .addOnSuccessListener(aVoid -> {
-//                            Toast.makeText(requireContext(), "Cập nhật chức vụ thành công", Toast.LENGTH_SHORT).show();
-//                            serviceViewModel.getServices().observe(getViewLifecycleOwner(), services -> {
-//                                adapter.setServiceList(services);
-//                            });
-//                            edtTenChucVu.setText("");
-//                            btnSua.setEnabled(false);
-//                            btnXoa.setEnabled(false);
-//                        })
-//                        .addOnFailureListener(e -> {
-//                            Toast.makeText(requireContext(), "Cập nhật chức vụ thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        });
-//            } else {
-//                Toast.makeText(requireContext(), "Vui lòng chọn một chức vụ để cập nhật", Toast.LENGTH_SHORT).show();
-//            }
-//        } else {
-//            Toast.makeText(requireContext(), "Vui lòng nhập tên chức vụ mới", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//
-//    private void clickAddService() {
-//        String tenChucVu = edtTenChucVu.getText().toString().trim();
-//        if (!TextUtils.isEmpty(tenChucVu)) {
-//            serviceViewModel.addService(tenChucVu)
-//                    .addOnSuccessListener(documentReference -> {
-//                        Toast.makeText(requireContext(), "Thêm dịch vụ thành công", Toast.LENGTH_SHORT).show();
-//                        serviceViewModel.getServices().observe(getViewLifecycleOwner(), services -> {
-//                            adapter.setServiceList(services);
-//                        });
-//                    })
-//                    .addOnFailureListener(e -> {
-//                        Toast.makeText(requireContext(), "Thêm dịch vụ thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    });
-//        } else {
-//            Toast.makeText(requireContext(), "Vui lòng nhập tên chức vụ", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 }
