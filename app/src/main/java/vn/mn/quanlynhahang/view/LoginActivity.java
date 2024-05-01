@@ -102,7 +102,9 @@ public class LoginActivity extends AppCompatActivity {
         String[] permissions = new String[]{
                 Manifest.permission.CAMERA,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_NOTIFICATION_POLICY,
+                Manifest.permission.POST_NOTIFICATIONS
         };
         boolean allPermissionsGranted = true;
         for (String permission : permissions) {
@@ -115,4 +117,5 @@ public class LoginActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSIONS_CODE);
         }
     }
+
 }

@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-
     android:background="#EDEDED"
     android:layout_height="match_parent"
     tools:context=".view.AccountActivity">
@@ -14,10 +13,11 @@
         android:layout_height="wrap_content"
         android:text="Danh Sách Nhân Viên"
         android:textStyle="bold"
-        android:padding="8dp"
+        android:padding="20dp"
         android:gravity="center"
+        android:textColor="@color/black"
         android:fontFamily="@font/telex"
-        android:textSize="20sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

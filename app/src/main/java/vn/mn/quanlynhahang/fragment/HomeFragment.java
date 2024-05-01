@@ -1,5 +1,6 @@
 package vn.mn.quanlynhahang.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,7 @@ import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.TimeKeepingFragment;
 import vn.mn.quanlynhahang.adapter.HomeAdapter;
 import vn.mn.quanlynhahang.model.ItemHome;
+import vn.mn.quanlynhahang.view.LoginActivity;
 import vn.mn.quanlynhahang.viewmodel.HomeViewModel;
 import vn.mn.quanlynhahang.viewmodel.ServiceViewModel;
 
@@ -63,8 +67,15 @@ public class HomeFragment extends Fragment {
                         ScheduleFragment.user = user;
                         roleUser = user.getRole();
                         userid = firebaseUser.getUid();
-                        createItemHome(roleUser);
-                        Log.e("SSSSSSSSSSXX", roleUser);
+                        if(roleUser == null) {
+                            homeViewModel.signOutUser();
+                            Toast.makeText(requireContext(), "Bạn không có quyền truy cập ứng dụng", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(requireContext(), LoginActivity.class));
+                            requireActivity().finish();
+                        }else{
+                            createItemHome(roleUser);
+                        }
+
                         String userDetails = "Xin chào, " + user.getFullname();
                         currentUserName = user.getFullname();
                         txtUserDetails.setText(userDetails);
@@ -74,25 +85,27 @@ public class HomeFragment extends Fragment {
                                 .error(R.drawable.imageerror)
                                 .into(imgAvatarHome);
                     } else {
-                        txtUserDetails.setText(".....");
+                        txtUserDetails.setText("......");
                     }
                 });
             }
         });
-
-        homeAdapter = new HomeAdapter(requireContext(), itemHomeList);
         GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(homeAdapter);
     }
 
     private void createItemHome(String roleAccoutUser) {
+        if (!isAdded()) {
+            return;
+        }
         itemHomeList.clear();
         serviceViewModel.getRole(roleAccoutUser).addOnSuccessListener(role -> {
+            if (!isAdded()) {
+                return;
+            }
             if (role != null) {
                 List<String> danhSach = role.getDanhSach();
                 for (String item : danhSach) {
-                    Log.e("SSSSSSSSSSXXX", item);
                     int image;
                     String titleName;
                     Class<? extends Fragment> fragmentClass;
@@ -124,15 +137,30 @@ public class HomeFragment extends Fragment {
                             break;
                         case "TimeKeepingFragment":
                             image = R.drawable.item_time;
-                            titleName = "Lịch làm việc";
+                            titleName = "Chấm Công";
                             fragmentClass = TimeKeepingFragment.class;
+                            break;
+                        case "DailyRevenueFragment":
+                            image = R.drawable.icon_dailyrevenue;
+                            titleName = "Doanh Thu";
+                            fragmentClass = DailyRevenueFragment.class;
+                            break;
+                        case "ChartFragment":
+                            image = R.drawable.icon_chart;
+                            titleName = "Doanh Số Order";
+                            fragmentClass = ChartFragment.class;
                             break;
                         default:
                             continue;
                     }
                     itemHomeList.add(new ItemHome(image, titleName, fragmentClass));
                 }
-                homeAdapter.notifyDataSetChanged();
+                if (isAdded()) {
+                    homeAdapter = new HomeAdapter(requireContext(), itemHomeList);
+                    recyclerView.setAdapter(homeAdapter);
+                    homeAdapter.notifyDataSetChanged();
+                }
+            }else {
             }
         }).addOnFailureListener(e -> {
             Log.e("SSSSSSSSSSXXX", "error");

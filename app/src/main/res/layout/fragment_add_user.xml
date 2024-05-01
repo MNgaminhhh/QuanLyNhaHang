@@ -39,12 +39,13 @@
 
             <TextView
                 android:id="@+id/txtdangky"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:padding="20dp"
+                android:gravity="right"
                 android:fontFamily="@font/telex"
                 android:text="Đăng Ký Tài Khoản Nhân Viên"
-                android:textColor="#965050"
+                android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"

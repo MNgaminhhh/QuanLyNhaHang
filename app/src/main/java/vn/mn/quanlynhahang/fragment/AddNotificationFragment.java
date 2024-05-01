@@ -25,12 +25,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -42,6 +44,7 @@ import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.adapter.AddNotificationAdapter;
 import vn.mn.quanlynhahang.adapter.NotificationAdapter;
 import vn.mn.quanlynhahang.model.NotifUser;
+import vn.mn.quanlynhahang.model.NotificationD;
 import vn.mn.quanlynhahang.model.NotificationData;
 import vn.mn.quanlynhahang.model.NotificationRequestBody;
 import vn.mn.quanlynhahang.model.Role;
@@ -85,8 +88,7 @@ public class AddNotificationFragment extends Fragment {
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         serviceViewModel = new ViewModelProvider(requireActivity()).get(ServiceViewModel.class);
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-
-
+        userId = HomeFragment.userid;
         userUidList = new ArrayList<>();
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(),2));
         adapter = new AddNotificationAdapter(requireContext(), userUidList);
@@ -100,7 +102,6 @@ public class AddNotificationFragment extends Fragment {
                         loadNotifiUser();
                     }
                 });
-                userId = firebaseUser.getUid();
             }
         });
         loadServices();
@@ -112,46 +113,56 @@ public class AddNotificationFragment extends Fragment {
         btnThongBao.setOnClickListener(v -> {
             List<String> selectedUIDs = adapter.getSelectedUIDs();
             if (!selectedUIDs.isEmpty()) {
+                AtomicInteger successfulCount = new AtomicInteger(0);
+
                 for (String uid : selectedUIDs) {
                     String currentTimeMillis = String.valueOf(System.currentTimeMillis());
                     NotifUser user = new NotifUser(uid, edtThongBao.getText().toString().trim(), userId, fullname, currentTimeMillis);
+
                     homeViewModel.addNotification(user).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             sendNotificationToSelectedUsers(user);
-                            NotificationFragment notificationFragment = new NotificationFragment();
-                            getParentFragmentManager().beginTransaction()
-                                    .replace(R.id.container, notificationFragment)
-                                    .addToBackStack(null)
-                                    .commit();
+                            successfulCount.getAndIncrement();
+                            if (successfulCount.get() == selectedUIDs.size()) {
+                                showSnackbar("Thông báo đã được gửi thành công");
+                            }
                         } else {
                             Toast.makeText(requireContext(), "Lỗi", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
             } else {
-                Toast.makeText(requireContext(), "Không có item nào được chọn", Toast.LENGTH_SHORT).show();
+                showSnackbar("Không có item nào được chọn");
             }
         });
 
-    }
 
+
+
+    }
+    private void showSnackbar(String message) {
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show();
+    }
     private void sendNotificationToSelectedUsers(NotifUser user) {
         loginViewModel.getUserTokenFromDatabase(user.getUserUid()).observe(getViewLifecycleOwner(), token -> {
             if (token != null) {
-
                 NotificationData notificationData = new NotificationData();
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
                 String formattedTime = sdf.format(new Date(Long.parseLong(user.getTimeSent())));
                 notificationData.setTitle("Từ: " + user.getSenderName() + ", " + formattedTime);
                 notificationData.setBody(user.getNotificationContent());
+                NotificationD notificationD = new NotificationD();
+                notificationD.setUserId(userId);
                 NotificationRequestBody requestBody = new NotificationRequestBody();
                 requestBody.setTo(token);
                 requestBody.setNotification(notificationData);
+                requestBody.setData(notificationD);
                 FCMService.fcmService.sendNotification(requestBody).enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         Log.e(TAG, "done");
                         Log.e(TAG, token);
+                        Log.e(TAG, requestBody.toString());
                     }
 
                     @Override
@@ -160,7 +171,7 @@ public class AddNotificationFragment extends Fragment {
                     }
                 });
             } else {
-                Log.e(TAG, "Không tìm thấy token trong cơ sở dữ liệu.");
+                showSnackbar("Vài tài khoản chưa đăng nhập vào ứng dụng");
             }
         });
     }
@@ -177,16 +188,20 @@ public class AddNotificationFragment extends Fragment {
 
     private void filterUsersByRole(String role) {
         displayUserList.clear();
-        if (role.equals("Tất cả")) {
-            displayUserList.addAll(allUserList);
-        } else {
-            for (UserUid user : allUserList) {
-                if (user.getRole().equals(role) && !user.getUserId().equals(userId)) {
-                    displayUserList.add(user);
+        if (role != null) {
+            if (role.equals("Tất cả")) {
+                displayUserList.addAll(allUserList);
+            } else {
+                for (UserUid user : allUserList) {
+                    if (user.getRole() != null && user.getRole().equals(role) && !user.getUserId().equals(userId)) {
+                        displayUserList.add(user);
+                    }
                 }
             }
+            adapter.updateList(displayUserList);
+        } else {
+
         }
-        adapter.updateList(displayUserList);
     }
     public void loadServices() {
         serviceViewModel.getServices().observe(getViewLifecycleOwner(), roles -> {

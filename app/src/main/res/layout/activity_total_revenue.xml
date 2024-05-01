@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Năm:"
+            android:fontFamily="@font/telex"/>
+        <EditText
+            android:id="@+id/yearEditText"
+            android:layout_width="match_parent"
+            android:textColor="@color/black"
+            android:fontFamily="@font/telex"
+            android:textSize="17sp"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:hint="Nhập năm"
+            android:inputType="number"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_marginTop="24dp">
+
+        <ListView
+            android:id="@+id/monthlyRevenueListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/calculateButton"
+            android:layout_width="match_parent"
+            android:textColor="@color/black"
+            android:background="@drawable/button_custom"
+            android:layout_height="wrap_content"
+            android:text="XEM THU NHẬP"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thu nhập trong năm :"
+            android:textColor="@color/black"
+            android:fontFamily="@font/telex"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/totalYearlyRevenueTextView"
+            android:layout_width="match_parent"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/telex"
+            android:textSize="17dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</LinearLayout>
