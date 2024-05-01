@@ -200,3 +200,17 @@ q
 Aapp/src/main/java/vn/mn/quanlynhahang/adapter/RevenueAdapter.java,3\6\36227107df0ac31bee6de8c57b9427129f1a9915
 l
 <app/src/main/java/vn/mn/quanlynhahang/model/RevenueItem.java,a\c\ac1cdc80329f1ca882959ab85d3a3b5fb8dbbd2b
+m
+=app/src/main/java/vn/mn/quanlynhahang/view/ChartActivity.java,9\6\96b1c216eba2d671e7ba2ee8a6b764365b2627b4
+q
+Aapp/src/main/java/vn/mn/quanlynhahang/fragment/ChartFragment.java,2\9\29410cce50d61630df36f5b83d4319aaba6487c9
+u
+Eapp/src/main/java/vn/mn/quanlynhahang/fragment/ChartNextFragment.java,e\b\eb4c519c366bb0d439759e6704ef60f70e630098
+q
+Aapp/src/main/java/vn/mn/quanlynhahang/view/ChartNextActivity.java,6\2\62a0a8ab4416582ba00c37cf4cf5f8b8ba4f353c
+i
+9app/src/main/java/vn/mn/quanlynhahang/model/OrderEmp.java,9\9\99f3cec2b30ddf75904b41933a75829a2c41f0be
+q
+Aapp/src/main/java/vn/mn/quanlynhahang/viewmodel/PieChartView.java,2\b\2b6ecd198c2b82d15fa77f99ebc24299ac76acb6
+o
+?app/src/main/java/vn/mn/quanlynhahang/adapter/OrderAdapter.java,9\1\91661a6e50933bbf6d509d071123e03d157e41c1

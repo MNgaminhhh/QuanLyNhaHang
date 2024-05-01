@@ -1,5 +1,6 @@
 package vn.mn.quanlynhahang.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -36,7 +37,7 @@ public class TotalRevenueActivity extends AppCompatActivity {
     private TextView totalYearlyRevenueTextView;
     private ListView monthlyRevenueListView;
     private DatabaseReference databaseReference;
-
+    private ImageButton btnThongKeOrder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +59,6 @@ public class TotalRevenueActivity extends AppCompatActivity {
                     int year = Integer.parseInt(inputYear);
                     calculateYearlyRevenue(year);
                 }
-            }
-        });
-
-        ImageButton backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
     }

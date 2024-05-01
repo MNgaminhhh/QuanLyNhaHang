@@ -79,22 +79,22 @@ public class HomeFragment extends Fragment {
                 });
             }
         });
-
-        homeAdapter = new HomeAdapter(requireContext(), itemHomeList);
         GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(homeAdapter);
     }
 
     private void createItemHome(String roleAccoutUser) {
+        if (!isAdded()) {
+            return;
+        }
         itemHomeList.clear();
-
-        itemHomeList.add(new ItemHome(R.drawable.icon_table,"Doanh Thu", DailyRevenueFragment.class));
         serviceViewModel.getRole(roleAccoutUser).addOnSuccessListener(role -> {
+            if (!isAdded()) {
+                return;
+            }
             if (role != null) {
                 List<String> danhSach = role.getDanhSach();
                 for (String item : danhSach) {
-                    Log.e("SSSSSSSSSSXXX", item);
                     int image;
                     String titleName;
                     Class<? extends Fragment> fragmentClass;
@@ -126,15 +126,29 @@ public class HomeFragment extends Fragment {
                             break;
                         case "TimeKeepingFragment":
                             image = R.drawable.item_time;
-                            titleName = "Lịch làm việc";
+                            titleName = "Chấm Công";
                             fragmentClass = TimeKeepingFragment.class;
+                            break;
+                        case "DailyRevenueFragment":
+                            image = R.drawable.icon_dailyrevenue;
+                            titleName = "Doanh Thu";
+                            fragmentClass = DailyRevenueFragment.class;
+                            break;
+                        case "ChartFragment":
+                            image = R.drawable.icon_chart;
+                            titleName = "Chất Lượng Nhân Viên";
+                            fragmentClass = ChartFragment.class;
                             break;
                         default:
                             continue;
                     }
                     itemHomeList.add(new ItemHome(image, titleName, fragmentClass));
                 }
-                homeAdapter.notifyDataSetChanged();
+                if (isAdded()) {
+                    homeAdapter = new HomeAdapter(requireContext(), itemHomeList);
+                    recyclerView.setAdapter(homeAdapter);
+                    homeAdapter.notifyDataSetChanged();
+                }
             }
         }).addOnFailureListener(e -> {
             Log.e("SSSSSSSSSSXXX", "error");

@@ -57,6 +57,8 @@ public class DetailFragment extends Fragment {
         titletofragment.put("Quản lý bàn ăn", "TableManageFragment");
         titletofragment.put("Chấm công", "TimeKeepingFragment");
         titletofragment.put("Lịch làm việc", "ScheduleFragment");
+        titletofragment.put("Quản lý doanh thu", "DailyRevenueFragment");
+        titletofragment.put("Quản lý chất lượng nhân viên", "ChartFragment");
 
         Bundle extras = getArguments();
         if (extras != null) {
