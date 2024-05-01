@@ -52,7 +52,8 @@
                 android:layout_margin="4dp"
                 android:background="@drawable/button_custom"
                 android:fontFamily="@font/telex"
-                android:text="Thông Báo"
+                android:textAllCaps="false"
+                android:text="Tạo Thông Báo"
                 android:textColor="@color/black"
                 android:textSize="22sp" />
         </LinearLayout>
@@ -83,6 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
+                android:textColor="@color/black"
                 android:layout_weight="1"
                 android:fontFamily="@font/telex"
                 android:text="Lọc Quyền: "
@@ -110,6 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#66119902"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/telex"
                     android:gravity="center"
                     android:padding="7dp"

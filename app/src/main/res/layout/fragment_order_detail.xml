@@ -28,6 +28,7 @@
             android:fontFamily="@font/telex"
             android:textColor="@color/black"
             android:textSize="20sp"
+            android:textAllCaps="false"
             android:id="@+id/btnEditOrder"
             android:text="Chỉnh sửa Order"/>
     </LinearLayout>

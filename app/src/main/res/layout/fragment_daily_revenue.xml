@@ -19,24 +19,36 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="NGÀY HIỆN      TẠI"
-            android:textSize="11dp"
+            android:text="Ngày Hiện Tại"
+            android:textAllCaps="false"
+            android:textSize="14dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/button_custom"
+            android:textColor="@color/black"
             android:backgroundTint="#9C9C9C"
             android:id="@+id/btnXemDoanhThu"
             android:layout_weight="1"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="KHOẢNG THỜI GIAN"
-            android:textSize="11dp"
+            android:text="Khoảng Thời Gian"
+            android:textSize="14dp"
+            android:textAllCaps="false"
+            android:layout_margin="4dp"
+            android:background="@drawable/button_custom"
+            android:textColor="@color/black"
             android:backgroundTint="#9C9C9C"
             android:id="@+id/btnKhoangThoiGian"
             android:layout_weight="1"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TỔNG DOANH THU"
-            android:textSize="11dp"
+            android:text="Tổng Doanh Thu"
+            android:textSize="14dp"
+            android:textAllCaps="false"
+            android:layout_margin="4dp"
+            android:background="@drawable/button_custom"
+            android:textColor="@color/black"
             android:backgroundTint="#9C9C9C"
             android:id="@+id/btnTongDoanhThu"
             android:layout_weight="1"/>
@@ -53,6 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:textColor="@color/black"
             android:text="Ngày"
             android:textStyle="bold"
             android:textAppearance="?android:textAppearanceMedium"/>
@@ -63,6 +76,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Doanh thu"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:textAppearance="?android:textAppearanceMedium"/>
     </LinearLayout>

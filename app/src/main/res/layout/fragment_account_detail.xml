@@ -49,6 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/telex"
                     android:text="Họ và tên: "/>
                 <EditText
@@ -79,6 +80,7 @@
                     android:textSize="20sp"
                     android:layout_marginRight="50dp"
                     android:fontFamily="@font/telex"
+                    android:textColor="@color/black"
                     android:text="SĐT: "/>
                 <EditText
                     android:id="@+id/edtCreatePhone"
@@ -110,6 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:fontFamily="@font/telex"
+                    android:textColor="@color/black"
                     android:text="Giới tính: "
                     android:textSize="20sp" />
 
@@ -118,6 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/telex"
                     android:text="Nam"
                     android:textSize="20sp" />
@@ -126,6 +130,7 @@
                     android:id="@+id/radioFemale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
                     android:layout_weight="1"
                     android:fontFamily="@font/telex"
                     android:text="Nữ"
@@ -191,6 +196,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/telex"
+                    android:textColor="@color/black"
                     android:text="Ngày tháng năm sinh:"
                     android:textSize="20sp" />
 
