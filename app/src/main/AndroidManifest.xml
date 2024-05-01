@@ -25,6 +25,9 @@
             android:name=".view.LoginActivity"
             android:exported="false" />
         <activity
+            android:name=".view.TotalRevenueActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ForgotPasswordActivity"
             android:exported="false" />
         <activity

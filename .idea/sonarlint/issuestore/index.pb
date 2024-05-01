@@ -186,3 +186,17 @@ m
 =app/src/main/java/vn/mn/quanlynhahang/fragment/Fragment3.java,1\1\11937be1501b5af30587ac2b0fc3a32e7e0e25a4
 s
 Capp/src/main/java/vn/mn/quanlynhahang/adapter/ViewPagerAdapter.java,b\e\be7f8e2d0337daa13f0044200d87a1ea75ee9aa8
+u
+Eapp/src/main/java/vn/mn/quanlynhahang/view/PeriodRevenueActivity.java,9\5\95793b68035414f613ec673bbe31a574e6a9f86a
+y
+Iapp/src/main/java/vn/mn/quanlynhahang/fragment/PeriodRevenueFragment.java,c\e\ce8e12693351feefe64c4da473e474375a084989
+x
+Happ/src/main/java/vn/mn/quanlynhahang/fragment/DailyRevenueFragment.java,1\1\1170fa477ec97dce79f647c64226111c2a017d7a
+x
+Happ/src/main/java/vn/mn/quanlynhahang/fragment/TotalRevenueFragment.java,0\8\0825adb4a23c526476fa8cf8ec030d39a0b3041d
+t
+Dapp/src/main/java/vn/mn/quanlynhahang/view/TotalRevenueActivity.java,8\5\8584056fe245ba037dbd2057d8f6ea9d9c7b348d
+q
+Aapp/src/main/java/vn/mn/quanlynhahang/adapter/RevenueAdapter.java,3\6\36227107df0ac31bee6de8c57b9427129f1a9915
+l
+<app/src/main/java/vn/mn/quanlynhahang/model/RevenueItem.java,a\c\ac1cdc80329f1ca882959ab85d3a3b5fb8dbbd2b
