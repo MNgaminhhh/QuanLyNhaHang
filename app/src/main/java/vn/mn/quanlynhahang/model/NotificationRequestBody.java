@@ -4,13 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class NotificationRequestBody {
     private String to;
+    private NotificationD data;
     private NotificationData notification;
 
     public NotificationRequestBody() {
     }
 
-    public NotificationRequestBody(String to, NotificationData notification) {
+    public NotificationRequestBody(String to, NotificationD data, NotificationData notification) {
         this.to = to;
+        this.data = data;
         this.notification = notification;
     }
 
@@ -20,6 +22,14 @@ public class NotificationRequestBody {
 
     public void setTo(String to) {
         this.to = to;
+    }
+
+    public NotificationD getData() {
+        return data;
+    }
+
+    public void setData(NotificationD data) {
+        this.data = data;
     }
 
     public NotificationData getNotification() {

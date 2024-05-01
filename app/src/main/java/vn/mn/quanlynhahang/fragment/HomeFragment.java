@@ -136,7 +136,7 @@ public class HomeFragment extends Fragment {
                             break;
                         case "ChartFragment":
                             image = R.drawable.icon_chart;
-                            titleName = "Chất Lượng Nhân Viên";
+                            titleName = "Doanh Số Order";
                             fragmentClass = ChartFragment.class;
                             break;
                         default:
