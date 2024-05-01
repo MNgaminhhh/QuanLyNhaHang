@@ -31,7 +31,7 @@ public class TableOrderStatusAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
-        return tableList.size();
+        return tableList != null ? tableList.size() : 0;
     }
 
     @Override
