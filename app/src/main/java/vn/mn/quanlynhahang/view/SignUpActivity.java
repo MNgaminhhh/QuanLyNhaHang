@@ -1,5 +1,4 @@
 package vn.mn.quanlynhahang.view;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -7,12 +6,12 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-
-import com.google.android.material.snackbar.Snackbar;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -81,20 +80,26 @@ public class SignUpActivity extends AppCompatActivity {
                             signUpViewModel.saveUserInfoToFirestore(user, userId)
                                     .addOnCompleteListener(task1 -> {
                                         if (task1.isSuccessful()) {
-                                            Snackbar.make(btnSignUp, "Đăng ký tài khoản thành công!", Snackbar.LENGTH_SHORT).show();
+                                            showToast("Đăng ký tài khoản thành công!");
                                             Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                             startActivity(intent);
                                             finish();
                                         } else {
-                                            Snackbar.make(btnSignUp, "Lưu thông tin người dùng thất bại!", Snackbar.LENGTH_SHORT).show();
+                                            showToast("Lưu thông tin người dùng thất bại!");
                                         }
                                     });
                         } else {
-                            Snackbar.make(btnSignUp, "Đăng ký tài khoản thất bại! Vui lòng thử lại sau.", Snackbar.LENGTH_SHORT).show();
+                            showToast("Đăng ký tài khoản thất bại! Vui lòng thử lại sau.");
                         }
                     });
         } else {
-            Snackbar.make(btnSignUp, "Vui lòng nhập đầy đủ thông tin!", Snackbar.LENGTH_SHORT).show();
+            showToast("Vui lòng nhập đầy đủ thông tin!");
         }
+    }
+
+    private void showToast(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 }

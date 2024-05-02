@@ -1,14 +1,14 @@
 package vn.mn.quanlynhahang.view;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
@@ -18,6 +18,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText edtEmail;
     private Button btnResetPassword;
     private FirebaseAuth auth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             String email = edtEmail.getText().toString().trim();
 
             if (TextUtils.isEmpty(email)) {
-                Snackbar.make(v, "Nhập địa chỉ email để đặt lại mật khẩu", Snackbar.LENGTH_SHORT).show();
+                showToast("Nhập địa chỉ email để đặt lại mật khẩu");
                 return;
             }
             auth.fetchSignInMethodsForEmail(email)
@@ -43,19 +44,25 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                 auth.sendPasswordResetEmail(email)
                                         .addOnCompleteListener(task1 -> {
                                             if (task1.isSuccessful()) {
-                                                Snackbar.make(v, "Chúng tôi đã gửi một email đặt lại mật khẩu đến địa chỉ email của bạn", Snackbar.LENGTH_SHORT).show();
+                                                showToast("Chúng tôi đã gửi một email đặt lại mật khẩu đến địa chỉ email của bạn");
                                                 Intent i = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
                                                 startActivity(i);
                                                 finish();
                                             } else {
-                                                Snackbar.make(v, "Không thể gửi email đặt lại mật khẩu! Vui lòng thử lại sau.", Snackbar.LENGTH_SHORT).show();
+                                                showToast("Không thể gửi email đặt lại mật khẩu! Vui lòng thử lại sau.");
                                             }
                                         });
                             } else {
-                                Snackbar.make(v, "Địa chỉ email không tồn tại trong hệ thống. Vui lòng kiểm tra lại!", Snackbar.LENGTH_SHORT).show();
+                                showToast("Địa chỉ email không tồn tại trong hệ thống. Vui lòng kiểm tra lại!");
                             }
                         }
                     });
         });
+    }
+
+    private void showToast(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 }
