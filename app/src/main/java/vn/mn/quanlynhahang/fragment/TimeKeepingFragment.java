@@ -1,4 +1,4 @@
-package vn.mn.quanlynhahang;
+package vn.mn.quanlynhahang.fragment;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -43,6 +43,7 @@ import java.util.Locale;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.fragment.ScheduleFragment;
 import vn.mn.quanlynhahang.model.HttpRequestSender;
 import vn.mn.quanlynhahang.model.Schedule;

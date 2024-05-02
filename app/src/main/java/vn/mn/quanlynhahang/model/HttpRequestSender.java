@@ -3,16 +3,13 @@ package vn.mn.quanlynhahang.model;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import vn.mn.quanlynhahang.TimeKeepingFragment;
+import vn.mn.quanlynhahang.fragment.TimeKeepingFragment;
 
 public class HttpRequestSender extends AsyncTask<Void, Void, String> {
     @Override
