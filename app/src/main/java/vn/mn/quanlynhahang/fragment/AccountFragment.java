@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import vn.mn.quanlynhahang.R;
 import vn.mn.quanlynhahang.adapter.AccountAdapter;
@@ -26,6 +27,7 @@ public class AccountFragment extends Fragment {
     private AccountAdapter accountAdapter;
     private List<User> userList;
     private HomeViewModel homeViewModel;
+    private String userRole;
 
     @Nullable
     @Override
@@ -39,7 +41,7 @@ public class AccountFragment extends Fragment {
 
         rvAccount = view.findViewById(R.id.rvAccount);
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
-
+        userRole = HomeFragment.roleUser;
         userList = new ArrayList<>();
         rvAccount.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         accountAdapter = new AccountAdapter(requireContext(), userList);
@@ -51,9 +53,20 @@ public class AccountFragment extends Fragment {
     private void loadAccountData() {
         homeViewModel.getAllUsers().observe(getViewLifecycleOwner(), userList -> {
             if (userList != null) {
-                accountAdapter.setUserList(userList);
-                accountAdapter.notifyDataSetChanged();
+                if (Objects.equals(userRole, "admin")) {
+                    accountAdapter.setUserList(userList);
+                } else {
+                    List<User> filteredList = new ArrayList<>();
+                    for (User user : userList) {
+                        if (!Objects.equals(user.getRole(), "admin")) {
+                            filteredList.add(user);
+                        }
+                    }
+                    accountAdapter.setUserList(filteredList);
+                }
             }
         });
     }
+
+
 }

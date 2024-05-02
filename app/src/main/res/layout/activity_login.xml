@@ -80,8 +80,9 @@
                 <Button
                     android:id="@+id/btnCreateAccount"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="20dp"
+                    android:textAllCaps="false"
                     android:background="@drawable/button_custom"
                     android:fontFamily="@font/telex"
                     android:text="Tạo Tài Khoản"
@@ -91,7 +92,8 @@
                 <Button
                     android:id="@+id/btnForgotPassword"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:layout_height="match_parent"
                     android:layout_margin="20dp"
                     android:background="@drawable/button_custom"
                     android:fontFamily="@font/telex"
@@ -106,6 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:textAllCaps="false"
                 android:background="@drawable/button_custom"
                 android:fontFamily="@font/telex"
                 android:text="Đăng Nhập"

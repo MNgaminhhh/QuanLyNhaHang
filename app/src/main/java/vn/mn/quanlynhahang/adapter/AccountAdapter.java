@@ -1,5 +1,6 @@
 package vn.mn.quanlynhahang.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,24 +57,22 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
     public void onBindViewHolder(@NonNull AccountViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_USER) {
             User user = userList.get(position - 1);
-            if (!Objects.equals(user.getRole(), "admin")) {
-                if (user.getFullname() != null) {
-                    holder.txtNameItem.setText(user.getFullname());
-                    holder.txtRoleItem.setText(user.getRole());
-                    Glide.with(mContext)
-                            .load(user.getAvatarurl())
-                            .placeholder(R.drawable.avatar)
-                            .error(R.drawable.imageerror)
-                            .into(holder.imgAccount);
-                } else {
-                    holder.txtNameItem.setText(" ");
-                    holder.txtRoleItem.setText(" ");
-                    Glide.with(mContext)
-                            .load(user.getAvatarurl())
-                            .placeholder(R.drawable.avatar)
-                            .error(R.drawable.imageerror)
-                            .into(holder.imgAccount);
-                }
+            if (user.getFullname() != null) {
+                holder.txtNameItem.setText(user.getFullname());
+                holder.txtRoleItem.setText(user.getRole());
+                Glide.with(mContext)
+                        .load(user.getAvatarurl())
+                        .placeholder(R.drawable.avatar)
+                        .error(R.drawable.imageerror)
+                        .into(holder.imgAccount);
+            } else {
+                holder.txtNameItem.setText(" ");
+                holder.txtRoleItem.setText(" ");
+                Glide.with(mContext)
+                        .load(user.getAvatarurl())
+                        .placeholder(R.drawable.avatar)
+                        .error(R.drawable.imageerror)
+                        .into(holder.imgAccount);
             }
             holder.cvItemUser.setOnClickListener(v -> {
                 navigateToUserDetailFragment(user.getPhone());
@@ -96,14 +95,9 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
         return (position == 0) ? VIEW_TYPE_ADD_USER : VIEW_TYPE_USER;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setUserList(List<User> userList) {
-        List<User> filteredUserList = new ArrayList<>();
-        for (User user : userList) {
-            if (!Objects.equals(user.getRole(), "admin")) {
-                filteredUserList.add(user);
-            }
-        }
-        this.userList = filteredUserList;
+        this.userList = new ArrayList<>(userList);
         notifyDataSetChanged();
     }
 

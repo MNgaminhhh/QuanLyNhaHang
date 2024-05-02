@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
     private List<ItemHome> itemHomeList = new ArrayList<>();
     private RecyclerView recyclerView;
     private HomeAdapter homeAdapter;
-    private String roleUser;
+    public static String roleUser;
     private ServiceViewModel serviceViewModel;
     public static String currentUserName;
     public static String userid;
