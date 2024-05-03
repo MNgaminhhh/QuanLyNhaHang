@@ -85,6 +85,14 @@ public class TimeKeepingFragment extends Fragment {
         isMatched.setValue(null);
         signUpViewModel = new ViewModelProvider(requireActivity()).get(SignUpViewModel.class);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+
+        timeKeeping.setValue(new TimeKeeping());
+        timeKeeping.getValue().setUser(ScheduleFragment.user);
+        timeKeeping.getValue().setTimeList(new ArrayList<>());
+
+        TimeKeepingDB timeKeepingDB = new TimeKeepingDB(getContext(), timeKeeping);
+
         ScheduleDB scheduleDB = new ScheduleDB(getContext(), schedule);
         schedule.setValue(new Schedule(ScheduleFragment.user, new ArrayList<>()));
         schedule.observe(getViewLifecycleOwner(), schedules -> {
@@ -94,20 +102,13 @@ public class TimeKeepingFragment extends Fragment {
                     isScheduled = false;
                 } else {
                     setCheckInEvent();
+                    Log.e("in","checkin event");
                 }
             }
+            timeKeepingDB.getTimeKeeping(ScheduleFragment.user);
         });
         scheduleDB.getAllSchedule(ScheduleFragment.user);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-
-
-
-        timeKeeping.setValue(new TimeKeeping());
-        timeKeeping.getValue().setUser(ScheduleFragment.user);
-        timeKeeping.getValue().setTimeList(new ArrayList<>());
-
-        TimeKeepingDB timeKeepingDB = new TimeKeepingDB(getContext(), timeKeeping);
         timeKeeping.observe(getViewLifecycleOwner(), timeKeeping1 -> {
             idToday = timeKeeping1.getIndexForTimeInOutForToday();
             if (isScheduled){
@@ -125,17 +126,18 @@ public class TimeKeepingFragment extends Fragment {
                     else {
                         btnCheckin.setText("Kết thúc ca làm");
                         setCheckOutEvent();
+                        Log.e("in","checkout");
                     }
                 }
             }
         });
-        timeKeepingDB.getTimeKeeping(ScheduleFragment.user);
 
     }
     public void setCheckInEvent(){
         btnCheckin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                txtNoti.setText("");
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, REQUEST_CODE_ID);
             }
