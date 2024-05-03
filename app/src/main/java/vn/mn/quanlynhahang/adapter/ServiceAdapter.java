@@ -3,6 +3,7 @@ package vn.mn.quanlynhahang.adapter;
 import static android.app.PendingIntent.getService;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,33 +66,42 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
     @Override
     public void onBindViewHolder(@NonNull ServiceViewHolder holder, int position) {
         Role role = roleList.get(position);
-        holder.bind(role);
-        holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                int pos = holder.getAdapterPosition();
-                if (pos != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(pos, roleList.get(position));
+        if (!TextUtils.equals(role.getTenChucVu(), "admin")) {
+            holder.bind(role);
+            holder.itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    int pos = holder.getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(pos, roleList.get(position));
+                    }
                 }
-            }
-        });
-        holder.itemView.setOnLongClickListener(v -> {
-            if (longClickListener != null) {
-                int pos = holder.getAdapterPosition();
-                if (pos != RecyclerView.NO_POSITION) {
-                    longClickListener.onItemLongClick(pos, roleList.get(position));
-                    return true;
+            });
+            holder.itemView.setOnLongClickListener(v -> {
+                if (longClickListener != null) {
+                    int pos = holder.getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        longClickListener.onItemLongClick(pos, roleList.get(position));
+                        return true;
+                    }
                 }
-            }
-            return false;
-        });
+                return false;
+            });
+        } else {
+            holder.itemView.setVisibility(View.GONE);
+            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
+            params.height = 0;
+            params.width = 0;
+            holder.itemView.setLayoutParams(params);
+        }
     }
+
 
     @Override
     public int getItemCount() {
         return roleList.size();
     }
 
-    public class ServiceViewHolder extends RecyclerView.ViewHolder {
+    public static class ServiceViewHolder extends RecyclerView.ViewHolder {
         private TextView textView;
 
         public ServiceViewHolder(@NonNull View itemView) {

@@ -35,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -64,6 +65,7 @@ public class AddUserFragment extends Fragment {
     private Button btnSignUp, btnXoaAnhDaiDien, btnChupAnhDaiDien;
     private ImageButton imageButton;
     private String imageUrl = "";
+    private String roleAccount;
     private ServiceViewModel serviceViewModel;
     private RegisterUserViewModel registerUserViewModel;
     private SignUpViewModel signUpViewModel;
@@ -89,6 +91,8 @@ public class AddUserFragment extends Fragment {
         btnXoaAnhDaiDien = view.findViewById(R.id.btnXoaAnhDaiDien);
         btnChupAnhDaiDien = view.findViewById(R.id.btnChupAnhDaiDien);
         imageButton = view.findViewById(R.id.imageButton);
+
+        roleAccount= HomeFragment.roleUser;
 
         serviceViewModel = new ViewModelProvider(requireActivity()).get(ServiceViewModel.class);
         registerUserViewModel = new ViewModelProvider(requireActivity()).get(RegisterUserViewModel.class);
@@ -178,13 +182,20 @@ public class AddUserFragment extends Fragment {
         serviceViewModel.getServices().observe(getViewLifecycleOwner(), roles -> {
             List<String> roleNames = new ArrayList<>();
             for (Role role : roles) {
-                roleNames.add(role.getTenChucVu());
+                if (!TextUtils.equals(roleAccount, "admin") && !TextUtils.equals(role.getTenChucVu(), "admin")) {
+                    roleNames.add(role.getTenChucVu());
+                }
+                else if (TextUtils.equals(roleAccount, "admin") || !TextUtils.equals(role.getTenChucVu(), "admin")) {
+                    roleNames.add(role.getTenChucVu());
+                }
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, roleNames);
+            List<String> uniqueRoleNames = new ArrayList<>(new HashSet<>(roleNames));
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, uniqueRoleNames);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerRole.setAdapter(adapter);
         });
     }
+
 
 
     private void showDatePickerDialog() {

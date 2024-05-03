@@ -104,6 +104,7 @@ public class ServiceFragment extends Fragment {
                             btnSua.setEnabled(false);
                             btnXoa.setEnabled(false);
                             Toast.makeText(requireContext(), "Xóa chức vụ thành công", Toast.LENGTH_SHORT).show();
+                            edtTenChucVu.setText("");
                         })
                         .addOnFailureListener(e -> {
                             Toast.makeText(requireContext(), "Xóa chức vụ thất bại", Toast.LENGTH_SHORT).show();
@@ -121,15 +122,17 @@ public class ServiceFragment extends Fragment {
         if (!TextUtils.isEmpty(tenChucVuMoi)) {
             if (selectedPosition != RecyclerView.NO_POSITION) {
                 Role newRole = new Role(tenChucVuMoi, new ArrayList<>());
-                serviceViewModel.updateRole(adapter.getRoleList().get(selectedPosition).getTenChucVu(), newRole)
+                String oldRoleName = adapter.getRoleList().get(selectedPosition).getTenChucVu();
+                serviceViewModel.updateRole(oldRoleName, newRole)
                         .addOnSuccessListener(aVoid -> {
                             Toast.makeText(requireContext(), "Cập nhật chức vụ thành công", Toast.LENGTH_SHORT).show();
                             serviceViewModel.getServices().observe(getViewLifecycleOwner(), roles -> {
-                                adapter.setRoleList(roles);
+                                List<Role> filteredRoles = filterAdminRole(roles);
+                                adapter.setRoleList(filteredRoles);
                             });
-                            edtTenChucVu.setText("");
                             btnSua.setEnabled(false);
                             btnXoa.setEnabled(false);
+                            edtTenChucVu.setText("");
                         })
                         .addOnFailureListener(e -> {
                             Toast.makeText(requireContext(), "Cập nhật chức vụ thất bại: ", Toast.LENGTH_SHORT).show();
@@ -150,8 +153,10 @@ public class ServiceFragment extends Fragment {
                     .addOnSuccessListener(documentReference -> {
                         Toast.makeText(requireContext(), "Thêm chức vụ thành công", Toast.LENGTH_SHORT).show();
                         serviceViewModel.getServices().observe(getViewLifecycleOwner(), roles -> {
-                            adapter.setRoleList(roles);
+                            List<Role> filteredRoles = filterAdminRole(roles);
+                            adapter.setRoleList(filteredRoles);
                         });
+                        edtTenChucVu.setText("");
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(requireContext(), "Thêm chức vụ thất bại!", Toast.LENGTH_SHORT).show();
@@ -160,5 +165,15 @@ public class ServiceFragment extends Fragment {
             Toast.makeText(requireContext(), "Vui lòng nhập tên chức vụ", Toast.LENGTH_SHORT).show();
         }
     }
+    private List<Role> filterAdminRole(List<Role> roles) {
+        List<Role> filteredRoles = new ArrayList<>();
+        for (Role role : roles) {
+            if (!TextUtils.equals(role.getTenChucVu(), "admin")) {
+                filteredRoles.add(role);
+            }
+        }
+        return filteredRoles;
+    }
+
 
 }

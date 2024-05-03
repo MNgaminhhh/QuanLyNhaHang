@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -69,6 +71,7 @@ public class UserDetailFragment extends Fragment {
     private ImageButton imageButton;
 
     private String imageUrl;
+    private String roleAccount;
     private String selectedRole = "";
 
     public UserDetailFragment() {
@@ -98,6 +101,8 @@ public class UserDetailFragment extends Fragment {
         btnXoaTaiKhoan = view.findViewById(R.id.btnDeleteAccount);
         imageButton = view.findViewById(R.id.imgbtnAvatar);
 
+        roleAccount= HomeFragment.roleUser;
+        Log.e("roleAccount", roleAccount);
         homeViewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         serviceViewModel = new ViewModelProvider(requireActivity()).get(ServiceViewModel.class);
         signUpViewModel = new ViewModelProvider(requireActivity()).get(SignUpViewModel.class);
@@ -253,13 +258,23 @@ public class UserDetailFragment extends Fragment {
         serviceViewModel.getServices().observe(getViewLifecycleOwner(), roles -> {
             List<String> roleNames = new ArrayList<>();
             for (Role role : roles) {
-                roleNames.add(role.getTenChucVu());
+                if (!TextUtils.equals(roleAccount, "admin") && !TextUtils.equals(role.getTenChucVu(), "admin")) {
+                    roleNames.add(role.getTenChucVu());
+                }
+                else if (TextUtils.equals(roleAccount, "admin") || !TextUtils.equals(role.getTenChucVu(), "admin")) {
+                    roleNames.add(role.getTenChucVu());
+                }
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, roleNames);
+            List<String> uniqueRoleNames = new ArrayList<>(new HashSet<>(roleNames));
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, uniqueRoleNames);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerRole.setAdapter(adapter);
         });
     }
+
+
+
+
 
     private void displayUserInfo(User user) {
         txtInfo.setText("Thông tin: " + user.getFullname() + "");
