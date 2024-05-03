@@ -1,12 +1,10 @@
 package vn.mn.quanlynhahang.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,14 +23,12 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import vn.mn.quanlynhahang.R;
-import vn.mn.quanlynhahang.view.PeriodRevenueActivity;
-import vn.mn.quanlynhahang.view.TotalRevenueActivity;
 
 public class DailyRevenueFragment extends Fragment {
     private Button btnXemDoanhThu;
     private TextView textDate;
     private TextView textRevenue;
-    private CalendarView calendarView;
+    private com.applandeo.materialcalendarview.CalendarView calendarView;
 
     private DatabaseReference databaseReference;
 
@@ -75,7 +71,7 @@ public class DailyRevenueFragment extends Fragment {
         btnXemDoanhThu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long selectedDateInMillis = calendarView.getDate();
+                long selectedDateInMillis = calendarView.getSelectedDate().getTimeInMillis();
 
                 Calendar selectedCalendar = Calendar.getInstance();
                 selectedCalendar.setTimeInMillis(selectedDateInMillis);
