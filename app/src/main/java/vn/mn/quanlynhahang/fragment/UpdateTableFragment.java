@@ -97,7 +97,6 @@ public class UpdateTableFragment extends Fragment {
                 txtNoti.setText("Vui lòng điền mã số bàn!");
                 return;
             }
-
             int newTableId;
             try {
                 newTableId = Integer.parseInt(tableIdStr);
@@ -105,16 +104,13 @@ public class UpdateTableFragment extends Fragment {
                 txtNoti.setText("Mã số bàn chỉ bao gồm kí tự số!");
                 return;
             }
-
             boolean isExist = TableManageFragment.tableList.getValue().stream()
                     .map(Table::getId)
                     .anyMatch(id -> id.equals(newTableId) && !id.equals(oldID));
-
             if (isExist) {
                 txtNoti.setText("Mã số bàn đã tồn tại!");
                 return;
             }
-
             newTable.setId(newTableId);
             txtNoti.setText("");
             tableDB.updateTable(String.valueOf(oldID), newTable);

@@ -105,6 +105,12 @@ public class PeriodRevenueFragment extends Fragment {
                 date.set(Calendar.HOUR_OF_DAY, 0);
                 date.set(Calendar.MINUTE, 0);
                 date.set(Calendar.SECOND, 0);
+
+                if (date == endDate) {
+                    date.set(Calendar.HOUR_OF_DAY, 23);
+                    date.set(Calendar.MINUTE, 59);
+                    date.set(Calendar.SECOND, 59);
+                }
                 updateDateButton();
             }
         };
