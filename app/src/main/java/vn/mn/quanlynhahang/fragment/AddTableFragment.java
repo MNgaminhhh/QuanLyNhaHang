@@ -1,6 +1,7 @@
 package vn.mn.quanlynhahang.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class AddTableFragment extends Fragment {
         radioGroup = view.findViewById(R.id.radioNumofDiner);
         txtNoti = view.findViewById(R.id.txtNoti);
         btnCancel = view.findViewById(R.id.btnCancel);
-        btnAdd = view.findViewById(R.id.btnAddNewTB);
+        btnAdd = view.findViewById(R.id.btnAddNewTBle);
 
         newTable.setId(-1);
         newTable.setNumberOfDiner(2);
@@ -65,30 +66,35 @@ public class AddTableFragment extends Fragment {
                 newTable.setNumberOfDiner(8);
             }
         });
-
-        btnAdd.setOnClickListener(v -> {
-            int value = -1;
-            if (edtTableID.getText().toString().trim().equals("")) {
-                txtNoti.setText("Vui lòng điền mã số bàn!");
-            }
-            int finalValue = value;
-            boolean isExist = TableManageFragment.tableList.getValue().stream()
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int value = -1;
+                if (edtTableID.getText().toString().trim().equals("")) {
+                    txtNoti.setText("Vui lòng điền mã số bàn!");
+                } else {
+                    value = Integer.parseInt(edtTableID.getText().toString());
+                }
+                int finalValue = value;
+                boolean isExist = TableManageFragment.tableList.getValue().stream()
                         .map(Table::getId)
                         .anyMatch(id -> id.equals(finalValue));
-            if (isExist) {
-                txtNoti.setText("Mã số bàn đã tồn tại!");
-            } else {
-                newTable.setId(value);
-                txtNoti.setText("");
+                if (isExist) {
+                    txtNoti.setText("Mã số bàn đã tồn tại!");
+                } else {
+                    newTable.setId(value);
+                    txtNoti.setText("");
+                }
+                if (newTable.getId() == -1) {
+                    return;
+                }
+                tableDB.addNewTable(newTable);
+
+                requireActivity().getSupportFragmentManager().popBackStack();
             }
-            if (newTable.getId() == -1) {
-                return;
-            }
-            tableDB.addNewTable(newTable);
-            requireActivity().getSupportFragmentManager().popBackStack();
         });
 
-        btnCancel.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+        //btnCancel.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
 
     }
 }
